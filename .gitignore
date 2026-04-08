@@ -1,0 +1,42 @@
+# Xcode
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+*.xcuserstate
+*.moved-aside
+DerivedData/
+
+# Build
+build/
+*.app
+*.appex
+*.dSYM
+*.hmap
+*.ipa
+*.moved-aside
+*.xcarchive
+
+# Swift Package Manager
+.packages/
+.swiftpm/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Core
+*.core
+NOTES.md
+
+# Environment
+.env
+.env.local

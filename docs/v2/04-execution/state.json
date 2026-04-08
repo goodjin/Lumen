@@ -1,0 +1,14 @@
+{
+  "projectId": "pdf-ve",
+  "version": "v2",
+  "startTime": "2026-04-08T12:00:00Z",
+  "lastUpdateTime": "2026-04-08T12:00:00Z",
+  "status": "completed",
+  "currentTask": null,
+  "completedTasks": ["T-09-01", "T-09-02", "T-09-03", "T-10-01", "T-10-02", "T-10-03", "T-11-01", "T-11-02", "T-11-03"],
+  "failedTasks": [],
+  "pendingTasks": [],
+  "totalTasks": 9,
+  "progress": 100,
+  "errors": []
+}

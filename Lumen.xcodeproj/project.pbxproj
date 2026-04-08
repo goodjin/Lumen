@@ -1,0 +1,931 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		/* PDFVeCore framework build files (sources) */
+		C001 /* AnnotationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F004 /* AnnotationTypes.swift */; };
+		C002 /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F005 /* FileError.swift */; };
+		C003 /* OutlineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006 /* OutlineItem.swift */; };
+		C004 /* DocumentRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F007 /* DocumentRecord.swift */; };
+		C005 /* AnnotationRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F008 /* AnnotationRecord.swift */; };
+		C006 /* BookmarkRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009 /* BookmarkRecord.swift */; };
+		C007 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F010 /* PersistenceController.swift */; };
+		C008 /* DocumentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F011 /* DocumentRepository.swift */; };
+		C009 /* AnnotationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F012 /* AnnotationRepository.swift */; };
+		C010 /* BookmarkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F013 /* BookmarkRepository.swift */; };
+		C011 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F014 /* NSColor+Hex.swift */; };
+		C012 /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F015 /* FileService.swift */; };
+		C013 /* DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F016 /* DocumentViewModel.swift */; };
+		C014 /* ReaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F019 /* ReaderViewModel.swift */; };
+		C015 /* OutlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F023 /* OutlineViewModel.swift */; };
+		C016 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F026 /* SearchService.swift */; };
+		C017 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F027 /* SearchViewModel.swift */; };
+		C018 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F029 /* AnnotationService.swift */; };
+		C019 /* AnnotationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F030 /* AnnotationViewModel.swift */; };
+		C020 /* SidebarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F037 /* SidebarViewModel.swift */; };
+		C021 /* BookmarkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F038 /* BookmarkService.swift */; };
+		C022 /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F039 /* ThumbnailProvider.swift */; };
+		C023 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F033 /* ExportService.swift */; };
+		C024 /* WindowStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F043 /* WindowStateManager.swift */; };
+		/* PDFKit and SwiftData in PDFVeCore */
+		C030 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F040 /* PDFKit.framework */; };
+		C031 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F041 /* SwiftData.framework */; };
+		/* PDFVeCore.framework embedded in app */
+		C040 /* PDFVeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; };
+		C041 /* PDFVeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		/* App-only sources */
+		A001 /* LumenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001 /* LumenApp.swift */; };
+		A002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F002 /* AppDelegate.swift */; };
+		A003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003 /* ContentView.swift */; };
+		A017 /* RecentFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F017 /* RecentFilesView.swift */; };
+		A018 /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F018 /* MainWindowView.swift */; };
+		A020 /* PDFViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020 /* PDFViewWrapper.swift */; };
+		A021 /* PDFReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F021 /* PDFReaderView.swift */; };
+		A022 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F022 /* ToolbarView.swift */; };
+		A024 /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024 /* OutlineView.swift */; };
+		A025 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025 /* SidebarView.swift */; };
+		A028 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028 /* SearchBarView.swift */; };
+		A031 /* AnnotationOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F031 /* AnnotationOverlayView.swift */; };
+		A032 /* AnnotationToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032 /* AnnotationToolbar.swift */; };
+		A034 /* AnnotationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F034 /* AnnotationListView.swift */; };
+		A035 /* BookmarkListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F035 /* BookmarkListView.swift */; };
+		A036 /* ThumbnailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F036 /* ThumbnailGridView.swift */; };
+		A042 /* PageNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F042 /* PageNavigationView.swift */; };
+		A043 /* OpenFileMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044 /* OpenFileMenu.swift */; };
+		/* App frameworks */
+		A040 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F040 /* PDFKit.framework */; };
+		A041 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F041 /* SwiftData.framework */; };
+		/* Tests */
+		42DF6A0A90CB07AEA4577089 /* BookmarkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */; };
+		54AF1B403D3FA963CD5791A4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAA788FCE06BF7FC33783AF0 /* XCTest.framework */; };
+		869DB99BA224CBF78939528C /* AnnotationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */; };
+		8BAC38EBDD9AC89710D29CC4 /* DocumentRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CF10C06A56931051C1961B /* DocumentRepositoryTests.swift */; };
+		DE2865550391C87BF30AB037 /* SearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C6E7B04AD6F33B12D52F52 /* SearchServiceTests.swift */; };
+		E53BA2B71ADD9102CC732239 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */; };
+		FADB5230ADA22EE49787716A /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0946EE998878BE8774580180 /* FileServiceTests.swift */; };
+		/* PDFVeCore linked in test target */
+		T001 /* PDFVeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A4ABD086BC9E301FAE23D8B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BPRJ /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BTGT;
+			remoteInfo = "Lumen";
+		};
+		COREPROXY /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BPRJ /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CORETGT;
+			remoteInfo = PDFVeCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BEMBED /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C041 /* PDFVeCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0946EE998878BE8774580180 /* FileServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FileServiceTests.swift; path = "LumenTests/Services/FileServiceTests.swift"; sourceTree = "<group>"; };
+		361289EDC1FF66611E5238E8 /* LumenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LumenTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookmarkServiceTests.swift; path = "LumenTests/Services/BookmarkServiceTests.swift"; sourceTree = "<group>"; };
+		51C6E7B04AD6F33B12D52F52 /* SearchServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchServiceTests.swift; path = "LumenTests/SearchServiceTests.swift"; sourceTree = "<group>"; };
+		77CF10C06A56931051C1961B /* DocumentRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentRepositoryTests.swift; path = "LumenTests/Repositories/DocumentRepositoryTests.swift"; sourceTree = "<group>"; };
+		CAA788FCE06BF7FC33783AF0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnnotationServiceTests.swift; path = "LumenTests/Services/AnnotationServiceTests.swift"; sourceTree = "<group>"; };
+		FCORE /* PDFVeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDFVeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F001 /* LumenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenApp.swift; sourceTree = "<group>"; };
+		F002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F003 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F004 /* AnnotationTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationTypes.swift; sourceTree = "<group>"; };
+		F005 /* FileError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileError.swift; sourceTree = "<group>"; };
+		F006 /* OutlineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineItem.swift; sourceTree = "<group>"; };
+		F007 /* DocumentRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRecord.swift; sourceTree = "<group>"; };
+		F008 /* AnnotationRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationRecord.swift; sourceTree = "<group>"; };
+		F009 /* BookmarkRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRecord.swift; sourceTree = "<group>"; };
+		F010 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		F011 /* DocumentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentRepository.swift; sourceTree = "<group>"; };
+		F012 /* AnnotationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationRepository.swift; sourceTree = "<group>"; };
+		F013 /* BookmarkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkRepository.swift; sourceTree = "<group>"; };
+		F014 /* NSColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
+		F015 /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
+		F016 /* DocumentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModel.swift; sourceTree = "<group>"; };
+		F017 /* RecentFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentFilesView.swift; sourceTree = "<group>"; };
+		F018 /* MainWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowView.swift; sourceTree = "<group>"; };
+		F019 /* ReaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderViewModel.swift; sourceTree = "<group>"; };
+		F020 /* PDFViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewWrapper.swift; sourceTree = "<group>"; };
+		F021 /* PDFReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFReaderView.swift; sourceTree = "<group>"; };
+		F022 /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		F023 /* OutlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewModel.swift; sourceTree = "<group>"; };
+		F024 /* OutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineView.swift; sourceTree = "<group>"; };
+		F025 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		F026 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		F027 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		F028 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		F029 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
+		F030 /* AnnotationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationViewModel.swift; sourceTree = "<group>"; };
+		F031 /* AnnotationOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationOverlayView.swift; sourceTree = "<group>"; };
+		F032 /* AnnotationToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationToolbar.swift; sourceTree = "<group>"; };
+		F033 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		F034 /* AnnotationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationListView.swift; sourceTree = "<group>"; };
+		F035 /* BookmarkListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListView.swift; sourceTree = "<group>"; };
+		F036 /* ThumbnailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailGridView.swift; sourceTree = "<group>"; };
+		F037 /* SidebarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewModel.swift; sourceTree = "<group>"; };
+		F038 /* BookmarkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkService.swift; sourceTree = "<group>"; };
+		F039 /* ThumbnailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailProvider.swift; sourceTree = "<group>"; };
+		F042 /* PageNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNavigationView.swift; sourceTree = "<group>"; };
+		F043 /* WindowStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowStateManager.swift; sourceTree = "<group>"; };
+		F044 /* OpenFileMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFileMenu.swift; sourceTree = "<group>"; };
+		F040 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
+		F041 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
+		FAPP /* Lumen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lumen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BFRM /* Frameworks (App) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A040 /* PDFKit.framework in Frameworks */,
+				A041 /* SwiftData.framework in Frameworks */,
+				C040 /* PDFVeCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		COREFRM /* Frameworks (PDFVeCore) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C030 /* PDFKit.framework in Frameworks */,
+				C031 /* SwiftData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F6F0E424A1774106AC6A8628 /* Frameworks (Tests) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E53BA2B71ADD9102CC732239 /* Cocoa.framework in Frameworks */,
+				54AF1B403D3FA963CD5791A4 /* XCTest.framework in Frameworks */,
+				T001 /* PDFVeCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2818638C214E96C792F1B7E8 /* LumenTests */ = {
+			isa = PBXGroup;
+			children = (
+				77CF10C06A56931051C1961B /* DocumentRepositoryTests.swift */,
+				51C6E7B04AD6F33B12D52F52 /* SearchServiceTests.swift */,
+				EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */,
+				3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */,
+				0946EE998878BE8774580180 /* FileServiceTests.swift */,
+			);
+			name = "LumenTests";
+			sourceTree = SOURCE_ROOT;
+		};
+		318E7BDBC5F5671EAB91E6B5 /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */,
+				CAA788FCE06BF7FC33783AF0 /* XCTest.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		GANN /* Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				F029 /* AnnotationService.swift */,
+				F030 /* AnnotationViewModel.swift */,
+				F031 /* AnnotationOverlayView.swift */,
+				F032 /* AnnotationToolbar.swift */,
+			);
+			path = Annotation;
+			sourceTree = "<group>";
+		};
+		GANNS /* AnnotationStorage */ = {
+			isa = PBXGroup;
+			children = (
+				F033 /* ExportService.swift */,
+			);
+			path = AnnotationStorage;
+			sourceTree = "<group>";
+		};
+		GAPP /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F001 /* LumenApp.swift */,
+				F002 /* AppDelegate.swift */,
+				F003 /* ContentView.swift */,
+			);
+			path = Lumen/App;
+			sourceTree = "<group>";
+		};
+		GDOC /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				F015 /* FileService.swift */,
+				F016 /* DocumentViewModel.swift */,
+				F017 /* RecentFilesView.swift */,
+				F018 /* MainWindowView.swift */,
+				F044 /* OpenFileMenu.swift */,
+			);
+			path = Document;
+			sourceTree = "<group>";
+		};
+		GEXT /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F014 /* NSColor+Hex.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		GFEAT /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				GDOC /* Document */,
+				GREAD /* Reader */,
+				GOUTL /* Outline */,
+				GSRCH /* Search */,
+				GANN /* Annotation */,
+				GANNS /* AnnotationStorage */,
+				GSIDEBAR /* Sidebar */,
+			);
+			path = Lumen/Features;
+			sourceTree = "<group>";
+		};
+		GFWK /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F040 /* PDFKit.framework */,
+				F041 /* SwiftData.framework */,
+				318E7BDBC5F5671EAB91E6B5 /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		GINFRA /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				GPERS /* Persistence */,
+			);
+			path = Lumen/Infrastructure;
+			sourceTree = "<group>";
+		};
+		GMODELS /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F004 /* AnnotationTypes.swift */,
+				F005 /* FileError.swift */,
+				F006 /* OutlineItem.swift */,
+				F007 /* DocumentRecord.swift */,
+				F008 /* AnnotationRecord.swift */,
+				F009 /* BookmarkRecord.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		GOUTL /* Outline */ = {
+			isa = PBXGroup;
+			children = (
+				F023 /* OutlineViewModel.swift */,
+				F024 /* OutlineView.swift */,
+			);
+			path = Outline;
+			sourceTree = "<group>";
+		};
+		GPERS /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				F010 /* PersistenceController.swift */,
+				F011 /* DocumentRepository.swift */,
+				F012 /* AnnotationRepository.swift */,
+				F013 /* BookmarkRepository.swift */,
+				F043 /* WindowStateManager.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		GPROD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAPP /* Lumen.app */,
+				FCORE /* PDFVeCore.framework */,
+				361289EDC1FF66611E5238E8 /* LumenTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		GREAD /* Reader */ = {
+			isa = PBXGroup;
+			children = (
+				F019 /* ReaderViewModel.swift */,
+				F020 /* PDFViewWrapper.swift */,
+				F021 /* PDFReaderView.swift */,
+				F022 /* ToolbarView.swift */,
+			);
+			path = Reader;
+			sourceTree = "<group>";
+		};
+		GROOT = {
+			isa = PBXGroup;
+			children = (
+				GAPP /* App */,
+				GFEAT /* Features */,
+				GSHARED /* Shared */,
+				GINFRA /* Infrastructure */,
+				GFWK /* Frameworks */,
+				GPROD /* Products */,
+				2818638C214E96C792F1B7E8 /* LumenTests */,
+			);
+			sourceTree = "<group>";
+		};
+		GSHARED /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				GMODELS /* Models */,
+				GEXT /* Extensions */,
+				GCOMPONENTS /* Components */,
+			);
+			path = Lumen/Shared;
+			sourceTree = "<group>";
+		};
+		GCOMPONENTS /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F042 /* PageNavigationView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		GSIDEBAR /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				F025 /* SidebarView.swift */,
+				F034 /* AnnotationListView.swift */,
+				F035 /* BookmarkListView.swift */,
+				F036 /* ThumbnailGridView.swift */,
+				F037 /* SidebarViewModel.swift */,
+				F038 /* BookmarkService.swift */,
+				F039 /* ThumbnailProvider.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		GSRCH /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				F026 /* SearchService.swift */,
+				F027 /* SearchViewModel.swift */,
+				F028 /* SearchBarView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04B5D9E12E92F866D78E8803 /* LumenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07BEC66D6E2E5E295027A466 /* Build configuration list for PBXNativeTarget "LumenTests" */;
+			buildPhases = (
+				127BBAD75B8D47A82BADA9F0 /* Sources */,
+				F6F0E424A1774106AC6A8628 /* Frameworks */,
+				192C8007A2E40CE2AF1FB2F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				TESTCOREDEP /* PBXTargetDependency */,
+			);
+			name = "LumenTests";
+			productName = "LumenTests";
+			productReference = 361289EDC1FF66611E5238E8 /* LumenTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BTGT /* Lumen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BCFGL /* Build configuration list for PBXNativeTarget "Lumen" */;
+			buildPhases = (
+				BSRC /* Sources */,
+				BFRM /* Frameworks */,
+				BRES /* Resources */,
+				BEMBED /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				APPCOREDEP /* PBXTargetDependency */,
+			);
+			name = "Lumen";
+			productName = "Lumen";
+			productReference = FAPP /* Lumen.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CORETGT /* PDFVeCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CORECFGL /* Build configuration list for PBXNativeTarget "PDFVeCore" */;
+			buildPhases = (
+				CORESRC /* Sources */,
+				COREFRM /* Frameworks */,
+				CORERES /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PDFVeCore;
+			productName = PDFVeCore;
+			productReference = FCORE /* PDFVeCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BPRJ /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					BTGT = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					CORETGT = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = BCFGP /* Build configuration list for PBXProject "Lumen" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "zh-Hans";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = GROOT;
+			productRefGroup = GPROD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CORETGT /* PDFVeCore */,
+				BTGT /* Lumen */,
+				04B5D9E12E92F866D78E8803 /* LumenTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		192C8007A2E40CE2AF1FB2F1 /* Resources (Tests) */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BRES /* Resources (App) */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CORERES /* Resources (PDFVeCore) */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		127BBAD75B8D47A82BADA9F0 /* Sources (Tests) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8BAC38EBDD9AC89710D29CC4 /* DocumentRepositoryTests.swift in Sources */,
+				DE2865550391C87BF30AB037 /* SearchServiceTests.swift in Sources */,
+				869DB99BA224CBF78939528C /* AnnotationServiceTests.swift in Sources */,
+				42DF6A0A90CB07AEA4577089 /* BookmarkServiceTests.swift in Sources */,
+				FADB5230ADA22EE49787716A /* FileServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BSRC /* Sources (App) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A001 /* LumenApp.swift in Sources */,
+				A002 /* AppDelegate.swift in Sources */,
+				A003 /* ContentView.swift in Sources */,
+				A017 /* RecentFilesView.swift in Sources */,
+				A018 /* MainWindowView.swift in Sources */,
+				A020 /* PDFViewWrapper.swift in Sources */,
+				A021 /* PDFReaderView.swift in Sources */,
+				A022 /* ToolbarView.swift in Sources */,
+				A024 /* OutlineView.swift in Sources */,
+				A025 /* SidebarView.swift in Sources */,
+				A028 /* SearchBarView.swift in Sources */,
+				A031 /* AnnotationOverlayView.swift in Sources */,
+				A032 /* AnnotationToolbar.swift in Sources */,
+				A034 /* AnnotationListView.swift in Sources */,
+				A035 /* BookmarkListView.swift in Sources */,
+				A036 /* ThumbnailGridView.swift in Sources */,
+				A042 /* PageNavigationView.swift in Sources */,
+				A043 /* OpenFileMenu.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CORESRC /* Sources (PDFVeCore) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C001 /* AnnotationTypes.swift in Sources */,
+				C002 /* FileError.swift in Sources */,
+				C003 /* OutlineItem.swift in Sources */,
+				C004 /* DocumentRecord.swift in Sources */,
+				C005 /* AnnotationRecord.swift in Sources */,
+				C006 /* BookmarkRecord.swift in Sources */,
+				C007 /* PersistenceController.swift in Sources */,
+				C008 /* DocumentRepository.swift in Sources */,
+				C009 /* AnnotationRepository.swift in Sources */,
+				C010 /* BookmarkRepository.swift in Sources */,
+				C011 /* NSColor+Hex.swift in Sources */,
+				C012 /* FileService.swift in Sources */,
+				C013 /* DocumentViewModel.swift in Sources */,
+				C014 /* ReaderViewModel.swift in Sources */,
+				C015 /* OutlineViewModel.swift in Sources */,
+				C016 /* SearchService.swift in Sources */,
+				C017 /* SearchViewModel.swift in Sources */,
+				C018 /* AnnotationService.swift in Sources */,
+				C019 /* AnnotationViewModel.swift in Sources */,
+				C020 /* SidebarViewModel.swift in Sources */,
+				C021 /* BookmarkService.swift in Sources */,
+				C022 /* ThumbnailProvider.swift in Sources */,
+				C023 /* ExportService.swift in Sources */,
+				C024 /* WindowStateManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8997054200E3405C3BE08DF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Lumen";
+			target = BTGT /* Lumen */;
+			targetProxy = A4ABD086BC9E301FAE23D8B4 /* PBXContainerItemProxy */;
+		};
+		APPCOREDEP /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PDFVeCore;
+			target = CORETGT /* PDFVeCore */;
+			targetProxy = COREPROXY /* PBXContainerItemProxy */;
+		};
+		TESTCOREDEP /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PDFVeCore;
+			target = CORETGT /* PDFVeCore */;
+			targetProxy = COREPROXY /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6EFFBD53541CAAFEEB7C7816 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_MODULE_NAME = LumenTests;
+				PRODUCT_NAME = "LumenTests";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		BCFG1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLES = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BCFG2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLES = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		BCFG3 /* Debug (App) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Lumen/Lumen.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumen-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BCFG4 /* Release (App) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Lumen/Lumen.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumen-app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		CORECFG1 /* Debug (PDFVeCore) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumen-app.core";
+				PRODUCT_NAME = PDFVeCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CORECFG2 /* Release (PDFVeCore) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lumen-app.core";
+				PRODUCT_NAME = PDFVeCore;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		F7972E01A4BC9D5B726DDFD8 /* Debug (Tests) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_MODULE_NAME = LumenTests;
+				PRODUCT_NAME = "LumenTests";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		07BEC66D6E2E5E295027A466 /* Build configuration list for PBXNativeTarget "LumenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EFFBD53541CAAFEEB7C7816 /* Release */,
+				F7972E01A4BC9D5B726DDFD8 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCFGL /* Build configuration list for PBXNativeTarget "Lumen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCFG3 /* Debug */,
+				BCFG4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BCFGP /* Build configuration list for PBXProject "Lumen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCFG1 /* Debug */,
+				BCFG2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CORECFGL /* Build configuration list for PBXNativeTarget "PDFVeCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CORECFG1 /* Debug */,
+				CORECFG2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BPRJ /* Project object */;
+}
