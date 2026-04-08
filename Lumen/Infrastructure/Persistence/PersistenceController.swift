@@ -14,16 +14,16 @@ public class PersistenceController {
             BookmarkRecord.self
         ])
 
-        // 存储路径：~/Library/Application Support/PDF-Ve/PDFVe.store
+        // 存储路径：~/Library/Application Support/Lumen/Lumen.store
         guard let appSupportURL = FileManager.default
             .urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
             fatalError("Cannot access Application Support directory")
         }
 
-        let storeDir = appSupportURL.appendingPathComponent("PDF-Ve")
+        let storeDir = appSupportURL.appendingPathComponent("Lumen")
         try? FileManager.default.createDirectory(at: storeDir, withIntermediateDirectories: true)
 
-        let storeURL = storeDir.appendingPathComponent("PDFVe.store")
+        let storeURL = storeDir.appendingPathComponent("Lumen.store")
         let config = ModelConfiguration(schema: schema, url: storeURL, allowsSave: true)
 
         do {

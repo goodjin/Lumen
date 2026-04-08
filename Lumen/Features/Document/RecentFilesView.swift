@@ -9,7 +9,7 @@ struct RecentFilesView: View {
         VStack(spacing: 0) {
             // 标题区
             HStack {
-                Text("PDF-Ve")
+                Text("Lumen")
                     .font(.largeTitle.bold())
                 Spacer()
                 Button("打开文件…") {

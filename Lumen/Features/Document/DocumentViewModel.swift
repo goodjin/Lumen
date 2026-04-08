@@ -103,9 +103,9 @@ public class DocumentViewModel {
     // 更新窗口标题
     public func updateWindowTitle() {
         if case .loaded(_, let url) = state {
-            NSApp.keyWindow?.title = "PDF-Ve - \(url.lastPathComponent)"
+            NSApp.keyWindow?.title = "Lumen - \(url.lastPathComponent)"
         } else {
-            NSApp.keyWindow?.title = "PDF-Ve"
+            NSApp.keyWindow?.title = "Lumen"
         }
     }
 }
