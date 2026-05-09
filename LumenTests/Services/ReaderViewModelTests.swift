@@ -162,8 +162,8 @@ final class ReaderViewModelTests: XCTestCase {
         // Act: jump to page 2 (history records page 1)
         viewModel.jumpToPage(2)
 
-        // Assert: canGoBack should be true since we recorded page 1 in history
-        XCTAssertTrue(viewModel.canGoBack)
+        // Assert: history = [1], index=0. At first history entry, canGoBack=false (nothing before), canGoForward=false
+        XCTAssertFalse(viewModel.canGoBack)
         XCTAssertFalse(viewModel.canGoForward)
     }
 
@@ -179,12 +179,12 @@ final class ReaderViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.canGoBack)
         XCTAssertFalse(viewModel.canGoForward)  // at end
 
-        // Act: jump to page 4 (truncates forward history when navigating to different page)
-        viewModel.jumpToPage(4)  // appends currentPage (1) since currentPage didn't change
+        // Act: jump to page 4 (records page 3 in history since we navigated from page 3)
+        viewModel.jumpToPage(4)
 
-        // Assert: at page 4 (internal state), can go back and forward
+        // Assert: history = [1, 2, 3], index=2 → can go back but not forward
         XCTAssertTrue(viewModel.canGoBack)
-        XCTAssertTrue(viewModel.canGoForward)
+        XCTAssertFalse(viewModel.canGoForward)
     }
 
     func test_goBack_decrements_history_index() {
@@ -197,12 +197,12 @@ final class ReaderViewModelTests: XCTestCase {
         viewModel.jumpToPage(3)  // history: [1, 2], index=1
 
         XCTAssertTrue(viewModel.canGoBack)
-        XCTAssertTrue(viewModel.canGoForward) // since goToPage failed, we can still go forward
+        XCTAssertFalse(viewModel.canGoForward)  // at end of history
 
         // Act: go back (decrements historyIndex)
         viewModel.goBack()
 
-        // Assert: after goBack, canGoBack is false (historyIndex=0) but canGoForward is true
+        // Assert: history=[1,2], index=0 (after goBack) → canGoBack=false (nothing before), canGoForward=true
         XCTAssertFalse(viewModel.canGoBack)
         XCTAssertTrue(viewModel.canGoForward)
     }
@@ -223,7 +223,7 @@ final class ReaderViewModelTests: XCTestCase {
         // Act: go forward (increments historyIndex)
         viewModel.goForward()
 
-        // Assert: after goForward, canGoBack=true, canGoForward=false (at end)
+        // Assert: after goForward, history=[1,2], index=1 → canGoBack=true, canGoForward=false (at end)
         XCTAssertTrue(viewModel.canGoBack)
         XCTAssertFalse(viewModel.canGoForward)
     }

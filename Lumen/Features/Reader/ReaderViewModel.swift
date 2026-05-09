@@ -67,24 +67,22 @@ public class ReaderViewModel {
     public func jumpToPage(_ pageNumber: Int) {
         let docPageCount = pdfView?.document?.pageCount ?? totalPages
         let clamped = max(1, min(pageNumber, docPageCount))
-        guard clamped != currentPage else { return }
+        let previousPage = currentPage
 
-        // 记录当前位置到历史
-        if !isNavigatingHistory {
-            // 截断前进历史
+        goToPage(clamped)
+
+        // 记录历史：在 goToPage 成功后才记录，避免 pdfView 为 nil 时历史不同步
+        if !isNavigatingHistory, currentPage != previousPage {
             if historyIndex < historyStack.count - 1 {
                 historyStack.removeSubrange((historyIndex + 1)...)
             }
-            historyStack.append(currentPage)
+            historyStack.append(previousPage)
             historyIndex = historyStack.count - 1
-            // 限制历史长度
             if historyStack.count > 100 {
                 historyStack.removeFirst(historyStack.count - 100)
                 historyIndex = historyStack.count - 1
             }
         }
-
-        goToPage(clamped)
     }
 
     /// 后退
@@ -125,16 +123,19 @@ public class ReaderViewModel {
             return
         }
 
-        guard let pdfView = targetPDFView else {
-            print(">>> goToPage failed: pdfView is nil")
-            return
-        }
-
         let clamped = max(1, min(pageNumber, docPageCount))
         print(">>> goToPage clamped: \(clamped)")
 
+        guard let pdfView = targetPDFView else {
+            // 无 PDFView 时仍更新内部状态，保持 state 一致
+            print(">>> goToPage failed: pdfView is nil, updating currentPage internally")
+            currentPage = clamped
+            return
+        }
+
         guard let page = pdfView.document?.page(at: clamped - 1) else {
             print(">>> goToPage failed: cannot get page at index \(clamped - 1)")
+            currentPage = clamped
             return
         }
 
