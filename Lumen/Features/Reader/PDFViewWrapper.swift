@@ -18,9 +18,13 @@ struct PDFViewWrapper: NSViewRepresentable {
         pdfView.displayMode = .singlePageContinuous
         pdfView.autoScales = false
         pdfView.displayDirection = .vertical
+        pdfView.wantsLayer = true  // 启用 layer 以支持 CIFilter
         // 将 pdfView 引用传给 ViewModel
         readerVM.pdfView = pdfView
         readerVM.totalPages = document.pageCount
+        // 应用当前阅读模式和显示模式
+        readerVM.setReadingMode(readerVM.readingMode)
+        readerVM.setDisplayMode(readerVM.displayMode)
         // 注册到全局注册表
         PDFViewRegistry.shared.register(pdfView, document: document)
         pdfWrapperLogger.info("readerVM.pdfView set, totalPages: \(document.pageCount)")
@@ -86,9 +90,28 @@ struct PDFViewWrapper: NSViewRepresentable {
         @objc func selectionChanged(_ notification: Notification) {
             guard let pdfView = notification.object as? PDFView else { return }
             Task { @MainActor in
-                let hasSelection = pdfView.currentSelection?.string?.isEmpty == false
+                let selection = pdfView.currentSelection
+                let hasSelection = selection?.string?.isEmpty == false
                 self.annotationVM?.hasTextSelection = hasSelection
-                self.annotationVM?.currentSelection = pdfView.currentSelection
+                self.annotationVM?.currentSelection = selection
+
+                // 计算选区在 SwiftUI 视图坐标系中的位置
+                if let sel = selection,
+                   let page = sel.pages.first ?? pdfView.currentPage,
+                   hasSelection {
+                    let pageBounds = sel.bounds(for: page)
+                    let viewBounds = pdfView.convert(pageBounds, from: page)
+                    // PDFKit 坐标系原点在左下角，SwiftUI 原点在左上角，需要翻转 Y
+                    let flippedY = pdfView.bounds.height - viewBounds.origin.y - viewBounds.height
+                    self.annotationVM?.selectionBoundsInView = CGRect(
+                        x: viewBounds.origin.x,
+                        y: flippedY,
+                        width: viewBounds.width,
+                        height: viewBounds.height
+                    )
+                } else {
+                    self.annotationVM?.selectionBoundsInView = nil
+                }
             }
         }
     }

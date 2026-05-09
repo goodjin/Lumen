@@ -7,7 +7,6 @@ struct PDFReaderView: View {
     @Bindable var readerVM: ReaderViewModel
     var annotationVM: AnnotationViewModel?
     var onSearchSelection: ((String) -> Void)? = nil
-    @State private var showSelectionToolbar = false
 
     var body: some View {
         ZStack {
@@ -70,8 +69,29 @@ struct PDFReaderView: View {
             if let annotationVM,
                annotationVM.hasTextSelection,
                let selection = annotationVM.currentSelection,
-               annotationVM.activeTool == .none {
-                VStack {
+               annotationVM.activeTool == .none,
+               let bounds = annotationVM.selectionBoundsInView,
+               bounds.width > 0, bounds.height > 0 {
+                GeometryReader { geo in
+                    let toolbarHeight: CGFloat = 44
+                    let padding: CGFloat = 8
+                    let viewH = geo.size.height
+                    let viewW = geo.size.width
+                    let selBottom = bounds.maxY
+                    let selTop = bounds.minY
+
+                    // Y：选区下方有空间则显示在下方，否则显示在上方
+                    let rawCy: CGFloat = selBottom + toolbarHeight + padding * 2 > viewH
+                        ? selTop - padding - toolbarHeight / 2
+                        : selBottom + padding + toolbarHeight / 2
+                    let cy = max(toolbarHeight / 2 + padding,
+                                 min(rawCy, viewH - toolbarHeight / 2 - padding))
+
+                    // X：以选区中心为基准，限制在视图范围内
+                    let estWidth: CGFloat = 280
+                    let cx = max(estWidth / 2 + padding,
+                                 min(bounds.midX, viewW - estWidth / 2 - padding))
+
                     SelectionToolbarView(
                         selection: selection,
                         annotationVM: annotationVM,
@@ -85,14 +105,16 @@ struct PDFReaderView: View {
                             onSearchSelection?(text)
                             readerVM.pdfView?.clearSelection()
                             annotationVM.hasTextSelection = false
+                            annotationVM.selectionBoundsInView = nil
                         },
                         onDismiss: {
                             readerVM.pdfView?.clearSelection()
                             annotationVM.hasTextSelection = false
+                            annotationVM.selectionBoundsInView = nil
                         }
                     )
-                    .padding(.top, 8)
-                    Spacer()
+                    .fixedSize()
+                    .position(x: cx, y: cy)
                 }
                 .allowsHitTesting(true)
                 .transition(.opacity)
