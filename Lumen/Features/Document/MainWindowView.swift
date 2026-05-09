@@ -178,6 +178,7 @@ struct MainWindowView: View {
                 .focusedValue(\.readerVM, readerVM)
                 .focusedValue(\.searchVM, searchVM)
                 .focusedValue(\.annotationVM, annotationVM)
+                .focusedValue(\.isDistractionFree, $isDistractionFree)
                 .toolbar(.hidden, for: .windowToolbar)
             } else {
                 // 正常模式
@@ -281,6 +282,7 @@ struct MainWindowView: View {
                     .focusedValue(\.readerVM, readerVM)
                     .focusedValue(\.searchVM, searchVM)
                     .focusedValue(\.annotationVM, annotationVM)
+                    .focusedValue(\.isDistractionFree, $isDistractionFree)
                     .sheet(isPresented: $showDocumentInfo) {
                         DocumentInfoView(document: doc, fileURL: url)
                     }

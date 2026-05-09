@@ -36,6 +36,17 @@ extension FocusedValues {
     }
 }
 
+struct DistractionFreeKey: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+extension FocusedValues {
+    var isDistractionFree: Binding<Bool>? {
+        get { self[DistractionFreeKey.self] }
+        set { self[DistractionFreeKey.self] = newValue }
+    }
+}
+
 extension Notification.Name {
     static let exportAnnotations = Notification.Name("exportAnnotations")
 }
@@ -72,6 +83,7 @@ struct PDFVeCommands: Commands {
     let docVM: DocumentViewModel
     @FocusedValue(\.readerVM) var readerVM
     @FocusedValue(\.searchVM) var searchVM
+    @FocusedValue(\.isDistractionFree) var isDistractionFree
 
     var body: some Commands {
         CommandGroup(replacing: .newItem) {
@@ -106,6 +118,10 @@ struct PDFVeCommands: Commands {
                 .disabled(searchVM == nil)
         }
         CommandMenu("视图") {
+            Toggle("专注阅读模式", isOn: isDistractionFree ?? .constant(false))
+                .keyboardShortcut("\\")
+                .disabled(readerVM == nil)
+            Divider()
             Button("实际大小") { readerVM?.setZoom(1.0) }
                 .keyboardShortcut("0", modifiers: .command)
                 .disabled(readerVM == nil)
