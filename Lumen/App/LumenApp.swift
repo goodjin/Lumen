@@ -85,6 +85,12 @@ struct PDFVeCommands: Commands {
             }
             .keyboardShortcut("e", modifiers: [.command, .shift])
             .disabled(docVM.currentDocument == nil)
+            Divider()
+            Button("打印…") {
+                readerVM?.printDocument()
+            }
+            .keyboardShortcut("p")
+            .disabled(readerVM?.pdfView?.document == nil)
         }
         CommandGroup(after: .textEditing) {
             Button("查找…") {
