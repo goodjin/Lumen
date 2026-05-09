@@ -371,4 +371,32 @@ final class ReaderViewModelTests: XCTestCase {
         viewModel.setZoom(2.5)
         XCTAssertEqual(viewModel.zoomLevel, 2.5)
     }
+
+    // MARK: - VAL-CMPT-004: Zoom Mode
+
+    func test_setZoomMode_fitWidth_sets_zoomMode_and_autoScales_false() {
+        // Setup: PDF with page to calculate scale
+        setupViewModelWithPDF(pageCount: 1)
+
+        // Act
+        viewModel.setZoomMode(.fitWidth)
+
+        // Assert: zoomMode is set to fitWidth
+        XCTAssertEqual(viewModel.zoomMode, .fitWidth)
+        // autoScales should be false for fitWidth mode
+        XCTAssertFalse(viewModel.pdfView?.autoScales ?? true)
+    }
+
+    func test_setZoomMode_fitPage_sets_zoomMode_and_autoScales_true() {
+        // Setup: PDF with page
+        setupViewModelWithPDF(pageCount: 1)
+
+        // Act
+        viewModel.setZoomMode(.fitPage)
+
+        // Assert: zoomMode is set to fitPage
+        XCTAssertEqual(viewModel.zoomMode, .fitPage)
+        // autoScales should be true for fitPage mode
+        XCTAssertTrue(viewModel.pdfView?.autoScales ?? false)
+    }
 }
