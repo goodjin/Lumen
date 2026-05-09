@@ -76,6 +76,9 @@
 		EE8A1B2C3F4D5E6A7B8C9D02 /* ReaderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */; };
 		AABBCCDDEEFF0012 /* AnnotationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCCDDEEFF0011 /* AnnotationViewModelTests.swift */; };
 		AABBCCDDEEFF0015 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCCDDEEFF0016 /* SearchViewModelTests.swift */; };
+		SIDEBARVM0012 /* SidebarViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = SIDEBARVM0011 /* SidebarViewModelTests.swift */; };
+		DOCVM0012 /* DocumentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DOCVM0011 /* DocumentViewModelTests.swift */; };
+		WSM0012 /* WindowStateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = WSM0011 /* WindowStateManagerTests.swift */; };
 		/* PDFVeCore linked in test target */
 		T001 /* PDFVeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; };
 /* End PBXBuildFile section */
@@ -123,6 +126,9 @@
 		EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReaderViewModelTests.swift; path = "LumenTests/Services/ReaderViewModelTests.swift"; sourceTree = "<group>"; };
 		AABBCCDDEEFF0011 /* AnnotationViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnnotationViewModelTests.swift; path = "LumenTests/Services/AnnotationViewModelTests.swift"; sourceTree = "<group>"; };
 		AABBCCDDEEFF0016 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchViewModelTests.swift; path = "LumenTests/Services/SearchViewModelTests.swift"; sourceTree = "<group>"; };
+		SIDEBARVM0011 /* SidebarViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SidebarViewModelTests.swift; path = "LumenTests/Services/SidebarViewModelTests.swift"; sourceTree = "<group>"; };
+		DOCVM0011 /* DocumentViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentViewModelTests.swift; path = "LumenTests/Services/DocumentViewModelTests.swift"; sourceTree = "<group>"; };
+		WSM0011 /* WindowStateManagerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WindowStateManagerTests.swift; path = "LumenTests/Services/WindowStateManagerTests.swift"; sourceTree = "<group>"; };
 		FCORE /* PDFVeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDFVeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F001 /* LumenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenApp.swift; sourceTree = "<group>"; };
 		F002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -220,6 +226,9 @@
 				AABBCCDDEEFF0011 /* AnnotationViewModelTests.swift */,
 				AABBCCDDEEFF0016 /* SearchViewModelTests.swift */,
 				0946EE998878BE8774580180 /* FileServiceTests.swift */,
+				SIDEBARVM0011 /* SidebarViewModelTests.swift */,
+				DOCVM0011 /* DocumentViewModelTests.swift */,
+				WSM0011 /* WindowStateManagerTests.swift */,
 			);
 			name = "LumenTests";
 			sourceTree = SOURCE_ROOT;
@@ -561,6 +570,9 @@
 				AABBCCDDEEFF0012 /* AnnotationViewModelTests.swift in Sources */,
 				AABBCCDDEEFF0015 /* SearchViewModelTests.swift in Sources */,
 				FADB5230ADA22EE49787716A /* FileServiceTests.swift in Sources */,
+				SIDEBARVM0012 /* SidebarViewModelTests.swift in Sources */,
+				DOCVM0012 /* DocumentViewModelTests.swift in Sources */,
+				WSM0012 /* WindowStateManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
