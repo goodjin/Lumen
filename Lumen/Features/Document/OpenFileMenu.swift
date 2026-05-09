@@ -6,6 +6,8 @@ struct OpenFileMenu: View {
     @Environment(DocumentViewModel.self) var docVM
     @State private var showNetworkDialog = false
     @State private var networkURL = ""
+    @State private var showError = false
+    @State private var errorMessage = ""
 
     var body: some View {
         Menu {
@@ -54,8 +56,12 @@ struct OpenFileMenu: View {
             }
             Button("打开") {
                 Task {
-                    if let url = URL(string: networkURL) {
+                    if let url = URL(string: networkURL.trimmingCharacters(in: .whitespacesAndNewlines)),
+                       url.scheme == "http" || url.scheme == "https" {
                         await openNetworkFile(url: url)
+                    } else {
+                        errorMessage = "URL 格式无效，请输入以 http:// 或 https:// 开头的有效地址。"
+                        showError = true
                     }
                     networkURL = ""
                 }
@@ -63,20 +69,64 @@ struct OpenFileMenu: View {
         } message: {
             Text("请输入 PDF 文件的 URL 地址")
         }
+        .alert("打开失败", isPresented: $showError) {
+            Button("好", role: .cancel) {}
+        } message: {
+            Text(errorMessage)
+        }
     }
 
     private func openNetworkFile(url: URL) async {
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            if let doc = PDFDocument(data: data) {
-                // 创建临时文件
-                let tempURL = FileManager.default.temporaryDirectory
-                    .appendingPathComponent(url.lastPathComponent)
-                try data.write(to: tempURL)
-                await docVM.open(url: tempURL)
+            let (data, response) = try await URLSession.shared.data(from: url)
+
+            // 检查 HTTP 状态码
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode >= 400 {
+                    errorMessage = "服务器返回错误（HTTP \(httpResponse.statusCode)）。请检查 URL 是否正确。"
+                    showError = true
+                    return
+                }
+                // 检查 Content-Type 是否为 PDF
+                if let contentType = httpResponse.value(forHTTPHeaderField: "Content-Type"),
+                   !contentType.lowercased().contains("pdf") {
+                    errorMessage = "该 URL 返回的不是 PDF 文件（Content-Type: \(contentType)）。"
+                    showError = true
+                    return
+                }
             }
+
+            // 尝试解析为 PDF
+            guard PDFDocument(data: data) != nil else {
+                errorMessage = "下载的数据不是有效的 PDF 文件，请检查 URL 是否指向 PDF 文档。"
+                showError = true
+                return
+            }
+
+            // 创建临时文件
+            let tempURL = FileManager.default.temporaryDirectory
+                .appendingPathComponent(url.lastPathComponent)
+            try data.write(to: tempURL)
+            await docVM.open(url: tempURL)
+        } catch let urlError as URLError {
+            switch urlError.code {
+            case .notConnectedToInternet:
+                errorMessage = "无法连接到网络，请检查网络连接。"
+            case .cannotFindHost:
+                errorMessage = "无法找到服务器（\(url.host ?? "未知")），请检查 URL 是否正确。"
+            case .timedOut:
+                errorMessage = "连接超时，请稍后重试或检查网络连接。"
+            case .cannotConnectToHost:
+                errorMessage = "无法连接到服务器，请检查 URL 是否正确。"
+            case .badServerResponse:
+                errorMessage = "服务器响应无效，请稍后重试。"
+            default:
+                errorMessage = "网络请求失败：\(urlError.localizedDescription)"
+            }
+            showError = true
         } catch {
-            print("打开网络文件失败: \(error)")
+            errorMessage = "打开网络文件失败：\(error.localizedDescription)"
+            showError = true
         }
     }
 }
