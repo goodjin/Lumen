@@ -85,6 +85,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		LumenUBLd54432263 /* SearchHighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = LumenUFIL70215254 /* SearchHighlightTests.swift */; };
 		A4ABD086BC9E301FAE23D8B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BPRJ /* Project object */;
@@ -183,7 +184,27 @@
 		F041 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		FAPP /* Lumen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lumen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+		LumenUFIL70215254 /* SearchHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LumenUITests/SearchHighlightTests.swift"; sourceTree = "<group>"; };
+		LumenUITX11757361 /* LumenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LumenUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 
+
+		LumenUGRP83420461 /* LumenUITests */ = {
+			isa = PBXGroup;
+			children = (
+				LumenUFIL70215254 /* SearchHighlightTests.swift */,
+			);
+			name = "LumenUITests";
+			sourceTree = "<group>";
+		};
+
+		LumenUSRC16022274 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				LumenUBLd54432263 /* SearchHighlightTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* Begin PBXFrameworksBuildPhase section */
 		BFRM /* Frameworks (App) */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -216,6 +237,14 @@
 		};
 /* End PBXFrameworksBuildPhase section */
 
+
+		LumenUFRM72165304 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* Begin PBXGroup section */
 		2818638C214E96C792F1B7E8 /* LumenTests */ = {
 			isa = PBXGroup;
@@ -394,6 +423,7 @@
 				GFWK /* Frameworks */,
 				GPROD /* Products */,
 				2818638C214E96C792F1B7E8 /* LumenTests */,
+				LumenUGRP83420461 /* LumenUITests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -443,6 +473,14 @@
 		};
 /* End PBXGroup section */
 
+
+		LumenURSC39716833 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* Begin PBXNativeTarget section */
 		04B5D9E12E92F866D78E8803 /* LumenTests */ = {
 			isa = PBXNativeTarget;
@@ -500,6 +538,35 @@
 		};
 /* End PBXNativeTarget section */
 
+
+		LumenUICFG74536168 /* Build configuration list for PBXNativeTarget "LumenUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				LumenUDBG35614225 /* Debug (UITests) */,
+				LumenURLS63665647 /* Release (UITests) */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+
+		LumenUIT13311662 /* LumenUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = LumenUICFG74536168 /* Build configuration list for PBXNativeTarget "LumenUITests" */;
+			buildPhases = (
+				LumenUSRC16022274 /* Sources */,
+				LumenUFRM72165304 /* Frameworks */,
+				LumenURSC39716833 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				LumenUDPD51154543 /* PBXTargetDependency */,
+			);
+			name = "LumenUITests";
+			productName = "LumenUITests";
+			productReference = LumenUITX11757361 /* LumenUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* Begin PBXProject section */
 		BPRJ /* Project object */ = {
 			isa = PBXProject;
@@ -532,6 +599,7 @@
 				CORETGT /* PDFVeCore */,
 				BTGT /* Lumen */,
 				04B5D9E12E92F866D78E8803 /* LumenTests */,
+				LumenUIT13311662 /* LumenUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -664,6 +732,13 @@
 		};
 /* End PBXTargetDependency section */
 
+
+		LumenUDPD51154543 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Lumen";
+			target = BTGT /* Lumen */;
+			targetProxy = A4ABD086BC9E301FAE23D8B4 /* PBXContainerItemProxy */;
+		};
 /* Begin XCBuildConfiguration section */
 		6EFFBD53541CAAFEEB7C7816 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -933,6 +1008,47 @@
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
+		};
+
+		LumenUDBG35614225 /* Debug (UITests) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_MODULE_NAME = LumenUITests;
+				PRODUCT_NAME = "LumenUITests";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		LumenURLS63665647 /* Release (UITests) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_MODULE_NAME = LumenUITests;
+				PRODUCT_NAME = "LumenUITests";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
