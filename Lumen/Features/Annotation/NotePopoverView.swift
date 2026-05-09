@@ -7,6 +7,7 @@ struct NotePopoverView: View {
     @State private var content: String
     @State private var isDragging: Bool = false
     @State private var dragOffset: CGSize = .zero
+    @FocusState private var isEditorFocused: Bool
 
     init(annotationVM: AnnotationViewModel, record: AnnotationRecord) {
         self.annotationVM = annotationVM
@@ -57,6 +58,7 @@ struct NotePopoverView: View {
                 .font(.body)
                 .padding(4)
                 .frame(minHeight: 80)
+                .focused($isEditorFocused)
                 .onChange(of: content) {
                     annotationVM.updateNote(record, content: content)
                 }
@@ -66,5 +68,8 @@ struct NotePopoverView: View {
         .clipShape(RoundedRectangle(cornerRadius: 6))
         .shadow(radius: 4)
         .offset(dragOffset)
+        .onAppear {
+            isEditorFocused = true
+        }
     }
 }
