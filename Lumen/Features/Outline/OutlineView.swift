@@ -17,11 +17,12 @@ struct OutlineView: View {
                 PageNavigationView(document: document, readerVM: readerVM)
             } else {
                 // 原有目录结构
+                let currentId = outlineVM.currentItemId(forPage: readerVM.currentPage)
                 List(outlineVM.items, children: \.childrenIfAny) { item in
                     Button(action: {
                         outlineVM.selectItem(item, readerVM: readerVM)
                     }) {
-                        OutlineItemRow(item: item)
+                        OutlineItemRow(item: item, isCurrent: item.id == currentId)
                     }
                     .buttonStyle(.plain)
                 }
@@ -33,16 +34,26 @@ struct OutlineView: View {
 
 struct OutlineItemRow: View {
     let item: OutlineItem
+    var isCurrent: Bool = false
+
     var body: some View {
         HStack {
             Text(item.title)
                 .lineLimit(2)
+                .fontWeight(isCurrent ? .semibold : .regular)
             Spacer()
             Text("\(item.pageNumber)")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(isCurrent ? .primary : .secondary)
                 .font(.caption)
+                .fontWeight(isCurrent ? .semibold : .regular)
         }
         .padding(.leading, CGFloat((item.depth - 1) * 12))
+        .padding(.vertical, 3)
+        .padding(.horizontal, 4)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(isCurrent ? Color.accentColor.opacity(0.15) : Color.clear)
+        )
     }
 }
 

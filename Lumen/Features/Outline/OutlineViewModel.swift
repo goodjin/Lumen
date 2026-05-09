@@ -42,8 +42,29 @@ public class OutlineViewModel {
         return result
     }
 
-    // API-021：点击目录项，通知 ReaderViewModel 跳转
+    // API-021：点击目录项，通知 ReaderViewModel 跳转（带历史记录）
     public func selectItem(_ item: OutlineItem, readerVM: ReaderViewModel) {
-        readerVM.goToPage(item.pageNumber)
+        readerVM.jumpToPage(item.pageNumber)
+    }
+
+    /// 返回当前页面对应的最深层目录项 ID（用于高亮当前章节）
+    public func currentItemId(forPage page: Int) -> UUID? {
+        return currentOutlineItem(forPage: page, in: items)?.id
+    }
+
+    /// 递归查找当前页面对应的最深层目录项
+    private func currentOutlineItem(forPage page: Int, in items: [OutlineItem]) -> OutlineItem? {
+        var result: OutlineItem?
+        for item in items {
+            if item.pageNumber <= page {
+                result = item
+                if let childMatch = currentOutlineItem(forPage: page, in: item.children) {
+                    result = childMatch
+                }
+            } else {
+                break
+            }
+        }
+        return result
     }
 }
