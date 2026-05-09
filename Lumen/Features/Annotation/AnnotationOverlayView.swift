@@ -55,10 +55,14 @@ struct AnnotationOverlayView: View {
                 }
             }
         }
-        // Cmd+Z 撤销绘制（AC-010-04）
+        // Cmd+Z 撤销（AC-010-04，扩展为通用撤销）
         .onKeyPress(.init("z"), phases: .down) { event in
             guard event.modifiers.contains(.command) else { return .ignored }
-            annotationVM.undoLastDrawing()
+            if event.modifiers.contains(.shift) {
+                annotationVM.redo()
+            } else {
+                annotationVM.undo()
+            }
             return .handled
         }
     }
@@ -112,7 +116,6 @@ struct AnnotationOverlayView: View {
 
     private func eraseAt(_ point: CGPoint) {
         if let hit = annotationVM.annotations(for: readerVM.currentPage)
-            .filter({ $0.annotationType == .drawing })
             .first(where: { $0.bounds.insetBy(dx: -10, dy: -10).contains(point) }) {
             annotationVM.deleteAnnotation(id: hit.id)
         }
