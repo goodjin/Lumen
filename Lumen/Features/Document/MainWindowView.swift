@@ -3,6 +3,7 @@ import SwiftUI
 import PDFKit
 import SwiftData
 import AppKit
+import UniformTypeIdentifiers
 
 struct MainWindowView: View {
     @Environment(DocumentViewModel.self) var docVM
@@ -15,6 +16,7 @@ struct MainWindowView: View {
     @State private var isSidebarVisible = true
     @State private var showDocumentInfo = false
     @State private var isDistractionFree = false
+    @State private var isDropTargeted = false
 
     var body: some View {
         Group {
@@ -134,158 +136,185 @@ struct MainWindowView: View {
 
     @ViewBuilder
     private func readerContent(doc: PDFDocument, url: URL) -> some View {
-        if isDistractionFree {
-            // 专注模式：只显示 PDF 内容 + 浮动退出按钮
-            ZStack(alignment: .topTrailing) {
-                PDFReaderView(document: doc, readerVM: readerVM, annotationVM: annotationVM, onSearchSelection: { text in
-                    searchVM.keyword = text
-                    searchVM.isSearchBarVisible = true
-                    searchVM.performSearch(in: doc)
-                })
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .onAppear {
-                        searchVM.pdfView = readerVM.pdfView
-                    }
-                    .onReceive(NotificationCenter.default.publisher(for: .restoreReadingState)) { notification in
-                        if let page = notification.userInfo?["page"] as? Int {
-                            readerVM.goToPage(page)
+        Group {
+            if isDistractionFree {
+                // 专注模式：只显示 PDF 内容 + 浮动退出按钮
+                ZStack(alignment: .topTrailing) {
+                    PDFReaderView(document: doc, readerVM: readerVM, annotationVM: annotationVM, onSearchSelection: { text in
+                        searchVM.keyword = text
+                        searchVM.isSearchBarVisible = true
+                        searchVM.performSearch(in: doc)
+                    })
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .onAppear {
+                            searchVM.pdfView = readerVM.pdfView
                         }
-                        if let zoom = notification.userInfo?["zoom"] as? Double {
-                            readerVM.setZoom(zoom)
-                        }
-                    }
-
-                // 浮动退出按钮
-                Button {
-                    isDistractionFree = false
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.title2)
-                        .foregroundStyle(.secondary)
-                        .padding(12)
-                }
-                .buttonStyle(.plain)
-                .opacity(0.6)
-                .onHover { hovering in
-                    withAnimation(.easeInOut(duration: 0.15)) {
-                        // hover 时 opacity 通过条件控制
-                    }
-                }
-            }
-            .focusedValue(\.readerVM, readerVM)
-            .focusedValue(\.searchVM, searchVM)
-            .focusedValue(\.annotationVM, annotationVM)
-            .toolbar(.hidden, for: .windowToolbar)
-        } else {
-            // 正常模式
-            HSplitView {
-                // 侧栏区域
-                if isSidebarVisible, let sidebarVM {
-                    SidebarView(outlineVM: outlineVM, sidebarVM: sidebarVM, readerVM: readerVM, document: doc)
-                        .frame(minWidth: 200, idealWidth: 240, maxWidth: 300)
-                }
-
-                // 主内容区域
-                VStack(spacing: 0) {
-                    // UI-Layout-001: 工具栏高度固定 44pt
-                    // 合并主工具栏和标注工具栏到一行
-                    HStack(spacing: 12) {
-                        ReaderToolbarView(readerVM: readerVM)
-
-                        Divider()
-
-                        // 标注工具（AC-006~010）- 内嵌到主工具栏
-                        if let annotationVM {
-                            AnnotationToolbar(annotationVM: annotationVM)
-                                .frame(height: 32)
-                        }
-
-                        Spacer()
-
-                        // 书签按钮（AC-012-02）
-                        if let sidebarVM {
-                            Button {
-                                sidebarVM.toggleBookmark()
-                            } label: {
-                                Image(systemName: sidebarVM.isCurrentPageBookmarked
-                                    ? "bookmark.fill" : "bookmark")
+                        .onReceive(NotificationCenter.default.publisher(for: .restoreReadingState)) { notification in
+                            if let page = notification.userInfo?["page"] as? Int {
+                                readerVM.goToPage(page)
                             }
-                            .help(sidebarVM.isCurrentPageBookmarked ? "移除书签" : "添加书签 (⌘B)")
-                        }
-                        Button {
-                            isSidebarVisible.toggle()
-                        } label: {
-                            Image(systemName: "sidebar.left")
-                        }
-                        .help("显示/隐藏侧栏 (⌘T)")
-                        Button {
-                            showDocumentInfo = true
-                        } label: {
-                            Image(systemName: "info.circle")
-                        }
-                        .help("文档属性")
-                        // 专注模式按钮
-                        Button {
-                            isDistractionFree = true
-                        } label: {
-                            Image(systemName: "eye")
-                        }
-                        .help("专注阅读模式 (⌘\\)")
-                    }
-                    .padding(.horizontal, 16)
-                    .frame(height: 44, alignment: .center)
-
-                    Divider()
-
-                    // 搜索栏（如果可见）
-                    if searchVM.isSearchBarVisible {
-                        SearchBarView(searchVM: searchVM, document: doc)
-                        Divider()
-                    }
-
-                    // PDF 阅读区 - 撑满剩余高度
-                    ZStack(alignment: .bottom) {
-                        PDFReaderView(document: doc, readerVM: readerVM, annotationVM: annotationVM, onSearchSelection: { text in
-                            searchVM.keyword = text
-                            searchVM.isSearchBarVisible = true
-                            searchVM.performSearch(in: doc)
-                        })
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .onAppear {
-                                searchVM.pdfView = readerVM.pdfView
+                            if let zoom = notification.userInfo?["zoom"] as? Double {
+                                readerVM.setZoom(zoom)
                             }
-                            // T-02-04b: 监听并应用阅读位置恢复（Rule-002）
-                            .onReceive(NotificationCenter.default.publisher(for: .restoreReadingState)) { notification in
-                                if let page = notification.userInfo?["page"] as? Int {
-                                    readerVM.goToPage(page)
-                                }
-                                if let zoom = notification.userInfo?["zoom"] as? Double {
-                                    readerVM.setZoom(zoom)
-                                }
-                            }
+                        }
 
-                        // 阅读进度条
-                        if readerVM.totalPages > 0 {
-                            ReadingProgressBar(progress: Double(readerVM.currentPage) / Double(readerVM.totalPages))
+                    // 浮动退出按钮
+                    Button {
+                        isDistractionFree = false
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title2)
+                            .foregroundStyle(.secondary)
+                            .padding(12)
+                    }
+                    .buttonStyle(.plain)
+                    .opacity(0.6)
+                    .onHover { hovering in
+                        withAnimation(.easeInOut(duration: 0.15)) {
+                            // hover 时 opacity 通过条件控制
                         }
                     }
-
-                    Divider()
-
-                    // 底部状态栏
-                    StatusBarView(readerVM: readerVM, fileURL: url)
                 }
                 .focusedValue(\.readerVM, readerVM)
                 .focusedValue(\.searchVM, searchVM)
                 .focusedValue(\.annotationVM, annotationVM)
-                .sheet(isPresented: $showDocumentInfo) {
-                    DocumentInfoView(document: doc, fileURL: url)
-                }
-                .onDisappear {
-                    docVM.close(currentPage: readerVM.currentPage, zoomLevel: readerVM.zoomLevel)
+                .toolbar(.hidden, for: .windowToolbar)
+            } else {
+                // 正常模式
+                HSplitView {
+                    // 侧栏区域
+                    if isSidebarVisible, let sidebarVM {
+                        SidebarView(outlineVM: outlineVM, sidebarVM: sidebarVM, readerVM: readerVM, document: doc)
+                            .frame(minWidth: 200, idealWidth: 240, maxWidth: 300)
+                    }
+
+                    // 主内容区域
+                    VStack(spacing: 0) {
+                        // UI-Layout-001: 工具栏高度固定 44pt
+                        // 合并主工具栏和标注工具栏到一行
+                        HStack(spacing: 12) {
+                            ReaderToolbarView(readerVM: readerVM)
+
+                            Divider()
+
+                            // 标注工具（AC-006~010）- 内嵌到主工具栏
+                            if let annotationVM {
+                                AnnotationToolbar(annotationVM: annotationVM)
+                                    .frame(height: 32)
+                            }
+
+                            Spacer()
+
+                            // 书签按钮（AC-012-02）
+                            if let sidebarVM {
+                                Button {
+                                    sidebarVM.toggleBookmark()
+                                } label: {
+                                    Image(systemName: sidebarVM.isCurrentPageBookmarked
+                                        ? "bookmark.fill" : "bookmark")
+                                }
+                                .help(sidebarVM.isCurrentPageBookmarked ? "移除书签" : "添加书签 (⌘B)")
+                            }
+                            Button {
+                                isSidebarVisible.toggle()
+                            } label: {
+                                Image(systemName: "sidebar.left")
+                            }
+                            .help("显示/隐藏侧栏 (⌘T)")
+                            Button {
+                                showDocumentInfo = true
+                            } label: {
+                                Image(systemName: "info.circle")
+                            }
+                            .help("文档属性")
+                            // 专注模式按钮
+                            Button {
+                                isDistractionFree = true
+                            } label: {
+                                Image(systemName: "eye")
+                            }
+                            .help("专注阅读模式 (⌘\\)")
+                        }
+                        .padding(.horizontal, 16)
+                        .frame(height: 44, alignment: .center)
+
+                        Divider()
+
+                        // 搜索栏（如果可见）
+                        if searchVM.isSearchBarVisible {
+                            SearchBarView(searchVM: searchVM, document: doc)
+                            Divider()
+                        }
+
+                        // PDF 阅读区 - 撑满剩余高度
+                        ZStack(alignment: .bottom) {
+                            PDFReaderView(document: doc, readerVM: readerVM, annotationVM: annotationVM, onSearchSelection: { text in
+                                searchVM.keyword = text
+                                searchVM.isSearchBarVisible = true
+                                searchVM.performSearch(in: doc)
+                            })
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .onAppear {
+                                    searchVM.pdfView = readerVM.pdfView
+                                }
+                                // T-02-04b: 监听并应用阅读位置恢复（Rule-002）
+                                .onReceive(NotificationCenter.default.publisher(for: .restoreReadingState)) { notification in
+                                    if let page = notification.userInfo?["page"] as? Int {
+                                        readerVM.goToPage(page)
+                                    }
+                                    if let zoom = notification.userInfo?["zoom"] as? Double {
+                                        readerVM.setZoom(zoom)
+                                    }
+                                }
+
+                            // 阅读进度条
+                            if readerVM.totalPages > 0 {
+                                ReadingProgressBar(progress: Double(readerVM.currentPage) / Double(readerVM.totalPages))
+                            }
+                        }
+
+                        Divider()
+
+                        // 底部状态栏
+                        StatusBarView(readerVM: readerVM, fileURL: url)
+                    }
+                    .focusedValue(\.readerVM, readerVM)
+                    .focusedValue(\.searchVM, searchVM)
+                    .focusedValue(\.annotationVM, annotationVM)
+                    .sheet(isPresented: $showDocumentInfo) {
+                        DocumentInfoView(document: doc, fileURL: url)
+                    }
+                    .onDisappear {
+                        docVM.close(currentPage: readerVM.currentPage, zoomLevel: readerVM.zoomLevel)
+                    }
                 }
             }
         }
+        .onDrop(of: [.fileURL], isTargeted: $isDropTargeted) { providers in
+            handleDrop(providers: providers)
+        }
+        .overlay {
+            if isDropTargeted {
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(Color.accentColor, lineWidth: 3)
+                    .padding(4)
+            }
+        }
+    }
+
+    private func handleDrop(providers: [NSItemProvider]) -> Bool {
+        guard let provider = providers.first else { return false }
+        provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier) { item, error in
+            guard let data = item as? Data,
+                  let droppedURL = URL(dataRepresentation: data, relativeTo: nil),
+                  droppedURL.pathExtension.lowercased() == "pdf" else { return }
+            Task { @MainActor in
+                // 保存当前阅读状态再切换文档
+                docVM.saveReadingState(currentPage: readerVM.currentPage, zoomLevel: readerVM.zoomLevel)
+                await docVM.open(url: droppedURL)
+            }
+        }
+        return true
     }
 
     private func showAlert(message: String) {

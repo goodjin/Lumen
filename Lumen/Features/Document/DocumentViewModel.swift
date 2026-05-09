@@ -52,6 +52,9 @@ public class DocumentViewModel {
             recentDocuments = fileService.recentDocuments()
             updateWindowTitle()
 
+            // 保存最后打开的文件路径（用于自动恢复）
+            WindowStateManager.shared.lastOpenedFilePath = url.path
+
             // T-02-04b: 读取并应用阅读位置（Rule-002）
             if let readingState = fileService.readingState(for: url) {
                 NotificationCenter.default.post(
@@ -89,6 +92,13 @@ public class DocumentViewModel {
         updateWindowTitle()
     }
 
+    // 保存当前阅读状态（不改变文档状态，用于切换文档前保存）
+    public func saveReadingState(currentPage: Int, zoomLevel: Double) {
+        if let url = currentURL {
+            fileService.closeDocument(at: url, currentPage: currentPage, zoomLevel: zoomLevel)
+        }
+    }
+
     // 显示文件选择对话框
     public func showOpenPanel() async {
         let panel = NSOpenPanel()
@@ -98,6 +108,18 @@ public class DocumentViewModel {
         guard await panel.beginSheetModal(for: NSApp.keyWindow!) == .OK,
               let url = panel.url else { return }
         await open(url: url)
+    }
+
+    // 移除单条最近文件记录
+    public func removeRecent(_ record: DocumentRecord) {
+        try? fileService.removeRecent(filePath: record.filePath)
+        recentDocuments = fileService.recentDocuments()
+    }
+
+    // 清除全部最近文件
+    public func clearRecentDocuments() {
+        fileService.clearAllRecent()
+        recentDocuments = []
     }
 
     // 更新窗口标题
