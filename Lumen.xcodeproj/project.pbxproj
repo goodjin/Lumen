@@ -78,6 +78,7 @@
 		AABBCCDDEEFF0015 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCCDDEEFF0016 /* SearchViewModelTests.swift */; };
 		SIDEBARVM0012 /* SidebarViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = SIDEBARVM0011 /* SidebarViewModelTests.swift */; };
 		DOCVM0012 /* DocumentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DOCVM0011 /* DocumentViewModelTests.swift */; };
+		THUMB0012 /* ThumbnailProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = THUMB0011 /* ThumbnailProviderTests.swift */; };
 		WSM0012 /* WindowStateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = WSM0011 /* WindowStateManagerTests.swift */; };
 		/* PDFVeCore linked in test target */
 		T001 /* PDFVeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; };
@@ -128,6 +129,7 @@
 		AABBCCDDEEFF0016 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchViewModelTests.swift; path = "LumenTests/Services/SearchViewModelTests.swift"; sourceTree = "<group>"; };
 		SIDEBARVM0011 /* SidebarViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SidebarViewModelTests.swift; path = "LumenTests/Services/SidebarViewModelTests.swift"; sourceTree = "<group>"; };
 		DOCVM0011 /* DocumentViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentViewModelTests.swift; path = "LumenTests/Services/DocumentViewModelTests.swift"; sourceTree = "<group>"; };
+		THUMB0011 /* ThumbnailProviderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThumbnailProviderTests.swift; path = "LumenTests/Services/ThumbnailProviderTests.swift"; sourceTree = "<group>"; };
 		WSM0011 /* WindowStateManagerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WindowStateManagerTests.swift; path = "LumenTests/Services/WindowStateManagerTests.swift"; sourceTree = "<group>"; };
 		FCORE /* PDFVeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDFVeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F001 /* LumenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenApp.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				SIDEBARVM0011 /* SidebarViewModelTests.swift */,
 				DOCVM0011 /* DocumentViewModelTests.swift */,
 				WSM0011 /* WindowStateManagerTests.swift */,
+				THUMB0011 /* ThumbnailProviderTests.swift */,
 			);
 			name = "LumenTests";
 			sourceTree = SOURCE_ROOT;
@@ -573,6 +576,7 @@
 				SIDEBARVM0012 /* SidebarViewModelTests.swift in Sources */,
 				DOCVM0012 /* DocumentViewModelTests.swift in Sources */,
 				WSM0012 /* WindowStateManagerTests.swift in Sources */,
+				THUMB0012 /* ThumbnailProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
