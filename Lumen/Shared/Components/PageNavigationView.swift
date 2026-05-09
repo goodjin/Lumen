@@ -21,7 +21,7 @@ struct PageNavigationView: View {
                     )
                     .contentShape(Rectangle())
                     .onTapGesture {
-                        readerVM.goToPage(pageNumber)
+                        readerVM.jumpToPage(pageNumber)
                     }
                 }
             }
