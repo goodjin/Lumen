@@ -181,6 +181,50 @@ final class SidebarViewModelTests: XCTestCase {
         XCTAssertTrue(result.isEmpty)
     }
 
+    // MARK: - VAL-CMPT-009: toggleBookmark
+
+    func test_toggleBookmark_creates_bookmark_on_first_press() {
+        // Given: no bookmark exists for current page (page 1)
+        XCTAssertFalse(sidebarVM.isCurrentPageBookmarked)
+        XCTAssertTrue(sidebarVM.bookmarks.isEmpty)
+
+        // When: toggleBookmark is called
+        sidebarVM.toggleBookmark()
+
+        // Then: bookmark is created for current page
+        XCTAssertTrue(sidebarVM.isCurrentPageBookmarked)
+        XCTAssertEqual(sidebarVM.bookmarks.count, 1)
+        XCTAssertEqual(sidebarVM.bookmarks[0].pageNumber, readerVM.currentPage)
+    }
+
+    func test_toggleBookmark_removes_bookmark_on_second_press() {
+        // Given: a bookmark exists for current page (page 1)
+        sidebarVM.toggleBookmark() // create
+        XCTAssertTrue(sidebarVM.isCurrentPageBookmarked)
+        XCTAssertEqual(sidebarVM.bookmarks.count, 1)
+
+        // When: toggleBookmark is called again
+        sidebarVM.toggleBookmark() // remove
+
+        // Then: bookmark is removed
+        XCTAssertFalse(sidebarVM.isCurrentPageBookmarked)
+        XCTAssertTrue(sidebarVM.bookmarks.isEmpty)
+    }
+
+    func test_toggleBookmark_reflects_repository_truth() {
+        // Given: no bookmarks
+        XCTAssertTrue(sidebarVM.bookmarks.isEmpty)
+
+        // When: navigate to page 5 and bookmark it
+        readerVM.currentPage = 5
+        sidebarVM.toggleBookmark()
+
+        // Then: page 5 is bookmarked
+        XCTAssertTrue(sidebarVM.isCurrentPageBookmarked)
+        XCTAssertEqual(sidebarVM.bookmarks.count, 1)
+        XCTAssertEqual(sidebarVM.bookmarks[0].pageNumber, 5)
+    }
+
     // MARK: - Helper methods
 
     private func createTestPDF() -> PDFDocument {
