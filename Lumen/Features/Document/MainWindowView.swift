@@ -17,6 +17,7 @@ struct MainWindowView: View {
     @State private var showDocumentInfo = false
     @State private var isDistractionFree = false
     @State private var isDropTargeted = false
+    @State private var thumbnailProvider = ThumbnailProvider()
 
     var body: some View {
         Group {
@@ -72,6 +73,7 @@ struct MainWindowView: View {
                 searchVM = SearchViewModel()
                 annotationVM = nil
                 sidebarVM = nil
+                Task { await thumbnailProvider.clearCache() }
             }
         }
         // Cmd+T 侧栏显隐（AC-004-06）
@@ -185,7 +187,7 @@ struct MainWindowView: View {
                 HSplitView {
                     // 侧栏区域
                     if isSidebarVisible, let sidebarVM {
-                        SidebarView(outlineVM: outlineVM, sidebarVM: sidebarVM, readerVM: readerVM, document: doc)
+                        SidebarView(outlineVM: outlineVM, sidebarVM: sidebarVM, readerVM: readerVM, document: doc, thumbnailProvider: thumbnailProvider)
                             .frame(minWidth: 200, idealWidth: 240, maxWidth: 300)
                     }
 
@@ -288,6 +290,7 @@ struct MainWindowView: View {
                     }
                     .onDisappear {
                         docVM.close(currentPage: readerVM.currentPage, zoomLevel: readerVM.zoomLevel)
+                        Task { await thumbnailProvider.clearCache() }
                     }
                 }
             }

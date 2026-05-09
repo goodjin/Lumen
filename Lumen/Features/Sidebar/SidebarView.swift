@@ -7,6 +7,7 @@ struct SidebarView: View {
     @Bindable var sidebarVM: SidebarViewModel
     var readerVM: ReaderViewModel
     var document: PDFDocument
+    var thumbnailProvider: ThumbnailProvider
 
     var body: some View {
         TabView(selection: $sidebarVM.currentTab) {
@@ -23,7 +24,7 @@ struct SidebarView: View {
                 .tabItem { Label("书签", systemImage: "bookmark") }
                 .tag(SidebarTab.bookmark)
 
-            ThumbnailGridView(document: document, readerVM: readerVM)
+            ThumbnailGridView(document: document, readerVM: readerVM, provider: thumbnailProvider)
                 .tabItem { Label("页面", systemImage: "square.grid.2x2") }
                 .tag(SidebarTab.thumbnail)
         }

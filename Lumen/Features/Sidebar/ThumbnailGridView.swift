@@ -5,7 +5,7 @@ import PDFKit
 struct ThumbnailGridView: View {
     let document: PDFDocument
     @Bindable var readerVM: ReaderViewModel
-    private let provider = ThumbnailProvider()
+    let provider: ThumbnailProvider
 
     private let columns = [
         GridItem(.adaptive(minimum: 90, maximum: 130), spacing: 8)
@@ -24,10 +24,10 @@ struct ThumbnailGridView: View {
                         )
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            // VIEW-API-005: 缩略图点击跳转
+                            // VIEW-API-005: 缩略图点击跳转（带历史记录）
                             let targetPage = index + 1
                             print("[Thumbnail] Tapped page \(targetPage), currentPage: \(readerVM.currentPage)")
-                            readerVM.goToPage(targetPage)
+                            readerVM.jumpToPage(targetPage)
                         }
                         .id(index)
                     }
