@@ -57,6 +57,11 @@
 		A036 /* ThumbnailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F036 /* ThumbnailGridView.swift */; };
 		A042 /* PageNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F042 /* PageNavigationView.swift */; };
 		A043 /* OpenFileMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044 /* OpenFileMenu.swift */; };
+		A050 /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050 /* StatusBarView.swift */; };
+		A051 /* ReadingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F051 /* ReadingProgressBar.swift */; };
+		A052 /* DocumentInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F052 /* DocumentInfoView.swift */; };
+		A053 /* SelectionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053 /* SelectionToolbar.swift */; };
+		A054 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F054 /* PreferencesView.swift */; };
 		/* App frameworks */
 		A040 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F040 /* PDFKit.framework */; };
 		A041 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F041 /* SwiftData.framework */; };
@@ -68,6 +73,7 @@
 		DE2865550391C87BF30AB037 /* SearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C6E7B04AD6F33B12D52F52 /* SearchServiceTests.swift */; };
 		E53BA2B71ADD9102CC732239 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */; };
 		FADB5230ADA22EE49787716A /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0946EE998878BE8774580180 /* FileServiceTests.swift */; };
+		EE8A1B2C3F4D5E6A7B8C9D02 /* ReaderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */; };
 		/* PDFVeCore linked in test target */
 		T001 /* PDFVeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; };
 /* End PBXBuildFile section */
@@ -112,6 +118,7 @@
 		CAA788FCE06BF7FC33783AF0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnnotationServiceTests.swift; path = "LumenTests/Services/AnnotationServiceTests.swift"; sourceTree = "<group>"; };
+		EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReaderViewModelTests.swift; path = "LumenTests/Services/ReaderViewModelTests.swift"; sourceTree = "<group>"; };
 		FCORE /* PDFVeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDFVeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F001 /* LumenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenApp.swift; sourceTree = "<group>"; };
 		F002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +162,11 @@
 		F042 /* PageNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNavigationView.swift; sourceTree = "<group>"; };
 		F043 /* WindowStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowStateManager.swift; sourceTree = "<group>"; };
 		F044 /* OpenFileMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFileMenu.swift; sourceTree = "<group>"; };
+		F050 /* StatusBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
+		F051 /* ReadingProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingProgressBar.swift; sourceTree = "<group>"; };
+		F052 /* DocumentInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentInfoView.swift; sourceTree = "<group>"; };
+		F053 /* SelectionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionToolbar.swift; sourceTree = "<group>"; };
+		F054 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		F040 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
 		F041 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		FAPP /* Lumen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lumen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,6 +212,7 @@
 				51C6E7B04AD6F33B12D52F52 /* SearchServiceTests.swift */,
 				EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */,
 				3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */,
+				EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */,
 				0946EE998878BE8774580180 /* FileServiceTests.swift */,
 			);
 			name = "LumenTests";
@@ -239,6 +252,7 @@
 				F001 /* LumenApp.swift */,
 				F002 /* AppDelegate.swift */,
 				F003 /* ContentView.swift */,
+				F054 /* PreferencesView.swift */,
 			);
 			path = Lumen/App;
 			sourceTree = "<group>";
@@ -251,6 +265,7 @@
 				F017 /* RecentFilesView.swift */,
 				F018 /* MainWindowView.swift */,
 				F044 /* OpenFileMenu.swift */,
+				F052 /* DocumentInfoView.swift */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -346,6 +361,7 @@
 				F020 /* PDFViewWrapper.swift */,
 				F021 /* PDFReaderView.swift */,
 				F022 /* ToolbarView.swift */,
+				F053 /* SelectionToolbar.swift */,
 			);
 			path = Reader;
 			sourceTree = "<group>";
@@ -377,6 +393,8 @@
 			isa = PBXGroup;
 			children = (
 				F042 /* PageNavigationView.swift */,
+				F050 /* StatusBarView.swift */,
+				F051 /* ReadingProgressBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -533,6 +551,7 @@
 				DE2865550391C87BF30AB037 /* SearchServiceTests.swift in Sources */,
 				869DB99BA224CBF78939528C /* AnnotationServiceTests.swift in Sources */,
 				42DF6A0A90CB07AEA4577089 /* BookmarkServiceTests.swift in Sources */,
+				EE8A1B2C3F4D5E6A7B8C9D02 /* ReaderViewModelTests.swift in Sources */,
 				FADB5230ADA22EE49787716A /* FileServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -559,6 +578,11 @@
 				A036 /* ThumbnailGridView.swift in Sources */,
 				A042 /* PageNavigationView.swift in Sources */,
 				A043 /* OpenFileMenu.swift in Sources */,
+				A050 /* StatusBarView.swift in Sources */,
+				A051 /* ReadingProgressBar.swift in Sources */,
+				A052 /* DocumentInfoView.swift in Sources */,
+				A053 /* SelectionToolbar.swift in Sources */,
+				A054 /* PreferencesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
