@@ -101,7 +101,7 @@ struct FilterChip: View {
                 .font(.caption)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 4)
-                .background(isSelected ? Color.accentColor : Color.secondary.opacity(0.15))
+                .background(isSelected ? Color.accentColor : Color.secondary.opacity(0.25))
                 .foregroundStyle(isSelected ? .white : .primary)
                 .clipShape(Capsule())
         }

@@ -4,6 +4,7 @@ import SwiftUI
 struct RecentFilesView: View {
     @Environment(DocumentViewModel.self) var docVM
     @State private var openingFilePath: String? = nil
+    @State private var isDropTargeted: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -11,7 +12,16 @@ struct RecentFilesView: View {
             HStack {
                 Text("Lumen")
                     .font(.largeTitle.bold())
+                    .accessibilityIdentifier("RecentFilesTitle")
                 Spacer()
+                if !docVM.recentDocuments.isEmpty {
+                    Button("清除列表") {
+                        docVM.clearRecentDocuments()
+                    }
+                    .foregroundStyle(.secondary)
+                    .buttonStyle(.plain)
+                    .padding(.trailing, 8)
+                }
                 Button("打开文件…") {
                     Task { await docVM.showOpenPanel() }
                 }
@@ -26,6 +36,7 @@ struct RecentFilesView: View {
                 ContentUnavailableView("没有最近打开的文件",
                     systemImage: "doc.text",
                     description: Text("点击「打开文件」选择 PDF"))
+                    .accessibilityIdentifier("RecentFilesEmptyState")
             } else {
                 // 最近文件列表（AC-015-01）
                 List(docVM.recentDocuments, id: \.filePath) { record in
@@ -34,6 +45,7 @@ struct RecentFilesView: View {
                         isOpening: openingFilePath == record.filePath
                     )
                     .contentShape(Rectangle())
+                    .accessibilityIdentifier("RecentFileRow_\(record.filePath)")
                     .onTapGesture {
                         guard openingFilePath == nil else { return }
                         openingFilePath = record.filePath
@@ -42,11 +54,26 @@ struct RecentFilesView: View {
                             openingFilePath = nil
                         }
                     }
+                    .contextMenu {
+                        Button("从列表中移除") {
+                            docVM.removeRecent(record)
+                        }
+                    }
                 }
+                .accessibilityIdentifier("RecentFilesList")
             }
         }
+        .accessibilityIdentifier("RecentFilesView")
+        // 拖拽高亮反馈
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.accentColor, lineWidth: 3)
+                .opacity(isDropTargeted ? 1 : 0)
+                .padding(4)
+                .animation(.easeInOut(duration: 0.2), value: isDropTargeted)
+        )
         // 拖拽打开（AC-001-02）
-        .onDrop(of: [.fileURL], isTargeted: nil) { providers in
+        .onDrop(of: [.fileURL], isTargeted: $isDropTargeted) { providers in
             handleDrop(providers: providers)
         }
     }
@@ -75,25 +102,29 @@ struct RecentFileRow: View {
                 .font(.title2)
                 .foregroundStyle(Color.accentColor)
                 .frame(width: 40, height: 40)
-                .background(Color.accentColor.opacity(0.1))
+                .background(Color.accentColor.opacity(0.2))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(record.fileName)
                     .font(.headline)
                     .lineLimit(1)
+                    .accessibilityLabel("文件名")
                 HStack(spacing: 8) {
                     Text(record.filePath)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
+                        .accessibilityLabel("文件路径")
                     Text("\(record.pageCount) 页")
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                        .accessibilityLabel("页数")
                 }
                 Text(record.lastOpenedAt.formatted(.relative(presentation: .named)))
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
+                    .accessibilityLabel("上次打开")
             }
 
             Spacer()
@@ -114,7 +145,7 @@ struct RecentFileRow: View {
         .padding(.vertical, 10)
         .background(
             RoundedRectangle(cornerRadius: 8)
-                .fill(isHovered ? Color.secondary.opacity(0.1) : Color.clear)
+                .fill(isHovered ? Color.secondary.opacity(0.2) : Color.clear)
         )
         .onHover { hovering in
             withAnimation(.easeInOut(duration: 0.15)) {

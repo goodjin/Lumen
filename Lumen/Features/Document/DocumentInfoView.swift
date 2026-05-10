@@ -90,7 +90,7 @@ struct DocumentInfoView: View {
             }
             .padding(10)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.secondary.opacity(0.08))
+            .background(Color.secondary.opacity(0.15))
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }

@@ -54,7 +54,7 @@ struct SelectionToolbarView: View {
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 6)
-        .background(.ultraThinMaterial)
+        .background(Color(NSColor.windowBackgroundColor).opacity(0.95))
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .shadow(color: .black.opacity(0.2), radius: 8, y: 2)
     }

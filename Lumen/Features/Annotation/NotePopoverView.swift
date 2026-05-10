@@ -34,7 +34,7 @@ struct NotePopoverView: View {
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
-            .background(Color.yellow.opacity(0.8))
+            .background(Color.yellow)
             .gesture(
                 DragGesture()
                     .onChanged { value in
@@ -66,7 +66,7 @@ struct NotePopoverView: View {
                 .accessibilityLabel("便签内容")
         }
         .frame(width: 200)
-        .background(Color.yellow.opacity(0.15))
+        .background(Color.yellow.opacity(0.25))
         .clipShape(RoundedRectangle(cornerRadius: 6))
         .shadow(radius: 4)
         .offset(dragOffset)

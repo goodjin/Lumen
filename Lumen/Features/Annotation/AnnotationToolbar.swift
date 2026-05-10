@@ -86,6 +86,7 @@ struct AnnotationToolbar: View {
                         annotationVM.drawingColor = color
                         updateActiveToolColor(color)
                     }
+                    .accessibilityLabel(colorName(for: color))
             }
         }
     }
@@ -102,6 +103,7 @@ struct AnnotationToolbar: View {
                             annotationVM.activeTool = .drawing(color: color, lineWidth: width)
                         }
                     }
+                    .accessibilityLabel(lineWidthLabel(for: width))
             }
         }
     }
@@ -114,6 +116,7 @@ struct AnnotationToolbar: View {
         }
         .help(label)
         .buttonStyle(.plain)
+        .accessibilityLabel(label)
     }
 
     private func updateActiveToolColor(_ color: AnnotationColor) {
@@ -138,6 +141,26 @@ struct AnnotationToolbar: View {
     private func isDrawing(_ tool: AnnotationTool) -> Bool {
         if case .drawing = tool { return true }; return false
     }
+
+    private func colorName(for color: AnnotationColor) -> String {
+        switch color {
+        case .yellow: return "黄色"
+        case .green: return "绿色"
+        case .blue: return "蓝色"
+        case .pink: return "粉色"
+        case .red: return "红色"
+        case .orange: return "橙色"
+        case .black: return "黑色"
+        }
+    }
+
+    private func lineWidthLabel(for width: DrawingLineWidth) -> String {
+        switch width {
+        case .thin: return "细"
+        case .medium: return "中"
+        case .thick: return "粗"
+        }
+    }
 }
 
 // MARK: - View modifier helper
@@ -145,7 +168,7 @@ struct AnnotationToolbar: View {
 private extension View {
     func selected(_ isSelected: Bool) -> some View {
         self.padding(4)
-            .background(isSelected ? Color.accentColor.opacity(0.2) : Color.clear)
+            .background(isSelected ? Color.accentColor.opacity(0.35) : Color.clear)
             .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }

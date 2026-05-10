@@ -51,6 +51,6 @@ struct PageNavigationRow: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(isCurrentPage ? Color.accentColor.opacity(0.1) : Color.clear)
+        .background(isCurrentPage ? Color.accentColor.opacity(0.2) : Color.clear)
     }
 }

@@ -75,7 +75,7 @@ struct AnnotationOverlayView: View {
 
         switch ann.annotationType {
         case .highlight:
-            context.fill(Path(bounds), with: .color(Color(color).opacity(0.35)))
+            context.fill(Path(bounds), with: .color(Color(color).opacity(0.5)))
         case .underline:
             let underlineRect = CGRect(x: bounds.minX, y: bounds.maxY - 2, width: bounds.width, height: 2)
             context.fill(Path(underlineRect), with: .color(Color(color)))

@@ -13,7 +13,7 @@ struct SearchBarView: View {
                 .textFieldStyle(.roundedBorder)
                 .frame(width: 200)
                 // 无结果时背景变红（AC-005-07）
-                .background(searchVM.hasNoResults ? Color.red.opacity(0.3) : Color.clear)
+                .background(searchVM.hasNoResults ? Color.red.opacity(0.5) : Color.clear)
                 .cornerRadius(4)
                 .onSubmit { searchVM.nextMatch() }          // Enter 下一个（AC-005-04）
                 .onChange(of: searchVM.keyword) {

@@ -52,7 +52,7 @@ struct OutlineItemRow: View {
         .padding(.horizontal, 4)
         .background(
             RoundedRectangle(cornerRadius: 4)
-                .fill(isCurrent ? Color.accentColor.opacity(0.15) : Color.clear)
+                .fill(isCurrent ? Color.accentColor.opacity(0.3) : Color.clear)
         )
     }
 }

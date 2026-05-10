@@ -62,7 +62,7 @@ struct ThumbnailCell: View {
                 } else {
                     // 加载占位（AC-013-05）
                     Rectangle()
-                        .fill(Color.gray.opacity(0.2))
+                        .fill(Color.gray.opacity(0.4))
                         .aspectRatio(3/4, contentMode: .fit)
                         .overlay(ProgressView().scaleEffect(0.6))
                 }
