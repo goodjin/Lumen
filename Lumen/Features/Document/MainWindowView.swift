@@ -6,8 +6,8 @@ import AppKit
 import UniformTypeIdentifiers
 
 struct MainWindowView: View {
-    @Environment(DocumentViewModel.self) var docVM
     @Environment(\.modelContext) private var modelContext
+    @State private var docVM: DocumentViewModel?
     @State private var readerVM = ReaderViewModel()
     @State private var outlineVM = OutlineViewModel()
     @State private var searchVM = SearchViewModel()
@@ -16,17 +16,19 @@ struct MainWindowView: View {
     @State private var isSidebarVisible = true
     @State private var showDocumentInfo = false
     @State private var isDistractionFree = false
+    @State private var showPreferences = false
     @State private var isDropTargeted = false
     @State private var thumbnailProvider = ThumbnailProvider()
 
     var body: some View {
         Group {
-            switch docVM.state {
-            case .idle:
+            switch docVM?.state {
+            case .idle, .none:
                 RecentFilesView()
             case .loading:
                 ProgressView("正在打开…")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .accessibilityIdentifier("MainWindowLoading")
             case .loaded(let doc, let url):
                 readerContent(doc: doc, url: url)
             case .error(let error):
@@ -35,21 +37,40 @@ struct MainWindowView: View {
                     systemImage: "exclamationmark.triangle",
                     description: Text(error.localizedDescription)
                 )
+                .accessibilityIdentifier("MainWindowError")
             }
         }
         .frame(minWidth: 800, minHeight: 600)
+        .accessibilityIdentifier("MainWindowView")
         .onAppear {
-            // 自动恢复上次打开的文档
-            if case .idle = docVM.state,
+            // 每个窗口创建独立的 DocumentViewModel
+            if docVM == nil {
+                let docRepo = DocumentRepository(context: modelContext)
+                let fileService = FileService(docRepo: docRepo)
+                docVM = DocumentViewModel(fileService: fileService)
+            }
+            // 自动恢复上次打开的文档（如果启用）
+            if case .idle = docVM?.state,
+               WindowStateManager.shared.autoReopenLastDocument,
                let lastPath = WindowStateManager.shared.lastOpenedFilePath,
                FileManager.default.fileExists(atPath: lastPath) {
-                Task { await docVM.open(url: URL(fileURLWithPath: lastPath)) }
+                Task { await docVM?.open(url: URL(fileURLWithPath: lastPath)) }
             }
         }
-        .onChange(of: docVM.currentDocument) { _, newDoc in
-            if let doc = newDoc, let url = docVM.currentURL {
+        // 监听显示偏好设置通知
+        .onReceive(NotificationCenter.default.publisher(for: .showPreferences)) { _ in
+            showPreferences = true
+        }
+        .sheet(isPresented: $showPreferences) {
+            PreferencesView(isPresented: $showPreferences)
+        }
+        .onChange(of: docVM?.currentDocument) { _, newDoc in
+            if let doc = newDoc, let url = docVM?.currentURL {
                 readerVM = ReaderViewModel()
                 readerVM.clearHistory()
+                // 应用默认阅读模式和显示模式
+                readerVM.readingMode = WindowStateManager.shared.defaultReadingMode
+                readerVM.displayMode = WindowStateManager.shared.defaultDisplayMode
                 outlineVM = OutlineViewModel()
                 outlineVM.loadOutline(from: doc)
                 searchVM = SearchViewModel()
@@ -115,7 +136,7 @@ struct MainWindowView: View {
         }
         // 导出标注（AC-016-01~04）
         .onReceive(NotificationCenter.default.publisher(for: .exportAnnotations)) { _ in
-            guard case .loaded(_, let url) = docVM.state,
+            guard case .loaded(_, let url) = docVM?.state,
                   annotationVM != nil else { return }
             let panel = NSSavePanel()
             panel.allowedContentTypes = [.plainText]
@@ -181,6 +202,8 @@ struct MainWindowView: View {
                 .focusedValue(\.searchVM, searchVM)
                 .focusedValue(\.annotationVM, annotationVM)
                 .focusedValue(\.isDistractionFree, $isDistractionFree)
+                .focusedValue(\.sidebarVisible, $isSidebarVisible)
+                .focusedValue(\.docVM, docVM)
                 .toolbar(.hidden, for: .windowToolbar)
             } else {
                 // 正常模式
@@ -217,6 +240,7 @@ struct MainWindowView: View {
                                         ? "bookmark.fill" : "bookmark")
                                 }
                                 .help(sidebarVM.isCurrentPageBookmarked ? "移除书签" : "添加书签 (⌘B)")
+                                .accessibilityLabel("书签")
                             }
                             Button {
                                 isSidebarVisible.toggle()
@@ -224,12 +248,14 @@ struct MainWindowView: View {
                                 Image(systemName: "sidebar.left")
                             }
                             .help("显示/隐藏侧栏 (⌘T)")
+                            .accessibilityLabel("侧栏")
                             Button {
                                 showDocumentInfo = true
                             } label: {
                                 Image(systemName: "info.circle")
                             }
                             .help("文档属性")
+                            .accessibilityLabel("文档属性")
                             // 专注模式按钮
                             Button {
                                 isDistractionFree = true
@@ -237,6 +263,7 @@ struct MainWindowView: View {
                                 Image(systemName: "eye")
                             }
                             .help("专注阅读模式 (⌘\\)")
+                            .accessibilityLabel("专注模式")
                         }
                         .padding(.horizontal, 16)
                         .frame(height: 44, alignment: .center)
@@ -285,11 +312,13 @@ struct MainWindowView: View {
                     .focusedValue(\.searchVM, searchVM)
                     .focusedValue(\.annotationVM, annotationVM)
                     .focusedValue(\.isDistractionFree, $isDistractionFree)
+                    .focusedValue(\.sidebarVisible, $isSidebarVisible)
+                    .focusedValue(\.docVM, docVM)
                     .sheet(isPresented: $showDocumentInfo) {
                         DocumentInfoView(document: doc, fileURL: url)
                     }
                     .onDisappear {
-                        docVM.close(currentPage: readerVM.currentPage, zoomLevel: readerVM.zoomLevel)
+                        docVM?.close(currentPage: readerVM.currentPage, zoomLevel: readerVM.zoomLevel)
                         Task { await thumbnailProvider.clearCache() }
                     }
                 }
@@ -315,8 +344,8 @@ struct MainWindowView: View {
                   droppedURL.pathExtension.lowercased() == "pdf" else { return }
             Task { @MainActor in
                 // 保存当前阅读状态再切换文档
-                docVM.saveReadingState(currentPage: readerVM.currentPage, zoomLevel: readerVM.zoomLevel)
-                await docVM.open(url: droppedURL)
+                docVM?.saveReadingState(currentPage: readerVM.currentPage, zoomLevel: readerVM.zoomLevel)
+                await docVM?.open(url: droppedURL)
             }
         }
         return true
