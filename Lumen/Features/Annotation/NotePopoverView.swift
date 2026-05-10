@@ -30,6 +30,7 @@ struct NotePopoverView: View {
                         .font(.caption)
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("删除便签")
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
@@ -62,6 +63,7 @@ struct NotePopoverView: View {
                 .onChange(of: content) {
                     annotationVM.updateNote(record, content: content)
                 }
+                .accessibilityLabel("便签内容")
         }
         .frame(width: 200)
         .background(Color.yellow.opacity(0.15))

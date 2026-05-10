@@ -17,8 +17,9 @@ struct SearchBarView: View {
                 .cornerRadius(4)
                 .onSubmit { searchVM.nextMatch() }          // Enter 下一个（AC-005-04）
                 .onChange(of: searchVM.keyword) {
-                    searchVM.performSearch(in: document)
+                    searchVM.debouncedSearch(in: document)
                 }
+                .accessibilityLabel("搜索")
 
             // 结果数量（AC-005-03）
             if !searchVM.resultSummary.isEmpty {
@@ -26,6 +27,7 @@ struct SearchBarView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .frame(width: 50)
+                    .accessibilityLabel("搜索结果")
             }
 
             // 无可搜索文本提示（BOUND-051）
@@ -33,6 +35,7 @@ struct SearchBarView: View {
                 Text("此文档不含可搜索文本")
                     .font(.caption)
                     .foregroundStyle(.red)
+                    .accessibilityLabel("此文档不含可搜索文本")
             }
 
             // 上一个 / 下一个
@@ -40,11 +43,13 @@ struct SearchBarView: View {
                 Image(systemName: "chevron.up")
             }
             .disabled(searchVM.results.isEmpty)
+            .accessibilityLabel("上一个搜索结果")
 
             Button(action: { searchVM.nextMatch() }) {
                 Image(systemName: "chevron.down")
             }
             .disabled(searchVM.results.isEmpty)
+            .accessibilityLabel("下一个搜索结果")
 
             // 大小写开关（AC-005-06）
             Toggle("Aa", isOn: $searchVM.caseSensitive)
@@ -52,11 +57,13 @@ struct SearchBarView: View {
                 .onChange(of: searchVM.caseSensitive) {
                     searchVM.performSearch(in: document)
                 }
+                .accessibilityLabel("区分大小写")
 
             // 关闭按钮（AC-005-08）
             Button(action: { searchVM.dismissSearch() }) {
                 Image(systemName: "xmark")
             }
+            .accessibilityLabel("关闭搜索")
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)

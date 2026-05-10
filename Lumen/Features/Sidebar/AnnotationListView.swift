@@ -3,7 +3,10 @@ import SwiftUI
 
 struct AnnotationListView: View {
     @Bindable var sidebarVM: SidebarViewModel
-    @State private var items: [AnnotationRecord] = []
+
+    private var items: [AnnotationRecord] {
+        sidebarVM.filteredAnnotations()
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -29,10 +32,6 @@ struct AnnotationListView: View {
                 }
                 .listStyle(.sidebar)
             }
-        }
-        .onAppear { items = sidebarVM.filteredAnnotations() }
-        .onChange(of: sidebarVM.annotationFilter) { _, _ in
-            items = sidebarVM.filteredAnnotations()
         }
     }
 
@@ -107,5 +106,6 @@ struct FilterChip: View {
                 .clipShape(Capsule())
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(title)
     }
 }

@@ -37,6 +37,7 @@ struct BookmarkListView: View {
                         sidebarVM.renameBookmark(id: bookmark.id, name: editingName)
                         editingBookmarkId = nil
                     }
+                    .accessibilityLabel("书签名称")
             } else {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(bookmark.name)
@@ -66,10 +67,12 @@ struct BookmarkListView: View {
                 editingBookmarkId = bookmark.id
                 editingName = bookmark.name
             }
+            .accessibilityLabel("重命名书签")
             Divider()
             Button("删除书签", role: .destructive) {
                 sidebarVM.deleteBookmark(id: bookmark.id)
             }
+            .accessibilityLabel("删除书签")
         }
     }
 }
