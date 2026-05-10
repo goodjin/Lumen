@@ -6,6 +6,8 @@ import SwiftUI
 public class SearchViewModel {
     public init() {}
     private let service = SearchService()
+    private var searchTask: Task<Void, Never>?
+    private var documentRef: PDFDocument?
 
     public var keyword: String = ""
     public var results: [PDFSelection] = []
@@ -23,6 +25,25 @@ public class SearchViewModel {
     // 供 PDFViewWrapper 持有引用以高亮结果
     public weak var pdfView: PDFView?
 
+    /// 带 300ms 防抖的搜索入口（绑定 keyword onChange 调用）
+    public func debouncedSearch(in document: PDFDocument) {
+        documentRef = document
+        searchTask?.cancel()
+        guard !keyword.isEmpty else {
+            results = []
+            currentIndex = 0
+            isUnsearchable = false
+            pdfView?.clearSelection()
+            pdfView?.highlightedSelections = nil
+            return
+        }
+        searchTask = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            guard !Task.isCancelled else { return }
+            performSearch(in: document)
+        }
+    }
+
     public func performSearch(in document: PDFDocument) {
         // BOUND-051：检查可搜索性
         if !service.isSearchable(document) {
@@ -37,6 +58,8 @@ public class SearchViewModel {
             pdfView?.setCurrentSelection(first, animate: true)
             pdfView?.scrollSelectionToVisible(nil)
         }
+        // Highlight all matches simultaneously
+        highlightAllMatches()
     }
 
     // API-031
@@ -61,10 +84,17 @@ public class SearchViewModel {
         currentIndex = 0
         isUnsearchable = false
         pdfView?.clearSelection()
+        pdfView?.highlightedSelections = nil
     }
 
     private func highlight(_ selection: PDFSelection) {
         pdfView?.setCurrentSelection(selection, animate: true)
         pdfView?.scrollSelectionToVisible(nil)
+    }
+
+    /// Highlight all search matches simultaneously using PDFView.highlightedSelections
+    /// Current match gets orange highlight (via currentSelection), others get yellow
+    private func highlightAllMatches() {
+        pdfView?.highlightedSelections = results
     }
 }

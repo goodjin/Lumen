@@ -51,4 +51,14 @@ public class FileService {
     public func readingState(for url: URL) -> (page: Int, zoom: Double)? {
         try? docRepo.readingState(for: url.path)
     }
+
+    // API-006: 移除单条最近文件记录
+    public func removeRecent(filePath: String) {
+        try? docRepo.remove(filePath: filePath)
+    }
+
+    // API-007: 清除全部最近文件
+    public func clearAllRecent() {
+        try? docRepo.clearAll()
+    }
 }

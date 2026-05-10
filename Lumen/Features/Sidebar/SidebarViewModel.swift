@@ -48,14 +48,14 @@ public class SidebarViewModel {
         return annotationVM.annotations.filter { $0.annotationType == filter }
     }
 
-    // API-062: 点击标注跳转
+    // API-062: 点击标注跳转（带历史记录）
     public func selectAnnotation(_ annotation: AnnotationRecord) {
-        readerVM.goToPage(annotation.pageNumber)
+        readerVM.jumpToPage(annotation.pageNumber)
     }
 
-    // API-065: 点击书签跳转
+    // API-065: 点击书签跳转（带历史记录）
     public func selectBookmark(_ bookmark: BookmarkRecord) {
-        readerVM.goToPage(bookmark.pageNumber)
+        readerVM.jumpToPage(bookmark.pageNumber)
     }
 
     // API-063: 切换书签

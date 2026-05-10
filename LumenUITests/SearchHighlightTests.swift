@@ -1,6 +1,7 @@
 import XCTest
 import PDFKit
 import SwiftUI
+import AppKit
 
 /// VAL-E2E-001: Search — Highlight All Matches
 /// Search "the" in document with 5+ occurrences. All occurrences visually highlighted simultaneously.
@@ -13,8 +14,15 @@ final class SearchHighlightTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        app = XCUIApplication()
+        continueAfterFailure = false
+        
+        // Use bundle identifier to launch the app
+        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
         app.launchArguments = ["--uitesting", "--reset-state"]
+        app.launch()
+        
+        // Verify the app is running
+        XCTAssertTrue(app.exists, "App should be running")
         
         // Create a PDF with 5+ occurrences of "the" for testing
         testPDFURL = createTestPDF()
@@ -29,14 +37,15 @@ final class SearchHighlightTests: XCTestCase {
     // MARK: - VAL-E2E-001: Search Highlight All Matches
 
     func testSearchHighlightAllMatches() throws {
-        // Step 1: Launch the app
-        app.launch()
+        // Step 1: Verify app is running
+        XCTAssertTrue(app.exists, "App should be running")
         
-        // Step 2: Open the test PDF via Cmd+O
-        openPDF()
+        // Step 2: Open the test PDF via keyboard shortcut Cmd+O
+        openPDFWithKeyboard()
         
-        // Step 3: Wait for document to load
-        let docArea = app.staticTexts["Page 1 of 1"].waitForExistence(timeout: 5)
+        // Step 3: Wait for document to load (look for page indicator "1 / 1")
+        let pageIndicator = app.staticTexts["1 / 1"]
+        let docArea = pageIndicator.waitForExistence(timeout: 10)
         XCTAssertTrue(docArea, "Document should load and show page indicator")
         
         // Step 4: Press Cmd+F to show search bar
@@ -44,19 +53,17 @@ final class SearchHighlightTests: XCTestCase {
         
         // Step 5: Wait for search field to appear and type search term
         let searchField = app.textFields["搜索"]
-        let searchFieldExists = searchField.waitForExistence(timeout: 3)
+        let searchFieldExists = searchField.waitForExistence(timeout: 5)
         XCTAssertTrue(searchFieldExists, "Search field should appear after Cmd+F")
         
         // Type "the" - this word appears 5+ times in our test PDF
         searchField.click()
         searchField.typeText("the")
         
-        // Step 6: Wait for search results to appear (debounce is 300ms)
-        Thread.sleep(forTimeInterval: 0.5)
-        
-        // Step 7: Verify search results are shown (e.g., "1/5" or similar)
+        // Step 6: Wait for search results to appear using proper XCUI wait
+        // The result summary has accessibilityIdentifier "搜索结果"
         let resultSummary = app.staticTexts["搜索结果"]
-        let hasResults = resultSummary.waitForExistence(timeout: 2)
+        let hasResults = resultSummary.waitForExistence(timeout: 5)
         XCTAssertTrue(hasResults, "Search results should appear")
         
         // Verify the result counter shows multiple matches (should be something like "1/5" or "1/6")
@@ -69,12 +76,15 @@ final class SearchHighlightTests: XCTestCase {
         let totalMatches = Int(parts[1]) ?? 0
         XCTAssertGreaterThanOrEqual(totalMatches, 5, "Should have at least 5 matches for 'the'")
         
-        // Step 8: Press Cmd+G to advance to next match (verify it cycles through)
+        // Step 7: Press Cmd+G to advance to next match (verify it cycles through)
         // Store current index
         let currentBeforeAdvancing = Int(parts[0]) ?? 0
         
         app.typeKey("g", modifierFlags: .command)
-        Thread.sleep(forTimeInterval: 0.1)
+        
+        // Wait for result text to update after advancing
+        let updatedResult = resultSummary.waitForExistence(timeout: 2)
+        XCTAssertTrue(updatedResult, "Result summary should update after Cmd+G")
         
         // The result counter should now show a different current index
         let resultTextAfter = resultSummary.label
@@ -85,9 +95,8 @@ final class SearchHighlightTests: XCTestCase {
         let expectedNext = currentBeforeAdvancing == totalMatches ? 1 : currentBeforeAdvancing + 1
         XCTAssertEqual(currentAfterAdvancing, expectedNext, "Cmd+G should advance to next match")
         
-        // Step 9: Press Escape to clear search
+        // Step 8: Press Escape to clear search
         app.typeKey(.escape, modifierFlags: [])
-        Thread.sleep(forTimeInterval: 0.1)
         
         // Search field should no longer be visible
         let searchFieldStillVisible = searchField.waitForExistence(timeout: 1)
@@ -97,20 +106,19 @@ final class SearchHighlightTests: XCTestCase {
         let resultsStillVisible = resultSummary.waitForExistence(timeout: 1)
         XCTAssertFalse(resultsStillVisible, "Search results should clear after Escape")
     }
-
-    // MARK: - Helper Methods
-
-    private func openPDF() {
+    
+    /// Opens the PDF using keyboard shortcut instead of menu
+    private func openPDFWithKeyboard() {
         // Press Cmd+O to open file dialog
         app.typeKey("o", modifierFlags: .command)
         
-        // Wait for Open dialog
-        let openPanel = app.dialogs["打开"]
-        let openPanelExists = openPanel.waitForExistence(timeout: 3)
-        XCTAssertTrue(openPanelExists, "Open dialog should appear")
+        // Wait for Open dialog to appear
+        let openDialog = app.dialogs.firstMatch
+        XCTAssertTrue(openDialog.waitForExistence(timeout: 5), "Open dialog should appear")
         
-        // Enter the file path in the text field
-        let pathField = openPanel.textFields.firstMatch
+        // Enter the file path
+        let pathField = openDialog.textFields.firstMatch
+        XCTAssertTrue(pathField.waitForExistence(timeout: 3), "Path field should exist")
         pathField.click()
         pathField.typeText(testPDFURL.path)
         

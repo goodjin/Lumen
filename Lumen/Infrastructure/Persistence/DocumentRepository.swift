@@ -70,6 +70,14 @@ public class DocumentRepository {
         }
     }
 
+    /// 清除全部最近文件记录
+    public func clearAll() throws {
+        let descriptor = FetchDescriptor<DocumentRecord>()
+        let all = try context.fetch(descriptor)
+        all.forEach { context.delete($0) }
+        try context.save()
+    }
+
     /// 获取阅读状态（上次页码和缩放）
     public func readingState(for filePath: String) throws -> (page: Int, zoom: Double)? {
         let descriptor = FetchDescriptor<DocumentRecord>(

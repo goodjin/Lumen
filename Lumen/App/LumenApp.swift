@@ -47,8 +47,31 @@ extension FocusedValues {
     }
 }
 
+struct SidebarVisibleKey: FocusedValueKey {
+    typealias Value = Binding<Bool>
+}
+
+extension FocusedValues {
+    var sidebarVisible: Binding<Bool>? {
+        get { self[SidebarVisibleKey.self] }
+        set { self[SidebarVisibleKey.self] = newValue }
+    }
+}
+
+struct DocumentViewModelKey: FocusedValueKey {
+    typealias Value = DocumentViewModel
+}
+
+extension FocusedValues {
+    var docVM: DocumentViewModel? {
+        get { self[DocumentViewModelKey.self] }
+        set { self[DocumentViewModelKey.self] = newValue }
+    }
+}
+
 extension Notification.Name {
     static let exportAnnotations = Notification.Name("exportAnnotations")
+    static let showPreferences = Notification.Name("showPreferences")
 }
 
 @main
@@ -56,39 +79,31 @@ struct PDF_VeApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     private let persistence = PersistenceController.shared
-    private let docVM: DocumentViewModel
-
-    init() {
-        let context = persistence.container.mainContext
-        let docRepo = DocumentRepository(context: context)
-        let fileService = FileService(docRepo: docRepo)
-        docVM = DocumentViewModel(fileService: fileService)
-    }
 
     var body: some Scene {
         WindowGroup {
             MainWindowView()
-                .environment(docVM)
         }
         .modelContainer(persistence.container)
         // 使用统一工具栏样式，减少标题栏高度
         .windowToolbarStyle(.unified)
         .commands {
-            PDFVeCommands(docVM: docVM)
+            PDFVeCommands()
         }
     }
 }
 
 struct PDFVeCommands: Commands {
-    let docVM: DocumentViewModel
+    @FocusedValue(\.docVM) var docVM
     @FocusedValue(\.readerVM) var readerVM
     @FocusedValue(\.searchVM) var searchVM
     @FocusedValue(\.isDistractionFree) var isDistractionFree
+    @FocusedValue(\.sidebarVisible) var sidebarVisible
 
     var body: some Commands {
         CommandGroup(replacing: .newItem) {
             Button("打开…") {
-                Task { await docVM.showOpenPanel() }
+                Task { await docVM?.showOpenPanel() }
             }
             .keyboardShortcut("o")
             Divider()
@@ -96,7 +111,7 @@ struct PDFVeCommands: Commands {
                 NotificationCenter.default.post(name: .exportAnnotations, object: nil)
             }
             .keyboardShortcut("e", modifiers: [.command, .shift])
-            .disabled(docVM.currentDocument == nil)
+            .disabled(docVM?.currentDocument == nil)
             Divider()
             Button("打印…") {
                 readerVM?.printDocument()
@@ -118,9 +133,43 @@ struct PDFVeCommands: Commands {
                 .disabled(searchVM == nil)
         }
         CommandMenu("视图") {
+            Toggle("侧栏", isOn: sidebarVisible ?? .constant(true))
+                .keyboardShortcut("t")
+                .disabled(readerVM == nil)
             Toggle("专注阅读模式", isOn: isDistractionFree ?? .constant(false))
                 .keyboardShortcut("\\")
                 .disabled(readerVM == nil)
+            Divider()
+            // 阅读模式子菜单
+            Menu("阅读模式") {
+                ForEach(ReaderViewModel.ReadingMode.allCases, id: \.self) { mode in
+                    Button {
+                        readerVM?.setReadingMode(mode)
+                    } label: {
+                        HStack {
+                            Text(mode.rawValue)
+                            if readerVM?.readingMode == mode {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+            }
+            // 显示模式子菜单
+            Menu("显示模式") {
+                ForEach(ReaderViewModel.DisplayMode.allCases, id: \.self) { mode in
+                    Button {
+                        readerVM?.setDisplayMode(mode)
+                    } label: {
+                        HStack {
+                            Text(mode.rawValue)
+                            if readerVM?.displayMode == mode {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+            }
             Divider()
             Button("实际大小") { readerVM?.setZoom(1.0) }
                 .keyboardShortcut("0", modifiers: .command)
@@ -138,6 +187,12 @@ struct PDFVeCommands: Commands {
             Button("缩小") { readerVM?.zoomOut() }
                 .keyboardShortcut("-", modifiers: .command)
                 .disabled(readerVM == nil)
+        }
+        CommandGroup(after: .appSettings) {
+            Button("偏好设置…") {
+                NotificationCenter.default.post(name: .showPreferences, object: nil)
+            }
+            .keyboardShortcut(",")
         }
     }
 }

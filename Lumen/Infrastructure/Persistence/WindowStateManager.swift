@@ -1,5 +1,6 @@
 import Foundation
 import AppKit
+import PDFVeCore
 
 /// 侧边栏标签页
 public enum SidebarTab: String, CaseIterable {
@@ -25,6 +26,9 @@ public class WindowStateManager: ObservableObject {
         static let windowX = "windowX"
         static let windowY = "windowY"
         static let lastOpenedFilePath = "lastOpenedFilePath"
+        static let autoReopenLastDocument = "autoReopenLastDocument"
+        static let defaultReadingMode = "defaultReadingMode"
+        static let defaultDisplayMode = "defaultDisplayMode"
     }
 
     public init() {}
@@ -91,6 +95,42 @@ public class WindowStateManager: ObservableObject {
     public var lastOpenedFilePath: String? {
         get { defaults.string(forKey: Keys.lastOpenedFilePath) }
         set { defaults.set(newValue, forKey: Keys.lastOpenedFilePath) }
+    }
+
+    // MARK: - 偏好设置
+
+    /// 自动恢复上次文档
+    public var autoReopenLastDocument: Bool {
+        get { defaults.object(forKey: Keys.autoReopenLastDocument) as? Bool ?? true }
+        set { defaults.set(newValue, forKey: Keys.autoReopenLastDocument) }
+    }
+
+    /// 默认阅读模式
+    public var defaultReadingMode: ReaderViewModel.ReadingMode {
+        get {
+            guard let raw = defaults.string(forKey: Keys.defaultReadingMode),
+                  let mode = ReaderViewModel.ReadingMode(rawValue: raw) else {
+                return .normal
+            }
+            return mode
+        }
+        set {
+            defaults.set(newValue.rawValue, forKey: Keys.defaultReadingMode)
+        }
+    }
+
+    /// 默认显示模式
+    public var defaultDisplayMode: ReaderViewModel.DisplayMode {
+        get {
+            guard let raw = defaults.string(forKey: Keys.defaultDisplayMode),
+                  let mode = ReaderViewModel.DisplayMode(rawValue: raw) else {
+                return .singleContinuous
+            }
+            return mode
+        }
+        set {
+            defaults.set(newValue.rawValue, forKey: Keys.defaultDisplayMode)
+        }
     }
 
     /// 保存窗口状态

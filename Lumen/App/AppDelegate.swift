@@ -10,10 +10,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        // 延迟获取窗口并恢复状态，因为 SwiftUI 窗口创建是异步的
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-            self.restoreWindowState()
+        // Check if running in UITesting mode (skip delay for faster test startup)
+        let isUITesting = ProcessInfo.processInfo.arguments.contains("--uitesting")
+        
+        if isUITesting {
+            // UITesting: restore window state immediately without delay
+            restoreWindowState()
+        } else {
+            // Normal mode: delay to allow SwiftUI window creation to complete
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+                self.restoreWindowState()
+            }
         }
     }
 
