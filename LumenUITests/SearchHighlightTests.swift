@@ -24,38 +24,14 @@ final class SearchHighlightTests: XCTestCase {
         // Verify the app is running
         XCTAssertTrue(app.exists, "App should be running")
         
-        // Wait for accessibility to be ready before interacting with UI elements.
-        // This polls for accessibility readiness instead of just checking window existence.
-        // XCTest may launch the app before the accessibility tree is fully published.
-        waitForAccessibilityReady(timeout: 30)
+        // Wait for app window to appear using proper XCUI waiting
+        // This resolves "Application has not loaded accessibility" errors by ensuring
+        // the window element exists before interacting with accessibility APIs
+        let window = app.windows.element
+        XCTAssertTrue(window.waitForExistence(timeout: 5), "App window should appear")
         
         // Create a PDF with 5+ occurrences of "the" for testing
         testPDFURL = createTestPDF()
-    }
-    
-    /// Waits for accessibility to be fully ready by polling for key UI elements.
-    /// This resolves "Application has not loaded accessibility" errors that occur
-    /// when XCTest tries to interact with UI elements before the accessibility tree
-    /// has been published.
-    private func waitForAccessibilityReady(timeout: TimeInterval = 10) {
-        let startTime = Date()
-        let pollInterval: TimeInterval = 0.5
-        
-        // First, wait for the app to be fully launched by checking if the process exists
-        while Date().timeIntervalSince(startTime) < timeout {
-            if app.exists {
-                // App process exists, now check if accessibility is ready
-                // by trying to access a basic accessibility attribute
-                let windowCount = app.windows.count
-                if windowCount > 0 {
-                    return
-                }
-            }
-            Thread.sleep(forTimeInterval: pollInterval)
-        }
-        
-        // If we timeout, the accessibility may not be working, but we continue anyway
-        // as the app launch may have succeeded
     }
 
     override func tearDown() {
