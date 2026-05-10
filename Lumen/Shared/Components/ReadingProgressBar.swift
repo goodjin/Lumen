@@ -15,5 +15,6 @@ struct ReadingProgressBar: View {
             }
         }
         .frame(height: 3)
+        .accessibilityLabel("阅读进度")
     }
 }

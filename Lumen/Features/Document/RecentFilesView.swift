@@ -12,7 +12,7 @@ struct RecentFilesView: View {
             HStack {
                 Text("Lumen")
                     .font(.largeTitle.bold())
-                    .accessibilityIdentifier("RecentFilesTitle")
+                    .accessibilityLabel("最近文件")
                 Spacer()
                 if !docVM.recentDocuments.isEmpty {
                     Button("清除列表") {
@@ -36,7 +36,7 @@ struct RecentFilesView: View {
                 ContentUnavailableView("没有最近打开的文件",
                     systemImage: "doc.text",
                     description: Text("点击「打开文件」选择 PDF"))
-                    .accessibilityIdentifier("RecentFilesEmptyState")
+                    .accessibilityLabel("没有最近打开的文件")
             } else {
                 // 最近文件列表（AC-015-01）
                 List(docVM.recentDocuments, id: \.filePath) { record in
@@ -45,6 +45,7 @@ struct RecentFilesView: View {
                         isOpening: openingFilePath == record.filePath
                     )
                     .contentShape(Rectangle())
+                    .accessibilityLabel("\(record.fileName), \(record.pageCount) 页")
                     .accessibilityIdentifier("RecentFileRow_\(record.filePath)")
                     .onTapGesture {
                         guard openingFilePath == nil else { return }
@@ -60,10 +61,11 @@ struct RecentFilesView: View {
                         }
                     }
                 }
-                .accessibilityIdentifier("RecentFilesList")
+                .accessibilityLabel("最近文件列表")
+                    .accessibilityIdentifier("RecentFilesList")
             }
         }
-        .accessibilityIdentifier("RecentFilesView")
+        .accessibilityLabel("最近文件")
         // 拖拽高亮反馈
         .overlay(
             RoundedRectangle(cornerRadius: 12)
