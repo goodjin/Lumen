@@ -3,7 +3,7 @@ import PDFKit
 import PDFVeCore
 
 struct OpenFileMenu: View {
-    @Environment(DocumentViewModel.self) var docVM
+    var docVM: DocumentViewModel?
     @State private var showNetworkDialog = false
     @State private var networkURL = ""
     @State private var showError = false
@@ -13,7 +13,7 @@ struct OpenFileMenu: View {
         Menu {
             // 打开文件
             Button(action: {
-                Task { await docVM.showOpenPanel() }
+                Task { await docVM?.showOpenPanel() }
             }) {
                 Label("打开文件...", systemImage: "doc.badge.plus")
             }
@@ -28,7 +28,7 @@ struct OpenFileMenu: View {
             Divider()
 
             // 最近文件
-            if !docVM.recentDocuments.isEmpty {
+            if let docVM = docVM, !docVM.recentDocuments.isEmpty {
                 Menu("最近文件") {
                     ForEach(docVM.recentDocuments.prefix(5), id: \.filePath) { record in
                         Button(action: {
@@ -107,7 +107,7 @@ struct OpenFileMenu: View {
             let tempURL = FileManager.default.temporaryDirectory
                 .appendingPathComponent(url.lastPathComponent)
             try data.write(to: tempURL)
-            await docVM.open(url: tempURL)
+            await docVM?.open(url: tempURL)
         } catch let urlError as URLError {
             switch urlError.code {
             case .notConnectedToInternet:

@@ -24,7 +24,7 @@ struct MainWindowView: View {
         Group {
             switch docVM?.state {
             case .idle, .none:
-                RecentFilesView()
+                RecentFilesView(docVM: docVM)
             case .loading:
                 ProgressView("正在打开…")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -219,7 +219,7 @@ struct MainWindowView: View {
                         // UI-Layout-001: 工具栏高度固定 44pt
                         // 合并主工具栏和标注工具栏到一行
                         HStack(spacing: 12) {
-                            ReaderToolbarView(readerVM: readerVM)
+                            ReaderToolbarView(readerVM: readerVM, docVM: docVM)
 
                             Divider()
 

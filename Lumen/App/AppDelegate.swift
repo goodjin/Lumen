@@ -55,15 +55,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         
         // Also post window notifications to ensure window accessibility is published
-        if let keyWindow = NSApp.keyWindow {
-            NSAccessibility.post(
-                element: keyWindow as Any,
-                notification: .windowResized
-            )
-            NSAccessibility.post(
-                element: keyWindow as Any,
-                notification: .windowMoved
-            )
+        // Only access keyWindow on main thread and check for nil
+        DispatchQueue.main.async {
+            if let keyWindow = NSApp.keyWindow {
+                NSAccessibility.post(
+                    element: keyWindow as Any,
+                    notification: .windowResized
+                )
+                NSAccessibility.post(
+                    element: keyWindow as Any,
+                    notification: .windowMoved
+                )
+            }
         }
         
         // Post application activated notification as well

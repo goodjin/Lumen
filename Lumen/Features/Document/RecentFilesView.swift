@@ -2,7 +2,7 @@ import PDFVeCore
 import SwiftUI
 
 struct RecentFilesView: View {
-    @Environment(DocumentViewModel.self) var docVM
+    var docVM: DocumentViewModel?
     @State private var openingFilePath: String? = nil
     @State private var isDropTargeted: Bool = false
 
@@ -14,7 +14,7 @@ struct RecentFilesView: View {
                     .font(.largeTitle.bold())
                     .accessibilityLabel("最近文件")
                 Spacer()
-                if !docVM.recentDocuments.isEmpty {
+                if let docVM = docVM, !docVM.recentDocuments.isEmpty {
                     Button("清除列表") {
                         docVM.clearRecentDocuments()
                     }
@@ -23,7 +23,7 @@ struct RecentFilesView: View {
                     .padding(.trailing, 8)
                 }
                 Button("打开文件…") {
-                    Task { await docVM.showOpenPanel() }
+                    Task { await docVM?.showOpenPanel() }
                 }
                 .buttonStyle(.borderedProminent)
             }
@@ -31,13 +31,13 @@ struct RecentFilesView: View {
 
             Divider()
 
-            if docVM.recentDocuments.isEmpty {
+            if let docVM = docVM, docVM.recentDocuments.isEmpty {
                 // 空状态
                 ContentUnavailableView("没有最近打开的文件",
                     systemImage: "doc.text",
                     description: Text("点击「打开文件」选择 PDF"))
                     .accessibilityLabel("没有最近打开的文件")
-            } else {
+            } else if let docVM = docVM {
                 // 最近文件列表（AC-015-01）
                 List(docVM.recentDocuments, id: \.filePath) { record in
                     RecentFileRow(
@@ -86,7 +86,7 @@ struct RecentFilesView: View {
             guard let data = item as? Data,
                   let url = URL(dataRepresentation: data, relativeTo: nil),
                   url.pathExtension.lowercased() == "pdf" else { return }
-            Task { @MainActor in await docVM.open(url: url) }
+            Task { @MainActor in await docVM?.open(url: url) }
         }
         return true
     }

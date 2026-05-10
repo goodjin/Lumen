@@ -3,6 +3,7 @@ import SwiftUI
 
 struct ReaderToolbarView: View {
     @Bindable var readerVM: ReaderViewModel
+    var docVM: DocumentViewModel?
     @State private var pageInput: String = ""
 
     // 响应式布局：根据窗口宽度决定是否显示某些元素
@@ -133,7 +134,7 @@ struct ReaderToolbarView: View {
             Spacer()
 
             // 快速打开菜单
-            OpenFileMenu()
+            OpenFileMenu(docVM: docVM)
                 .accessibilityLabel("快速打开")
         }
         .frame(height: 44)
