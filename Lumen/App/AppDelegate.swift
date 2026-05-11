@@ -60,6 +60,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             // Note: --show-search and --search are handled in MainWindowView.onChange
             // after the PDF loads, guaranteeing searchVM.pdfView is set.
+
+            // Activate the app asynchronously after a short delay — enough time for SwiftUI's
+            // WindowGroup to create the NSWindow so the app has a key window to activate.
+            // Without this, app.launch() times out waiting for runningForeground.
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+                NSApp.activate(ignoringOtherApps: true)
+            }
         }
     }
     

@@ -27,7 +27,8 @@ final class SearchHighlightTests: XCTestCase {
             "--open-pdf=\(testPDFURL.path)",
             "--show-search"
         ]
-        app.launch()
+        // Launch without waiting for foreground — NSApp.activate() in AppDelegate fires at 1s.
+        _ = app.launch()
     }
 
     override func tearDown() {
