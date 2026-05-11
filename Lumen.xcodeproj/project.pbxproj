@@ -11,6 +11,15 @@
 		193E8C08DF9E8E8FB5276C62 /* SelectionToolbarSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7C4D7E97FBB041C1D8EFF0 /* SelectionToolbarSearchTests.swift */; };
 		42DF6A0A90CB07AEA4577089 /* BookmarkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */; };
 		4D1EABD7FC62F1585FC7BBC8 /* NotePopoverAutofocusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C0E691AD9D90B6421C703 /* NotePopoverAutofocusTests.swift */; };
+		TEST0001B /* PageNavHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0001 /* PageNavHistoryTests.swift */; };
+		TEST0002B /* PrintDialogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0002 /* PrintDialogTests.swift */; };
+		TEST0003B /* DistractionFreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0003 /* DistractionFreeTests.swift */; };
+		TEST0004B /* ThumbnailCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0004 /* ThumbnailCacheTests.swift */; };
+		TEST0005B /* OutlineHighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0005 /* OutlineHighlightTests.swift */; };
+		TEST0006B /* A11yTabNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0006 /* A11yTabNavigationTests.swift */; };
+		MWBLD001 /* MultiWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = MWFIL001 /* MultiWindowTests.swift */; };
+		PPBLD001 /* PreferencesPersistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = PPFIL001 /* PreferencesPersistTests.swift */; };
+		VMBLD001 /* ViewMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = VMFIL001 /* ViewMenuTests.swift */; };
 		54AF1B403D3FA963CD5791A4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAA788FCE06BF7FC33783AF0 /* XCTest.framework */; };
 		869DB99BA224CBF78939528C /* AnnotationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */; };
 		8BAC38EBDD9AC89710D29CC4 /* DocumentRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CF10C06A56931051C1961B /* DocumentRepositoryTests.swift */; };
@@ -116,6 +125,15 @@
 /* Begin PBXFileReference section */
 		0946EE998878BE8774580180 /* FileServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FileServiceTests.swift; path = LumenTests/Services/FileServiceTests.swift; sourceTree = "<group>"; };
 		243C0E691AD9D90B6421C703 /* NotePopoverAutofocusTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NotePopoverAutofocusTests.swift; path = LumenUITests/NotePopoverAutofocusTests.swift; sourceTree = "<group>"; };
+		TEST0001 /* PageNavHistoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PageNavHistoryTests.swift; path = LumenUITests/PageNavHistoryTests.swift; sourceTree = "<group>"; };
+		TEST0002 /* PrintDialogTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PrintDialogTests.swift; path = LumenUITests/PrintDialogTests.swift; sourceTree = "<group>"; };
+		TEST0003 /* DistractionFreeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DistractionFreeTests.swift; path = LumenUITests/DistractionFreeTests.swift; sourceTree = "<group>"; };
+		TEST0004 /* ThumbnailCacheTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThumbnailCacheTests.swift; path = LumenUITests/ThumbnailCacheTests.swift; sourceTree = "<group>"; };
+		TEST0005 /* OutlineHighlightTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OutlineHighlightTests.swift; path = LumenUITests/OutlineHighlightTests.swift; sourceTree = "<group>"; };
+		TEST0006 /* A11yTabNavigationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = A11yTabNavigationTests.swift; path = LumenUITests/A11yTabNavigationTests.swift; sourceTree = "<group>"; };
+		MWFIL001 /* MultiWindowTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultiWindowTests.swift; path = LumenUITests/MultiWindowTests.swift; sourceTree = "<group>"; };
+		PPFIL001 /* PreferencesPersistTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesPersistTests.swift; path = LumenUITests/PreferencesPersistTests.swift; sourceTree = "<group>"; };
+		VMFIL001 /* ViewMenuTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewMenuTests.swift; path = LumenUITests/ViewMenuTests.swift; sourceTree = "<group>"; };
 		361289EDC1FF66611E5238E8 /* LumenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LumenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookmarkServiceTests.swift; path = LumenTests/Services/BookmarkServiceTests.swift; sourceTree = "<group>"; };
 		51C6E7B04AD6F33B12D52F52 /* SearchServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchServiceTests.swift; path = LumenTests/SearchServiceTests.swift; sourceTree = "<group>"; };
@@ -182,6 +200,9 @@
 		FAPP /* Lumen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lumen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCORE /* PDFVeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDFVeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		LumenUFIL70215254 /* SearchHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenUITests/SearchHighlightTests.swift; sourceTree = "<group>"; };
+		MWFIL001 /* MultiWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenUITests/MultiWindowTests.swift; sourceTree = "<group>"; };
+		PPFIL001 /* PreferencesPersistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenUITests/PreferencesPersistTests.swift; sourceTree = "<group>"; };
+		VMFIL001 /* ViewMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenUITests/ViewMenuTests.swift; sourceTree = "<group>"; };
 		LumenUITX11757361 /* LumenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LumenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		SIDEBARVM0011 /* SidebarViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SidebarViewModelTests.swift; path = LumenTests/Services/SidebarViewModelTests.swift; sourceTree = "<group>"; };
 		THUMB0011 /* ThumbnailProviderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThumbnailProviderTests.swift; path = LumenTests/Services/ThumbnailProviderTests.swift; sourceTree = "<group>"; };
@@ -461,6 +482,15 @@
 				D9F504D6F18B55C1AA8434B3 /* NetworkErrorTests.swift */,
 				BC7C4D7E97FBB041C1D8EFF0 /* SelectionToolbarSearchTests.swift */,
 				243C0E691AD9D90B6421C703 /* NotePopoverAutofocusTests.swift */,
+				TEST0001 /* PageNavHistoryTests.swift */,
+				TEST0002 /* PrintDialogTests.swift */,
+				TEST0003 /* DistractionFreeTests.swift */,
+				TEST0004 /* ThumbnailCacheTests.swift */,
+				TEST0005 /* OutlineHighlightTests.swift */,
+				TEST0006 /* A11yTabNavigationTests.swift */,
+				MWFIL001 /* MultiWindowTests.swift */,
+				PPFIL001 /* PreferencesPersistTests.swift */,
+				VMFIL001 /* ViewMenuTests.swift */,
 			);
 			name = LumenUITests;
 			sourceTree = "<group>";
@@ -700,6 +730,15 @@
 				18A0DD3536A3E69B986BE162 /* NetworkErrorTests.swift in Sources */,
 				193E8C08DF9E8E8FB5276C62 /* SelectionToolbarSearchTests.swift in Sources */,
 				4D1EABD7FC62F1585FC7BBC8 /* NotePopoverAutofocusTests.swift in Sources */,
+				TEST0001B /* PageNavHistoryTests.swift in Sources */,
+				TEST0002B /* PrintDialogTests.swift in Sources */,
+				TEST0003B /* DistractionFreeTests.swift in Sources */,
+				TEST0004B /* ThumbnailCacheTests.swift in Sources */,
+				TEST0005B /* OutlineHighlightTests.swift in Sources */,
+				TEST0006B /* A11yTabNavigationTests.swift in Sources */,
+				MWBLD001 /* MultiWindowTests.swift in Sources */,
+				PPBLD001 /* PreferencesPersistTests.swift in Sources */,
+				VMBLD001 /* ViewMenuTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
