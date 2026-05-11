@@ -135,6 +135,7 @@ struct ReaderToolbarView: View {
 
             // 快速打开菜单
             OpenFileMenu(docVM: docVM)
+                .accessibilityIdentifier("快速打开")
                 .accessibilityLabel("快速打开")
         }
         .frame(height: 44)
