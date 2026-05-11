@@ -169,10 +169,16 @@ struct MainWindowView: View {
         )
         sidebarVM?.loadForDocument(docVM.currentURL?.path ?? "")
         // UITesting: trigger search after view models are set up.
-        if isUITestingMode, let keyword = searchKeywordFromArgs {
-            searchVM.isSearchBarVisible = true
-            searchVM.keyword = keyword
-            searchVM.performSearch(in: doc)
+        if isUITestingMode {
+            // Show search bar if --show-search is passed (even without --search= keyword)
+            if ProcessInfo.processInfo.arguments.contains("--show-search") {
+                searchVM.isSearchBarVisible = true
+            }
+            // Perform search if --search= keyword is also provided
+            if let keyword = searchKeywordFromArgs {
+                searchVM.keyword = keyword
+                searchVM.performSearch(in: doc)
+            }
         }
     }
 

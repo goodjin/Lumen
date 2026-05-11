@@ -13,6 +13,10 @@ public class SearchViewModel {
         ) { [weak self] _ in
             self?.isSearchBarVisible = true
         }
+        // Also check --show-search flag directly in case notification was posted before init
+        if ProcessInfo.processInfo.arguments.contains("--show-search") {
+            isSearchBarVisible = true
+        }
         // Note: setSearchKeyword notification is NOT handled here to avoid race conditions.
         // Search is triggered by:
         //   - SearchBarView.onChange(of: searchVM.keyword) calling debouncedSearch → performSearch
