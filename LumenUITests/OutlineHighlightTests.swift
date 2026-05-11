@@ -1,5 +1,6 @@
 import XCTest
 import AppKit
+import PDFKit
 
 /// VAL-E2E-015: Outline — Current Section Highlighted
 /// Open PDF with outline. Navigate to page 5. Outline item for page 5 highlighted.
@@ -94,18 +95,16 @@ final class OutlineHighlightTests: XCTestCase {
 
     // MARK: - Test Fixture
 
-    /// Creates a PDF with outline/TOC structure using CGPDFDocument
+    /// Creates a PDF with outline/TOC structure
     private func createPDFWithOutline() -> URL {
         let pdfURL = FileManager.default.temporaryDirectory.appendingPathComponent("OutlineHighlightTest_\(UUID().uuidString).pdf")
 
-        // Create a 15-page PDF with outline
+        // Step 1: Use CGContext to create a valid PDF with pages
         let pdfData = NSMutableData()
-        guard let consumer = CGDataConsumer(data: pdfData as CFMutableData) else {
-            fatalError("Failed to create CGDataConsumer")
-        }
-
         var mediaBox = CGRect(x: 0, y: 0, width: 612, height: 792)
-        guard let context = CGContext(consumer: consumer, mediaBox: &mediaBox, nil) else {
+
+        guard let consumer = CGDataConsumer(data: pdfData as CFMutableData),
+              let context = CGContext(consumer: consumer, mediaBox: &mediaBox, nil) else {
             fatalError("Failed to create CGContext")
         }
 
@@ -114,15 +113,15 @@ final class OutlineHighlightTests: XCTestCase {
             context.saveGState()
 
             // White background
-            context.setFillColor(gray: 1, alpha: 1)
+            context.setFillColor(red: 1, green: 1, blue: 1, alpha: 1)
             context.fill(mediaBox)
 
-            // Page text
+            // Draw page number
             let text = "Page \(pageNum)"
             let font = CTFontCreateWithName("Helvetica" as CFString, 24, nil)
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: font,
-                .foregroundColor: CGColor(gray: 0.2, alpha: 1)
+                .foregroundColor: CGColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
             ]
             let attributedString = NSAttributedString(string: text, attributes: attributes)
             let line = CTLineCreateWithAttributedString(attributedString)
@@ -135,8 +134,38 @@ final class OutlineHighlightTests: XCTestCase {
 
         context.closePDF()
 
-        // Write to file
-        pdfData.write(to: pdfURL, atomically: true)
+        // Step 2: Read the CGContext-created PDF with PDFDocument
+        guard let pdfDocument = PDFDocument(data: pdfData as Data) else {
+            fatalError("Failed to create PDFDocument from CGContext data")
+        }
+
+        // Step 3: Add outline entries
+        let outlineRoot = PDFOutline()
+        outlineRoot.label = "Outline"
+
+        // Create outline item for page 5 (index 4)
+        if let page5 = pdfDocument.page(at: 4) {
+            let outlineItem1 = PDFOutline()
+            outlineItem1.label = "Chapter 1 - Page 5"
+            outlineItem1.destination = PDFDestination(page: page5, at: CGPoint(x: 0, y: 0))
+            outlineRoot.insertChild(outlineItem1, at: 0)
+        }
+
+        // Create outline item for page 10 (index 9)
+        if let page10 = pdfDocument.page(at: 9) {
+            let outlineItem2 = PDFOutline()
+            outlineItem2.label = "Chapter 2 - Page 10"
+            outlineItem2.destination = PDFDestination(page: page10, at: CGPoint(x: 0, y: 0))
+            outlineRoot.insertChild(outlineItem2, at: 1)
+        }
+
+        pdfDocument.outlineRoot = outlineRoot
+
+        // Step 4: Write to file
+        let success = pdfDocument.write(to: pdfURL)
+        if !success {
+            fatalError("Failed to write PDF")
+        }
 
         return pdfURL
     }
