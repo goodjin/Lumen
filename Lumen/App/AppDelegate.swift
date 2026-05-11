@@ -13,67 +13,65 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Check if running in UITesting mode (skip delay for faster test startup)
         let isUITesting = ProcessInfo.processInfo.arguments.contains("--uitesting")
         
+        // Check for --open-pdf argument (used by XCTest to open a PDF on launch)
+        let openPDFPath = ProcessInfo.processInfo.arguments
+            .first { $0.hasPrefix("--open-pdf=") }
+            .map { String($0.dropFirst("--open-pdf=".count)) }
+        
+        // Check for --show-search argument (used by XCTest to show search bar)
+        // Check for --search keyword argument (pre-fills search field with keyword)
+        // Note: both are now handled in MainWindowView after PDF loads.
+        
         if isUITesting {
-            // UITesting: wait for SwiftUI window creation before initializing accessibility
-            // This ensures the accessibility tree is published after the views exist
-            Task { @MainActor in
-                // Wait for SwiftUI views to be created
-                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-                
-                // Force accessibility tree initialization for XCTest compatibility
-                // This posts notifications that trigger SwiftUI to publish its accessibility tree
-                self.initializeAccessibility()
-                
-                // Restore window state
-                self.restoreWindowState()
+            // Disable auto-reopen so the app shows RecentFilesView instead of auto-loading a PDF.
+            WindowStateManager.shared.autoReopenLastDocument = false
+
+            // Post --open-pdf notification immediately so SwiftUI's onAppear fires after this.
+            if let path = openPDFPath {
+                let url = URL(fileURLWithPath: path)
+                NotificationCenter.default.post(name: .openPDFURL, object: url)
             }
-        } else {
-            // Normal mode: delay to allow SwiftUI window creation to complete
+
+            // Show search bar immediately if --show-search is passed.
+            let showSearch = ProcessInfo.processInfo.arguments.contains("--show-search")
+            if showSearch {
+                NotificationCenter.default.post(name: .showSearchBar, object: nil)
+            }
+
+            // Handle --trigger-search argument: post setSearchKeyword after a delay
+            // (delay ensures PDF has loaded and pdfView is set).
+            let triggerSearch = ProcessInfo.processInfo.arguments
+                .first { $0.hasPrefix("--trigger-search=") }
+                .map { String($0.dropFirst("--trigger-search=".count)) }
+            if let keyword = triggerSearch {
+                Task { @MainActor in
+                    // Wait for PDF to load + PDFViewWrapper to set pdfView.
+                    try? await Task.sleep(nanoseconds: 5_000_000_000) // 5 seconds
+                    NotificationCenter.default.post(
+                        name: Notification.Name("setSearchKeyword"),
+                        object: keyword
+                    )
+                }
+            }
+
+            // Note: --show-search and --search are handled in MainWindowView.onChange
+            // after the PDF loads, guaranteeing searchVM.pdfView is set.
+
+            // Explicitly activate the app so XCTest doesn't time out waiting for "Active" state.
+            // Delay by 2s to let SwiftUI's WindowGroup fully create the NSWindow first.
             Task { @MainActor in
-                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-                self.restoreWindowState()
+                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
+                NSApp.activate(ignoringOtherApps: true)
             }
         }
     }
     
     /// Forces the accessibility system to publish the app's accessibility tree.
-    /// This resolves "Application has not loaded accessibility" errors when XCTest
-    /// launches the app and tries to access accessibility APIs immediately.
+    /// Minimal accessibility initialization for XCTest compatibility.
+    /// Avoids aggressive NSAccessibility.post() calls that can block XCTest activation.
     private func initializeAccessibility() {
-        // Get the process identifier for the current application
-        let pid = ProcessInfo.processInfo.processIdentifier
-        
-        // Create the application accessibility element
-        // This forces the accessibility system to create the app's accessibility tree
-        let appElement = AXUIElementCreateApplication(pid)
-        
-        // Post layout changed notification to force the accessibility system to re-query the tree
-        // This is crucial for SwiftUI apps as it triggers the system to look for accessibility elements
-        NSAccessibility.post(
-            element: appElement as Any,
-            notification: .layoutChanged
-        )
-        
-        // Also post window notifications to ensure window accessibility is published
-        // Only access keyWindow on main thread and check for nil
-        DispatchQueue.main.async {
-            if let keyWindow = NSApp.keyWindow {
-                NSAccessibility.post(
-                    element: keyWindow as Any,
-                    notification: .windowResized
-                )
-                NSAccessibility.post(
-                    element: keyWindow as Any,
-                    notification: .windowMoved
-                )
-            }
-        }
-        
-        // Post application activated notification as well
-        NSAccessibility.post(
-            element: NSApp as Any,
-            notification: .applicationActivated
-        )
+        // Just access keyWindow to publish accessibility tree without posting notifications
+        _ = NSApp.keyWindow
     }
 
     func applicationWillTerminate(_ notification: Notification) {

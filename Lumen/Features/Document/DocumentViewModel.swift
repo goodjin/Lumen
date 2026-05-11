@@ -1,25 +1,63 @@
 import PDFKit
 import SwiftUI
+import Combine
 
 public extension Notification.Name {
     static let openPDFURL = Notification.Name("openPDFURL")
     static let restoreReadingState = Notification.Name("restoreReadingState")
+    /// Posted when a PDF document finishes loading successfully.
+    static let documentDidLoad = Notification.Name("documentDidLoad")
 }
 
 @MainActor
 @Observable
-public class DocumentViewModel {
+public class DocumentViewModel: Equatable {
+    public static func == (lhs: DocumentViewModel, rhs: DocumentViewModel) -> Bool {
+        lhs.state.isEqual(to: rhs.state)
+    }
+
     private let fileService: FileService
 
-    // 文档状态（STATE-001）
+    // MARK: - Document State
+
+    /// Document state (STATE-001)
     public enum DocumentState {
         case idle
         case loading
         case loaded(PDFDocument, URL)
         case error(Error)
+
+        public func isEqual(to other: DocumentState) -> Bool {
+            switch (self, other) {
+            case (.idle, .idle): return true
+            case (.loading, .loading): return true
+            case (.loaded, .loaded): return true
+            case (.error, .error): return true
+            default: return false
+            }
+        }
     }
 
-    public var state: DocumentState = .idle
+    public var state: DocumentState = .idle {
+        didSet {
+            if case .loaded(let doc, _) = state {
+                loadedDocument = doc
+                onDocumentLoaded?(doc)
+                NotificationCenter.default.post(
+                    name: .documentDidLoad,
+                    object: nil,
+                    userInfo: ["document": doc]
+                )
+            }
+        }
+    }
+
+    /// Set by MainWindowView to observe when PDF finishes loading.
+    public var onDocumentLoaded: ((PDFDocument) -> Void)?
+
+    /// Triggers onChange in SwiftUI views when PDF loads.
+    public var loadedDocument: PDFDocument?
+
     public var recentDocuments: [DocumentRecord] = []
     public var currentURL: URL? {
         if case .loaded(_, let url) = state { return url }
@@ -43,7 +81,9 @@ public class DocumentViewModel {
         }
     }
 
-    // 打开文件（菜单/拖拽调用）
+    // MARK: - File Operations
+
+    /// Open a PDF file (API-001)
     public func open(url: URL) async {
         state = .loading
         do {
@@ -51,11 +91,7 @@ public class DocumentViewModel {
             state = .loaded(doc, url)
             recentDocuments = fileService.recentDocuments()
             updateWindowTitle()
-
-            // 保存最后打开的文件路径（用于自动恢复）
             WindowStateManager.shared.lastOpenedFilePath = url.path
-
-            // T-02-04b: 读取并应用阅读位置（Rule-002）
             if let readingState = fileService.readingState(for: url) {
                 NotificationCenter.default.post(
                     name: .restoreReadingState,
@@ -68,7 +104,7 @@ public class DocumentViewModel {
         }
     }
 
-    // 打开最近文件
+    /// Open a recent document (API-004)
     public func openRecent(_ record: DocumentRecord) async {
         state = .loading
         do {
@@ -79,11 +115,11 @@ public class DocumentViewModel {
             updateWindowTitle()
         } catch {
             state = .error(error)
-            recentDocuments = fileService.recentDocuments() // 刷新（失效记录已移除）
+            recentDocuments = fileService.recentDocuments()
         }
     }
 
-    // 关闭文档（保存阅读状态，Rule-002）
+    /// Close the current document (API-002)
     public func close(currentPage: Int, zoomLevel: Double) {
         if let url = currentURL {
             fileService.closeDocument(at: url, currentPage: currentPage, zoomLevel: zoomLevel)
@@ -92,14 +128,14 @@ public class DocumentViewModel {
         updateWindowTitle()
     }
 
-    // 保存当前阅读状态（不改变文档状态，用于切换文档前保存）
+    /// Save reading state without closing document
     public func saveReadingState(currentPage: Int, zoomLevel: Double) {
         if let url = currentURL {
             fileService.closeDocument(at: url, currentPage: currentPage, zoomLevel: zoomLevel)
         }
     }
 
-    // 显示文件选择对话框
+    /// Show open panel (API-001)
     public func showOpenPanel() async {
         let panel = NSOpenPanel()
         panel.allowedContentTypes = [.pdf]
@@ -110,20 +146,20 @@ public class DocumentViewModel {
         await open(url: url)
     }
 
-    // 移除单条最近文件记录
+    /// Remove a recent document record
     public func removeRecent(_ record: DocumentRecord) {
         try? fileService.removeRecent(filePath: record.filePath)
         recentDocuments = fileService.recentDocuments()
     }
 
-    // 清除全部最近文件
+    /// Clear all recent documents
     public func clearRecentDocuments() {
         fileService.clearAllRecent()
         recentDocuments = []
     }
 
-    // 更新窗口标题
-    public func updateWindowTitle() {
+    /// Update window title
+    private func updateWindowTitle() {
         if case .loaded(_, let url) = state {
             NSApp.keyWindow?.title = "Lumen - \(url.lastPathComponent)"
         } else {

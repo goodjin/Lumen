@@ -116,30 +116,24 @@ public class ReaderViewModel {
         let doc = self.pdfView?.document ?? PDFViewRegistry.shared.currentDocument
 
         let docPageCount = doc?.pageCount ?? totalPages
-        print(">>> goToPage called: \(pageNumber), docPageCount: \(docPageCount), pdfView: \(targetPDFView == nil ? "nil" : "set")")
 
         guard docPageCount > 0 else {
-            print(">>> goToPage failed: docPageCount is 0")
             return
         }
 
         let clamped = max(1, min(pageNumber, docPageCount))
-        print(">>> goToPage clamped: \(clamped)")
 
         guard let pdfView = targetPDFView else {
             // 无 PDFView 时仍更新内部状态，保持 state 一致
-            print(">>> goToPage failed: pdfView is nil, updating currentPage internally")
             currentPage = clamped
             return
         }
 
         guard let page = pdfView.document?.page(at: clamped - 1) else {
-            print(">>> goToPage failed: cannot get page at index \(clamped - 1)")
             currentPage = clamped
             return
         }
 
-        print(">>> goToPage executing: go(to: page \(clamped))")
         pdfView.go(to: page)
         // 同步更新 currentPage
         currentPage = clamped

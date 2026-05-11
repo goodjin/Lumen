@@ -72,6 +72,7 @@ extension FocusedValues {
 extension Notification.Name {
     static let exportAnnotations = Notification.Name("exportAnnotations")
     static let showPreferences = Notification.Name("showPreferences")
+    static let showSearchBar = Notification.Name("showSearchBar")
 }
 
 @main

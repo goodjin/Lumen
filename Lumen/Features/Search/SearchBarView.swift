@@ -19,6 +19,7 @@ struct SearchBarView: View {
                 .onChange(of: searchVM.keyword) {
                     searchVM.debouncedSearch(in: document)
                 }
+                .accessibilityIdentifier("SearchField")
                 .accessibilityLabel("搜索")
 
             // 结果数量（AC-005-03）
@@ -27,6 +28,7 @@ struct SearchBarView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .frame(width: 50)
+                    .accessibilityIdentifier("SearchResultCount")
                     .accessibilityLabel("搜索结果")
             }
 

@@ -4,7 +4,20 @@ import SwiftUI
 @MainActor
 @Observable
 public class SearchViewModel {
-    public init() {}
+    public init() {
+        // Listen for showSearchBar notification (triggered by --show-search launch argument)
+        NotificationCenter.default.addObserver(
+            forName: Notification.Name("showSearchBar"),
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.isSearchBarVisible = true
+        }
+        // Note: setSearchKeyword notification is NOT handled here to avoid race conditions.
+        // Search is triggered by:
+        //   - SearchBarView.onChange(of: searchVM.keyword) calling debouncedSearch → performSearch
+        //   - MainWindowView.handleDocumentLoaded calling performSearch directly (UITesting)
+    }
     private let service = SearchService()
     private var searchTask: Task<Void, Never>?
     private var documentRef: PDFDocument?

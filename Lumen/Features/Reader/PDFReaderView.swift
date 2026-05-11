@@ -6,11 +6,12 @@ struct PDFReaderView: View {
     let document: PDFDocument
     @Bindable var readerVM: ReaderViewModel
     var annotationVM: AnnotationViewModel?
+    var searchVM: SearchViewModel?
     var onSearchSelection: ((String) -> Void)? = nil
 
     var body: some View {
         ZStack {
-            PDFViewWrapper(document: document, readerVM: readerVM, annotationVM: annotationVM)
+            PDFViewWrapper(document: document, readerVM: readerVM, annotationVM: annotationVM, searchVM: searchVM)
                 // 触控板捏合缩放（AC-003-05）
                 .gesture(
                     MagnifyGesture()

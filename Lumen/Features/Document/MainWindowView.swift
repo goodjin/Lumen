@@ -11,6 +11,20 @@ struct MainWindowView: View {
     @State private var readerVM = ReaderViewModel()
     @State private var outlineVM = OutlineViewModel()
     @State private var searchVM = SearchViewModel()
+    /// Fires when documentDidLoad notification is received.
+    /// Used to reliably trigger onChange even with @Observable classes.
+    @State private var documentLoadTrigger: Int = 0
+    /// Cached search keyword from --search launch argument (for UITesting).
+    @State private var searchKeywordFromArgs: String? = {
+        let isUITesting = ProcessInfo.processInfo.arguments.contains("--uitesting")
+        return isUITesting
+            ? ProcessInfo.processInfo.arguments.first { $0.hasPrefix("--search=") }.map { String($0.dropFirst("--search=".count)) }
+            : nil
+    }()
+    /// Whether UITesting mode is active.
+    @State private var isUITestingMode: Bool = {
+        ProcessInfo.processInfo.arguments.contains("--uitesting")
+    }()
     @State private var annotationVM: AnnotationViewModel?
     @State private var sidebarVM: SidebarViewModel?
     @State private var isSidebarVisible = true
@@ -64,31 +78,22 @@ struct MainWindowView: View {
         .sheet(isPresented: $showPreferences) {
             PreferencesView(isPresented: $showPreferences)
         }
-        .onChange(of: docVM?.currentDocument) { _, newDoc in
-            if let doc = newDoc, let url = docVM?.currentURL {
-                readerVM = ReaderViewModel()
-                readerVM.clearHistory()
-                // 应用默认阅读模式和显示模式
-                readerVM.readingMode = WindowStateManager.shared.defaultReadingMode
-                readerVM.displayMode = WindowStateManager.shared.defaultDisplayMode
-                outlineVM = OutlineViewModel()
-                outlineVM.loadOutline(from: doc)
-                searchVM = SearchViewModel()
-                let annRepo = AnnotationRepository(context: modelContext)
-                let annService = AnnotationService(repo: annRepo)
-                let annVM = AnnotationViewModel(service: annService, repo: annRepo)
-                annVM.loadAnnotations(for: url.path)
-                annotationVM = annVM
-                // SidebarViewModel（P-08）
-                let bookmarkRepo = BookmarkRepository(context: modelContext)
-                let bookmarkSvc = BookmarkService(repository: bookmarkRepo)
-                sidebarVM = SidebarViewModel(
-                    bookmarkService: bookmarkSvc,
-                    readerVM: readerVM,
-                    annotationVM: annVM
-                )
-                sidebarVM?.loadForDocument(url.path)
+        .onReceive(NotificationCenter.default.publisher(for: .documentDidLoad)) { _ in
+            documentLoadTrigger += 1
+        }
+        // onChange fires when documentLoadTrigger changes (from 0 to 1+).
+        .onChange(of: documentLoadTrigger) { oldValue, newValue in
+            onDocumentLoadTriggerChanged(old: oldValue, new: newValue)
+        }
+        // Also handle initial idle state when docVM is first set.
+        .onChange(of: docVM) { oldDoc, newDoc in
+            if newDoc != nil {
+                // docVM was set to an instance — set up observer for document load.
+                newDoc?.onDocumentLoaded = { [self] _ in
+                    documentLoadTrigger += 1
+                }
             } else {
+                // docVM was set to nil — idle state, reset view models.
                 readerVM = ReaderViewModel()
                 outlineVM = OutlineViewModel()
                 searchVM = SearchViewModel()
@@ -97,7 +102,6 @@ struct MainWindowView: View {
                 Task { await thumbnailProvider.clearCache() }
             }
         }
-        // Cmd+T 侧栏显隐（AC-004-06）
         .onKeyPress(.init("t"), phases: .down) { event in
             guard event.modifiers.contains(.command) else { return .ignored }
             isSidebarVisible.toggle()
@@ -136,24 +140,39 @@ struct MainWindowView: View {
         }
         // 导出标注（AC-016-01~04）
         .onReceive(NotificationCenter.default.publisher(for: .exportAnnotations)) { _ in
-            guard case .loaded(_, let url) = docVM?.state,
-                  annotationVM != nil else { return }
-            let panel = NSSavePanel()
-            panel.allowedContentTypes = [.plainText]
-            panel.nameFieldStringValue = url.deletingPathExtension().lastPathComponent + "-标注"
-            Task {
-                guard await panel.beginSheetModal(for: NSApp.keyWindow!) == .OK,
-                      let saveURL = panel.url else { return }
-                let annRepo = AnnotationRepository(context: modelContext)
-                let exportSvc = ExportService(annotationRepo: annRepo)
-                do {
-                    try exportSvc.exportToFile(for: url.path, saveTo: saveURL)
-                } catch ExportError.noAnnotations {
-                    showAlert(message: "当前文档无标注内容")
-                } catch {
-                    showAlert(message: error.localizedDescription)
-                }
-            }
+            guard let url = docVM?.currentURL, annotationVM != nil else { return }
+            exportAnnotations(to: url)
+        }
+    }
+
+    /// Called when documentLoadTrigger changes.
+    private func onDocumentLoadTriggerChanged(old: Int, new: Int) {
+        guard new > old, let docVM = docVM, let doc = docVM.loadedDocument else { return }
+        // Set up view models for the loaded document.
+        readerVM = ReaderViewModel()
+        readerVM.clearHistory()
+        readerVM.readingMode = WindowStateManager.shared.defaultReadingMode
+        readerVM.displayMode = WindowStateManager.shared.defaultDisplayMode
+        outlineVM = OutlineViewModel()
+        outlineVM.loadOutline(from: doc)
+        let annRepo = AnnotationRepository(context: modelContext)
+        let annService = AnnotationService(repo: annRepo)
+        let annVM = AnnotationViewModel(service: annService, repo: annRepo)
+        annVM.loadAnnotations(for: docVM.currentURL?.path ?? "")
+        annotationVM = annVM
+        let bookmarkRepo = BookmarkRepository(context: modelContext)
+        let bookmarkSvc = BookmarkService(repository: bookmarkRepo)
+        sidebarVM = SidebarViewModel(
+            bookmarkService: bookmarkSvc,
+            readerVM: readerVM,
+            annotationVM: annVM
+        )
+        sidebarVM?.loadForDocument(docVM.currentURL?.path ?? "")
+        // UITesting: trigger search after view models are set up.
+        if isUITestingMode, let keyword = searchKeywordFromArgs {
+            searchVM.isSearchBarVisible = true
+            searchVM.keyword = keyword
+            searchVM.performSearch(in: doc)
         }
     }
 
@@ -163,15 +182,12 @@ struct MainWindowView: View {
             if isDistractionFree {
                 // 专注模式：只显示 PDF 内容 + 浮动退出按钮
                 ZStack(alignment: .topTrailing) {
-                    PDFReaderView(document: doc, readerVM: readerVM, annotationVM: annotationVM, onSearchSelection: { text in
+                    PDFReaderView(document: doc, readerVM: readerVM, annotationVM: annotationVM, searchVM: searchVM, onSearchSelection: { text in
                         searchVM.keyword = text
                         searchVM.isSearchBarVisible = true
                         searchVM.performSearch(in: doc)
                     })
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .onAppear {
-                            searchVM.pdfView = readerVM.pdfView
-                        }
                         .onReceive(NotificationCenter.default.publisher(for: .restoreReadingState)) { notification in
                             if let page = notification.userInfo?["page"] as? Int {
                                 readerVM.goToPage(page)
@@ -278,7 +294,7 @@ struct MainWindowView: View {
 
                         // PDF 阅读区 - 撑满剩余高度
                         ZStack(alignment: .bottom) {
-                            PDFReaderView(document: doc, readerVM: readerVM, annotationVM: annotationVM, onSearchSelection: { text in
+                            PDFReaderView(document: doc, readerVM: readerVM, annotationVM: annotationVM, searchVM: searchVM, onSearchSelection: { text in
                                 searchVM.keyword = text
                                 searchVM.isSearchBarVisible = true
                                 searchVM.performSearch(in: doc)
@@ -358,5 +374,66 @@ struct MainWindowView: View {
         alert.alertStyle = .warning
         alert.addButton(withTitle: "确定")
         alert.runModal()
+    }
+
+    /// Called when a PDF document finishes loading. Sets up view models and handles UITesting.
+    /// This runs inside the SwiftUI view hierarchy so searchVM.pdfView is guaranteed to be set.
+    private mutating func handleDocumentLoaded(doc: PDFDocument, docVM: DocumentViewModel) {
+        // Set up view models for the loaded document.
+        readerVM = ReaderViewModel()
+        readerVM.clearHistory()
+        readerVM.readingMode = WindowStateManager.shared.defaultReadingMode
+        readerVM.displayMode = WindowStateManager.shared.defaultDisplayMode
+        outlineVM = OutlineViewModel()
+        outlineVM.loadOutline(from: doc)
+        let annRepo = AnnotationRepository(context: modelContext)
+        let annService = AnnotationService(repo: annRepo)
+        let annVM = AnnotationViewModel(service: annService, repo: annRepo)
+        annVM.loadAnnotations(for: docVM.currentURL?.path ?? "")
+        annotationVM = annVM
+        let bookmarkRepo = BookmarkRepository(context: modelContext)
+        let bookmarkSvc = BookmarkService(repository: bookmarkRepo)
+        sidebarVM = SidebarViewModel(
+            bookmarkService: bookmarkSvc,
+            readerVM: readerVM,
+            annotationVM: annVM
+        )
+        sidebarVM?.loadForDocument(docVM.currentURL?.path ?? "")
+
+        // UITesting: show search bar and optionally run search.
+        let isUITesting = ProcessInfo.processInfo.arguments.contains("--uitesting")
+        let searchKeyword = ProcessInfo.processInfo.arguments
+            .first { $0.hasPrefix("--search=") }
+            .map { String($0.dropFirst("--search=".count)) }
+
+        if isUITesting {
+            searchVM.isSearchBarVisible = true
+            if let keyword = searchKeywordFromArgs {
+                searchVM.keyword = keyword
+                searchVM.performSearch(in: doc)
+            }
+        }
+    }
+
+    /// Export annotations to a text file.
+    @MainActor
+    private func exportAnnotations(to url: URL) {
+        let fileName = url.deletingPathExtension().lastPathComponent + "-标注"
+        let panel = NSSavePanel()
+        panel.allowedContentTypes = [.plainText]
+        panel.nameFieldStringValue = fileName
+        Task {
+            let response = await panel.beginSheetModal(for: NSApp.keyWindow!)
+            guard response == .OK, let saveURL = panel.url else { return }
+            let annRepo = AnnotationRepository(context: modelContext)
+            let exportSvc = ExportService(annotationRepo: annRepo)
+            do {
+                try exportSvc.exportToFile(for: url.path, saveTo: saveURL)
+            } catch ExportError.noAnnotations {
+                self.showAlert(message: "当前文档无标注内容")
+            } catch {
+                self.showAlert(message: error.localizedDescription)
+            }
+        }
     }
 }

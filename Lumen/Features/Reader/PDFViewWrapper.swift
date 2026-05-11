@@ -9,9 +9,9 @@ struct PDFViewWrapper: NSViewRepresentable {
     let document: PDFDocument
     @Bindable var readerVM: ReaderViewModel
     var annotationVM: AnnotationViewModel?
+    var searchVM: SearchViewModel?
 
     func makeNSView(context: Context) -> PDFView {
-        print(">>> PDFViewWrapper.makeNSView called, document pages: \(document.pageCount)")
         pdfWrapperLogger.info("makeNSView called, document pages: \(document.pageCount)")
         let pdfView = PDFView()
         pdfView.document = document
@@ -21,6 +21,11 @@ struct PDFViewWrapper: NSViewRepresentable {
         pdfView.wantsLayer = true  // 启用 layer 以支持 CIFilter
         // 将 pdfView 引用传给 ViewModel
         readerVM.pdfView = pdfView
+        // Set searchVM.pdfView here so it's guaranteed to be set before any search runs.
+        // Previously this was done in PDFReaderView.onAppear, but that fired before
+        // makeNSView completed, leaving pdfView nil at search time.
+        searchVM?.pdfView = pdfView
+        pdfWrapperLogger.info("makeNSView: pdfView set on searchVM, document pages=\(document.pageCount)")
         readerVM.totalPages = document.pageCount
         // 应用当前阅读模式和显示模式
         readerVM.setReadingMode(readerVM.readingMode)
@@ -53,7 +58,6 @@ struct PDFViewWrapper: NSViewRepresentable {
         if pdfView.document !== document {
             pdfView.document = document
             PDFViewRegistry.shared.register(pdfView, document: document)
-            print(">>> PDFViewWrapper.updateNSView: document updated, pages: \(document.pageCount)")
         }
         // 更新缩放
         if abs(pdfView.scaleFactor - readerVM.zoomLevel) > 0.001 {
