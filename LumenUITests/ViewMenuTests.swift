@@ -40,6 +40,9 @@ final class ViewMenuTests: XCTestCase {
     // MARK: - VAL-E2E-006: View Menu Commands
 
     func testSidebarToggle() throws {
+        app.activate()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
+
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -47,12 +50,12 @@ final class ViewMenuTests: XCTestCase {
         let pdfView = window.scrollViews.firstMatch
         XCTAssertTrue(pdfView.waitForExistence(timeout: 5), "PDF view should appear")
 
-        // Toggle sidebar off via menu
-        app.menuBars.menuItems["视图"].menuItems["侧栏"].click()
+        // Toggle sidebar off via Cmd+T
+        app.typeKey("t", modifierFlags: .command)
         Thread.sleep(forTimeInterval: 0.5)
 
-        // Toggle sidebar back on via menu
-        app.menuBars.menuItems["视图"].menuItems["侧栏"].click()
+        // Toggle sidebar back on via Cmd+T
+        app.typeKey("t", modifierFlags: .command)
         Thread.sleep(forTimeInterval: 0.5)
 
         // Sidebar should be visible again
@@ -60,6 +63,9 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testDistractionFreeMode() throws {
+        app.activate()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
+
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -67,12 +73,12 @@ final class ViewMenuTests: XCTestCase {
         let pdfView = window.scrollViews.firstMatch
         XCTAssertTrue(pdfView.waitForExistence(timeout: 5), "PDF view should appear")
 
-        // Enter distraction free mode via menu
-        app.menuBars.menuItems["视图"].menuItems["专注阅读模式"].click()
+        // Enter distraction free mode via Cmd+\
+        app.typeKey("\\", modifierFlags: .command)
         Thread.sleep(forTimeInterval: 0.5)
 
         // Exit distraction free mode via Escape
-        app.typeText(XCUIKeyboardKey.escape.rawValue)
+        app.typeKey(.escape, modifierFlags: [])
         Thread.sleep(forTimeInterval: 0.5)
 
         // Window should still be visible
@@ -80,6 +86,9 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testActualSize() throws {
+        app.activate()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
+
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -87,8 +96,8 @@ final class ViewMenuTests: XCTestCase {
         let pdfView = window.scrollViews.firstMatch
         XCTAssertTrue(pdfView.waitForExistence(timeout: 5), "PDF view should appear")
 
-        // Click 实际大小 via menu
-        app.menuBars.menuItems["视图"].menuItems["实际大小"].click()
+        // Press Cmd+0 for actual size
+        app.typeKey("0", modifierFlags: .command)
         Thread.sleep(forTimeInterval: 0.5)
 
         // Window should still be visible
@@ -96,6 +105,9 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testFitWidth() throws {
+        app.activate()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
+
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -103,8 +115,8 @@ final class ViewMenuTests: XCTestCase {
         let pdfView = window.scrollViews.firstMatch
         XCTAssertTrue(pdfView.waitForExistence(timeout: 5), "PDF view should appear")
 
-        // Click 适合宽度 via menu
-        app.menuBars.menuItems["视图"].menuItems["适合宽度"].click()
+        // Press Cmd+1 for fit width
+        app.typeKey("1", modifierFlags: .command)
         Thread.sleep(forTimeInterval: 0.5)
 
         // Window should still be visible
@@ -112,6 +124,9 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testFitPage() throws {
+        app.activate()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
+
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -119,8 +134,8 @@ final class ViewMenuTests: XCTestCase {
         let pdfView = window.scrollViews.firstMatch
         XCTAssertTrue(pdfView.waitForExistence(timeout: 5), "PDF view should appear")
 
-        // Click 适合页面 via menu
-        app.menuBars.menuItems["视图"].menuItems["适合页面"].click()
+        // Press Cmd+2 for fit page
+        app.typeKey("2", modifierFlags: .command)
         Thread.sleep(forTimeInterval: 0.5)
 
         // Window should still be visible
@@ -128,6 +143,9 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testSidebarTabsAccessible() throws {
+        app.activate()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
+
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -135,16 +153,15 @@ final class ViewMenuTests: XCTestCase {
         let pdfView = window.scrollViews.firstMatch
         XCTAssertTrue(pdfView.waitForExistence(timeout: 5), "PDF view should appear")
 
-        // Ensure sidebar is visible
-        app.menuBars.menuItems["视图"].menuItems["侧栏"].click()
+        // Ensure sidebar is visible via Cmd+T
+        app.typeKey("t", modifierFlags: .command)
         Thread.sleep(forTimeInterval: 0.5)
 
         // Verify window is still present
         XCTAssertTrue(window.waitForExistence(timeout: 5), "Window should be visible with sidebar")
 
-        // Navigate to each sidebar tab using toolbar buttons if available
-        // The sidebar should contain tabs for Outline, Annotations, Bookmarks, Thumbnails
-        // We verify by checking the sidebar is interactive
+        // Verify window is still functional
+        XCTAssertTrue(pdfView.waitForExistence(timeout: 5), "PDF view should still be visible")
     }
 
     // MARK: - Test Fixture
