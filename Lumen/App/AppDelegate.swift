@@ -26,10 +26,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Disable auto-reopen so the app shows RecentFilesView instead of auto-loading a PDF.
             WindowStateManager.shared.autoReopenLastDocument = false
 
-            // Post --open-pdf notification immediately so SwiftUI's onAppear fires after this.
+            // Post --open-pdf notification after a short delay so that MainWindowView.onAppear
+            // has time to create the DocumentViewModel first. Without the delay, the notification
+            // fires before docVM exists and the PDF open request is silently dropped.
             if let path = openPDFPath {
                 let url = URL(fileURLWithPath: path)
-                NotificationCenter.default.post(name: .openPDFURL, object: url)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    NotificationCenter.default.post(name: .openPDFURL, object: url)
+                }
             }
 
             // Show search bar immediately if --show-search is passed.
@@ -56,13 +60,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             // Note: --show-search and --search are handled in MainWindowView.onChange
             // after the PDF loads, guaranteeing searchVM.pdfView is set.
-
-            // Explicitly activate the app so XCTest doesn't time out waiting for "Active" state.
-            // Delay by 2s to let SwiftUI's WindowGroup fully create the NSWindow first.
-            Task { @MainActor in
-                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
-                NSApp.activate(ignoringOtherApps: true)
-            }
         }
     }
     

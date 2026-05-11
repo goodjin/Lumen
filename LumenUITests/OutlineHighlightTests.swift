@@ -36,6 +36,9 @@ final class OutlineHighlightTests: XCTestCase {
     // MARK: - VAL-E2E-015: Outline Highlight
 
     func testOutlineHighlightFollowsCurrentPage() throws {
+        app.activate()
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
+
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 
