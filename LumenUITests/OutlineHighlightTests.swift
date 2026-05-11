@@ -95,11 +95,12 @@ final class OutlineHighlightTests: XCTestCase {
 
     // MARK: - Test Fixture
 
-    /// Creates a PDF with outline/TOC structure
+    /// Creates a PDF with outline/TOC structure.
+    /// Uses CGContext to create pages, then PDFKit to add outline entries.
     private func createPDFWithOutline() -> URL {
         let pdfURL = FileManager.default.temporaryDirectory.appendingPathComponent("OutlineHighlightTest_\(UUID().uuidString).pdf")
 
-        // Step 1: Use CGContext to create a valid PDF with pages
+        // Step 1: Create PDF with 15 pages using CGContext
         let pdfData = NSMutableData()
         var mediaBox = CGRect(x: 0, y: 0, width: 612, height: 792)
 
@@ -134,7 +135,7 @@ final class OutlineHighlightTests: XCTestCase {
 
         context.closePDF()
 
-        // Step 2: Read the CGContext-created PDF with PDFDocument
+        // Step 2: Load into PDFDocument
         guard let pdfDocument = PDFDocument(data: pdfData as Data) else {
             fatalError("Failed to create PDFDocument from CGContext data")
         }
