@@ -7,7 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		/* PDFVeCore framework build files (sources) */
+		18A0DD3536A3E69B986BE162 /* NetworkErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F504D6F18B55C1AA8434B3 /* NetworkErrorTests.swift */; };
+		193E8C08DF9E8E8FB5276C62 /* SelectionToolbarSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7C4D7E97FBB041C1D8EFF0 /* SelectionToolbarSearchTests.swift */; };
+		42DF6A0A90CB07AEA4577089 /* BookmarkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */; };
+		4D1EABD7FC62F1585FC7BBC8 /* NotePopoverAutofocusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C0E691AD9D90B6421C703 /* NotePopoverAutofocusTests.swift */; };
+		54AF1B403D3FA963CD5791A4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAA788FCE06BF7FC33783AF0 /* XCTest.framework */; };
+		869DB99BA224CBF78939528C /* AnnotationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */; };
+		8BAC38EBDD9AC89710D29CC4 /* DocumentRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CF10C06A56931051C1961B /* DocumentRepositoryTests.swift */; };
+		A001 /* LumenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001 /* LumenApp.swift */; };
+		A002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F002 /* AppDelegate.swift */; };
+		A003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003 /* ContentView.swift */; };
+		A017 /* RecentFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F017 /* RecentFilesView.swift */; };
+		A018 /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F018 /* MainWindowView.swift */; };
+		A020 /* PDFViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020 /* PDFViewWrapper.swift */; };
+		A021 /* PDFReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F021 /* PDFReaderView.swift */; };
+		A022 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F022 /* ToolbarView.swift */; };
+		A024 /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024 /* OutlineView.swift */; };
+		A025 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025 /* SidebarView.swift */; };
+		A028 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028 /* SearchBarView.swift */; };
+		A031 /* AnnotationOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F031 /* AnnotationOverlayView.swift */; };
+		A032 /* AnnotationToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032 /* AnnotationToolbar.swift */; };
+		A034 /* AnnotationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F034 /* AnnotationListView.swift */; };
+		A035 /* BookmarkListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F035 /* BookmarkListView.swift */; };
+		A036 /* ThumbnailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F036 /* ThumbnailGridView.swift */; };
+		A040 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F040 /* PDFKit.framework */; };
+		A041 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F041 /* SwiftData.framework */; };
+		A042 /* PageNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F042 /* PageNavigationView.swift */; };
+		A043 /* OpenFileMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044 /* OpenFileMenu.swift */; };
+		A050 /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050 /* StatusBarView.swift */; };
+		A051 /* ReadingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F051 /* ReadingProgressBar.swift */; };
+		A052 /* DocumentInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F052 /* DocumentInfoView.swift */; };
+		A053 /* SelectionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053 /* SelectionToolbar.swift */; };
+		A054 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F054 /* PreferencesView.swift */; };
+		A15B2238319CE8943514C212 /* DragDropTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F022DA79ACF876FD41098276 /* DragDropTests.swift */; };
+		AABBCCDDEEFF0012 /* AnnotationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCCDDEEFF0011 /* AnnotationViewModelTests.swift */; };
+		AABBCCDDEEFF0015 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCCDDEEFF0016 /* SearchViewModelTests.swift */; };
 		C001 /* AnnotationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F004 /* AnnotationTypes.swift */; };
 		C002 /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F005 /* FileError.swift */; };
 		C003 /* OutlineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006 /* OutlineItem.swift */; };
@@ -32,66 +66,29 @@
 		C022 /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F039 /* ThumbnailProvider.swift */; };
 		C023 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F033 /* ExportService.swift */; };
 		C024 /* WindowStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F043 /* WindowStateManager.swift */; };
-		/* PDFKit and SwiftData in PDFVeCore */
 		C030 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F040 /* PDFKit.framework */; };
 		C031 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F041 /* SwiftData.framework */; };
-		/* PDFVeCore.framework embedded in app */
 		C040 /* PDFVeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; };
 		C041 /* PDFVeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		/* App-only sources */
-		A001 /* LumenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F001 /* LumenApp.swift */; };
-		A002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F002 /* AppDelegate.swift */; };
-		A003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F003 /* ContentView.swift */; };
-		A017 /* RecentFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F017 /* RecentFilesView.swift */; };
-		A018 /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F018 /* MainWindowView.swift */; };
-		A020 /* PDFViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020 /* PDFViewWrapper.swift */; };
-		A021 /* PDFReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F021 /* PDFReaderView.swift */; };
-		A022 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F022 /* ToolbarView.swift */; };
-		A024 /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F024 /* OutlineView.swift */; };
-		A025 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F025 /* SidebarView.swift */; };
-		A028 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F028 /* SearchBarView.swift */; };
-		A031 /* AnnotationOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F031 /* AnnotationOverlayView.swift */; };
-		A032 /* AnnotationToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F032 /* AnnotationToolbar.swift */; };
-		A034 /* AnnotationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F034 /* AnnotationListView.swift */; };
-		A035 /* BookmarkListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F035 /* BookmarkListView.swift */; };
-		A036 /* ThumbnailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F036 /* ThumbnailGridView.swift */; };
-		A042 /* PageNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F042 /* PageNavigationView.swift */; };
-		A043 /* OpenFileMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F044 /* OpenFileMenu.swift */; };
-		A050 /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050 /* StatusBarView.swift */; };
-		A051 /* ReadingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F051 /* ReadingProgressBar.swift */; };
-		A052 /* DocumentInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F052 /* DocumentInfoView.swift */; };
-		A053 /* SelectionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053 /* SelectionToolbar.swift */; };
-		A054 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F054 /* PreferencesView.swift */; };
-		/* App frameworks */
-		A040 /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F040 /* PDFKit.framework */; };
-		A041 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F041 /* SwiftData.framework */; };
-		/* Tests */
-		42DF6A0A90CB07AEA4577089 /* BookmarkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */; };
-		54AF1B403D3FA963CD5791A4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAA788FCE06BF7FC33783AF0 /* XCTest.framework */; };
-		869DB99BA224CBF78939528C /* AnnotationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */; };
-		8BAC38EBDD9AC89710D29CC4 /* DocumentRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CF10C06A56931051C1961B /* DocumentRepositoryTests.swift */; };
 		DE2865550391C87BF30AB037 /* SearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C6E7B04AD6F33B12D52F52 /* SearchServiceTests.swift */; };
-		E53BA2B71ADD9102CC732239 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */; };
-		FADB5230ADA22EE49787716A /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0946EE998878BE8774580180 /* FileServiceTests.swift */; };
-		EE8A1B2C3F4D5E6A7B8C9D02 /* ReaderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */; };
-		AABBCCDDEEFF0012 /* AnnotationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCCDDEEFF0011 /* AnnotationViewModelTests.swift */; };
-		AABBCCDDEEFF0015 /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCCDDEEFF0016 /* SearchViewModelTests.swift */; };
-		SIDEBARVM0012 /* SidebarViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = SIDEBARVM0011 /* SidebarViewModelTests.swift */; };
 		DOCVM0012 /* DocumentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DOCVM0011 /* DocumentViewModelTests.swift */; };
+		E53BA2B71ADD9102CC732239 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */; };
+		EE8A1B2C3F4D5E6A7B8C9D02 /* ReaderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */; };
+		FADB5230ADA22EE49787716A /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0946EE998878BE8774580180 /* FileServiceTests.swift */; };
+		LumenUBLd54432263 /* SearchHighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = LumenUFIL70215254 /* SearchHighlightTests.swift */; };
+		SIDEBARVM0012 /* SidebarViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = SIDEBARVM0011 /* SidebarViewModelTests.swift */; };
+		T001 /* PDFVeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; };
 		THUMB0012 /* ThumbnailProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = THUMB0011 /* ThumbnailProviderTests.swift */; };
 		WSM0012 /* WindowStateManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = WSM0011 /* WindowStateManagerTests.swift */; };
-		/* PDFVeCore linked in test target */
-		T001 /* PDFVeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		LumenUBLd54432263 /* SearchHighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = LumenUFIL70215254 /* SearchHighlightTests.swift */; };
 		A4ABD086BC9E301FAE23D8B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BPRJ /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BTGT;
-			remoteInfo = "Lumen";
+			remoteInfo = Lumen;
 		};
 		COREPROXY /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -117,22 +114,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0946EE998878BE8774580180 /* FileServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FileServiceTests.swift; path = "LumenTests/Services/FileServiceTests.swift"; sourceTree = "<group>"; };
-		361289EDC1FF66611E5238E8 /* LumenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LumenTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookmarkServiceTests.swift; path = "LumenTests/Services/BookmarkServiceTests.swift"; sourceTree = "<group>"; };
-		51C6E7B04AD6F33B12D52F52 /* SearchServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchServiceTests.swift; path = "LumenTests/SearchServiceTests.swift"; sourceTree = "<group>"; };
-		77CF10C06A56931051C1961B /* DocumentRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentRepositoryTests.swift; path = "LumenTests/Repositories/DocumentRepositoryTests.swift"; sourceTree = "<group>"; };
+		0946EE998878BE8774580180 /* FileServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FileServiceTests.swift; path = LumenTests/Services/FileServiceTests.swift; sourceTree = "<group>"; };
+		243C0E691AD9D90B6421C703 /* NotePopoverAutofocusTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NotePopoverAutofocusTests.swift; path = LumenUITests/NotePopoverAutofocusTests.swift; sourceTree = "<group>"; };
+		361289EDC1FF66611E5238E8 /* LumenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LumenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BookmarkServiceTests.swift; path = LumenTests/Services/BookmarkServiceTests.swift; sourceTree = "<group>"; };
+		51C6E7B04AD6F33B12D52F52 /* SearchServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchServiceTests.swift; path = LumenTests/SearchServiceTests.swift; sourceTree = "<group>"; };
+		77CF10C06A56931051C1961B /* DocumentRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentRepositoryTests.swift; path = LumenTests/Repositories/DocumentRepositoryTests.swift; sourceTree = "<group>"; };
+		AABBCCDDEEFF0011 /* AnnotationViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnnotationViewModelTests.swift; path = LumenTests/Services/AnnotationViewModelTests.swift; sourceTree = "<group>"; };
+		AABBCCDDEEFF0016 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchViewModelTests.swift; path = LumenTests/Services/SearchViewModelTests.swift; sourceTree = "<group>"; };
+		BC7C4D7E97FBB041C1D8EFF0 /* SelectionToolbarSearchTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectionToolbarSearchTests.swift; path = LumenUITests/SelectionToolbarSearchTests.swift; sourceTree = "<group>"; };
 		CAA788FCE06BF7FC33783AF0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D9F504D6F18B55C1AA8434B3 /* NetworkErrorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkErrorTests.swift; path = LumenUITests/NetworkErrorTests.swift; sourceTree = "<group>"; };
+		DOCVM0011 /* DocumentViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentViewModelTests.swift; path = LumenTests/Services/DocumentViewModelTests.swift; sourceTree = "<group>"; };
 		E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnnotationServiceTests.swift; path = "LumenTests/Services/AnnotationServiceTests.swift"; sourceTree = "<group>"; };
-		EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReaderViewModelTests.swift; path = "LumenTests/Services/ReaderViewModelTests.swift"; sourceTree = "<group>"; };
-		AABBCCDDEEFF0011 /* AnnotationViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnnotationViewModelTests.swift; path = "LumenTests/Services/AnnotationViewModelTests.swift"; sourceTree = "<group>"; };
-		AABBCCDDEEFF0016 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchViewModelTests.swift; path = "LumenTests/Services/SearchViewModelTests.swift"; sourceTree = "<group>"; };
-		SIDEBARVM0011 /* SidebarViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SidebarViewModelTests.swift; path = "LumenTests/Services/SidebarViewModelTests.swift"; sourceTree = "<group>"; };
-		DOCVM0011 /* DocumentViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentViewModelTests.swift; path = "LumenTests/Services/DocumentViewModelTests.swift"; sourceTree = "<group>"; };
-		THUMB0011 /* ThumbnailProviderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThumbnailProviderTests.swift; path = "LumenTests/Services/ThumbnailProviderTests.swift"; sourceTree = "<group>"; };
-		WSM0011 /* WindowStateManagerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WindowStateManagerTests.swift; path = "LumenTests/Services/WindowStateManagerTests.swift"; sourceTree = "<group>"; };
-		FCORE /* PDFVeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDFVeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnnotationServiceTests.swift; path = LumenTests/Services/AnnotationServiceTests.swift; sourceTree = "<group>"; };
+		EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReaderViewModelTests.swift; path = LumenTests/Services/ReaderViewModelTests.swift; sourceTree = "<group>"; };
 		F001 /* LumenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenApp.swift; sourceTree = "<group>"; };
 		F002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F003 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -155,6 +151,7 @@
 		F020 /* PDFViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewWrapper.swift; sourceTree = "<group>"; };
 		F021 /* PDFReaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFReaderView.swift; sourceTree = "<group>"; };
 		F022 /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		F022DA79ACF876FD41098276 /* DragDropTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DragDropTests.swift; path = LumenUITests/DragDropTests.swift; sourceTree = "<group>"; };
 		F023 /* OutlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewModel.swift; sourceTree = "<group>"; };
 		F024 /* OutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineView.swift; sourceTree = "<group>"; };
 		F025 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
@@ -172,6 +169,8 @@
 		F037 /* SidebarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewModel.swift; sourceTree = "<group>"; };
 		F038 /* BookmarkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkService.swift; sourceTree = "<group>"; };
 		F039 /* ThumbnailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailProvider.swift; sourceTree = "<group>"; };
+		F040 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
+		F041 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		F042 /* PageNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNavigationView.swift; sourceTree = "<group>"; };
 		F043 /* WindowStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowStateManager.swift; sourceTree = "<group>"; };
 		F044 /* OpenFileMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFileMenu.swift; sourceTree = "<group>"; };
@@ -180,33 +179,17 @@
 		F052 /* DocumentInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentInfoView.swift; sourceTree = "<group>"; };
 		F053 /* SelectionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionToolbar.swift; sourceTree = "<group>"; };
 		F054 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
-		F040 /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
-		F041 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
-		FAPP /* Lumen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Lumen.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAPP /* Lumen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lumen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCORE /* PDFVeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDFVeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		LumenUFIL70215254 /* SearchHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenUITests/SearchHighlightTests.swift; sourceTree = "<group>"; };
+		LumenUITX11757361 /* LumenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LumenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		SIDEBARVM0011 /* SidebarViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SidebarViewModelTests.swift; path = LumenTests/Services/SidebarViewModelTests.swift; sourceTree = "<group>"; };
+		THUMB0011 /* ThumbnailProviderTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThumbnailProviderTests.swift; path = LumenTests/Services/ThumbnailProviderTests.swift; sourceTree = "<group>"; };
+		WSM0011 /* WindowStateManagerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WindowStateManagerTests.swift; path = LumenTests/Services/WindowStateManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-		LumenUFIL70215254 /* SearchHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LumenUITests/SearchHighlightTests.swift"; sourceTree = "<group>"; };
-		LumenUITX11757361 /* LumenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LumenUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 
-
-		LumenUGRP83420461 /* LumenUITests */ = {
-			isa = PBXGroup;
-			children = (
-				LumenUFIL70215254 /* SearchHighlightTests.swift */,
-			);
-			name = "LumenUITests";
-			sourceTree = "<group>";
-		};
-
-		LumenUSRC16022274 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				LumenUBLd54432263 /* SearchHighlightTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* Begin PBXFrameworksBuildPhase section */
-		BFRM /* Frameworks (App) */ = {
+		BFRM /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -216,7 +199,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		COREFRM /* Frameworks (PDFVeCore) */ = {
+		COREFRM /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -225,7 +208,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F6F0E424A1774106AC6A8628 /* Frameworks (Tests) */ = {
+		F6F0E424A1774106AC6A8628 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -235,9 +218,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXFrameworksBuildPhase section */
-
-
 		LumenUFRM72165304 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,6 +225,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		2818638C214E96C792F1B7E8 /* LumenTests */ = {
 			isa = PBXGroup;
@@ -262,7 +244,7 @@
 				WSM0011 /* WindowStateManagerTests.swift */,
 				THUMB0011 /* ThumbnailProviderTests.swift */,
 			);
-			name = "LumenTests";
+			name = LumenTests;
 			sourceTree = SOURCE_ROOT;
 		};
 		318E7BDBC5F5671EAB91E6B5 /* OS X */ = {
@@ -302,6 +284,16 @@
 				F054 /* PreferencesView.swift */,
 			);
 			path = Lumen/App;
+			sourceTree = "<group>";
+		};
+		GCOMPONENTS /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F042 /* PageNavigationView.swift */,
+				F050 /* StatusBarView.swift */,
+				F051 /* ReadingProgressBar.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		GDOC /* Document */ = {
@@ -437,16 +429,6 @@
 			path = Lumen/Shared;
 			sourceTree = "<group>";
 		};
-		GCOMPONENTS /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				F042 /* PageNavigationView.swift */,
-				F050 /* StatusBarView.swift */,
-				F051 /* ReadingProgressBar.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		GSIDEBAR /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,16 +453,20 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		LumenUGRP83420461 /* LumenUITests */ = {
+			isa = PBXGroup;
+			children = (
+				LumenUFIL70215254 /* SearchHighlightTests.swift */,
+				F022DA79ACF876FD41098276 /* DragDropTests.swift */,
+				D9F504D6F18B55C1AA8434B3 /* NetworkErrorTests.swift */,
+				BC7C4D7E97FBB041C1D8EFF0 /* SelectionToolbarSearchTests.swift */,
+				243C0E691AD9D90B6421C703 /* NotePopoverAutofocusTests.swift */,
+			);
+			name = LumenUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
-
-		LumenURSC39716833 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* Begin PBXNativeTarget section */
 		04B5D9E12E92F866D78E8803 /* LumenTests */ = {
 			isa = PBXNativeTarget;
@@ -495,8 +481,8 @@
 			dependencies = (
 				TESTCOREDEP /* PBXTargetDependency */,
 			);
-			name = "LumenTests";
-			productName = "LumenTests";
+			name = LumenTests;
+			productName = LumenTests;
 			productReference = 361289EDC1FF66611E5238E8 /* LumenTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -514,8 +500,8 @@
 			dependencies = (
 				APPCOREDEP /* PBXTargetDependency */,
 			);
-			name = "Lumen";
-			productName = "Lumen";
+			name = Lumen;
+			productName = Lumen;
 			productReference = FAPP /* Lumen.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -536,19 +522,6 @@
 			productReference = FCORE /* PDFVeCore.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-/* End PBXNativeTarget section */
-
-
-		LumenUICFG74536168 /* Build configuration list for PBXNativeTarget "LumenUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				LumenUDBG35614225 /* Debug (UITests) */,
-				LumenURLS63665647 /* Release (UITests) */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-
 		LumenUIT13311662 /* LumenUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = LumenUICFG74536168 /* Build configuration list for PBXNativeTarget "LumenUITests" */;
@@ -562,11 +535,13 @@
 			dependencies = (
 				LumenUDPD51154543 /* PBXTargetDependency */,
 			);
-			name = "LumenUITests";
-			productName = "LumenUITests";
+			name = LumenUITests;
+			productName = LumenUITests;
 			productReference = LumenUITX11757361 /* LumenUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+/* End PBXNativeTarget section */
+
 /* Begin PBXProject section */
 		BPRJ /* Project object */ = {
 			isa = PBXProject;
@@ -605,21 +580,28 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		192C8007A2E40CE2AF1FB2F1 /* Resources (Tests) */ = {
+		192C8007A2E40CE2AF1FB2F1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BRES /* Resources (App) */ = {
+		BRES /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CORERES /* Resources (PDFVeCore) */ = {
+		CORERES /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		LumenURSC39716833 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -629,7 +611,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		127BBAD75B8D47A82BADA9F0 /* Sources (Tests) */ = {
+		127BBAD75B8D47A82BADA9F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -648,7 +630,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BSRC /* Sources (App) */ = {
+		BSRC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -678,7 +660,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CORESRC /* Sources (PDFVeCore) */ = {
+		CORESRC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -709,20 +691,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		LumenUSRC16022274 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				LumenUBLd54432263 /* SearchHighlightTests.swift in Sources */,
+				A15B2238319CE8943514C212 /* DragDropTests.swift in Sources */,
+				18A0DD3536A3E69B986BE162 /* NetworkErrorTests.swift in Sources */,
+				193E8C08DF9E8E8FB5276C62 /* SelectionToolbarSearchTests.swift in Sources */,
+				4D1EABD7FC62F1585FC7BBC8 /* NotePopoverAutofocusTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8997054200E3405C3BE08DF7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Lumen";
-			target = BTGT /* Lumen */;
-			targetProxy = A4ABD086BC9E301FAE23D8B4 /* PBXContainerItemProxy */;
-		};
 		APPCOREDEP /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PDFVeCore;
 			target = CORETGT /* PDFVeCore */;
 			targetProxy = COREPROXY /* PBXContainerItemProxy */;
+		};
+		LumenUDPD51154543 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Lumen;
+			target = BTGT /* Lumen */;
+			targetProxy = A4ABD086BC9E301FAE23D8B4 /* PBXContainerItemProxy */;
 		};
 		TESTCOREDEP /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -732,13 +726,6 @@
 		};
 /* End PBXTargetDependency section */
 
-
-		LumenUDPD51154543 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Lumen";
-			target = BTGT /* Lumen */;
-			targetProxy = A4ABD086BC9E301FAE23D8B4 /* PBXContainerItemProxy */;
-		};
 /* Begin XCBuildConfiguration section */
 		6EFFBD53541CAAFEEB7C7816 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -752,7 +739,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_MODULE_NAME = LumenTests;
-				PRODUCT_NAME = "LumenTests";
+				PRODUCT_NAME = LumenTests;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -875,13 +862,13 @@
 			};
 			name = Release;
 		};
-		BCFG3 /* Debug (App) */ = {
+		BCFG3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Lumen/Lumen.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Lumen/Lumen.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -905,13 +892,13 @@
 			};
 			name = Debug;
 		};
-		BCFG4 /* Release (App) */ = {
+		BCFG4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Lumen/Lumen.entitlements";
+				CODE_SIGN_ENTITLEMENTS = Lumen/Lumen.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -933,7 +920,7 @@
 			};
 			name = Release;
 		};
-		CORECFG1 /* Debug (PDFVeCore) */ = {
+		CORECFG1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -963,7 +950,7 @@
 			};
 			name = Debug;
 		};
-		CORECFG2 /* Release (PDFVeCore) */ = {
+		CORECFG2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -991,7 +978,7 @@
 			};
 			name = Release;
 		};
-		F7972E01A4BC9D5B726DDFD8 /* Debug (Tests) */ = {
+		F7972E01A4BC9D5B726DDFD8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEFINES_MODULE = YES;
@@ -1003,14 +990,13 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_MODULE_NAME = LumenTests;
-				PRODUCT_NAME = "LumenTests";
+				PRODUCT_NAME = LumenTests;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-
-		LumenUDBG35614225 /* Debug (UITests) */ = {
+		LumenUDBG35614225 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -1024,14 +1010,14 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lumen-app.LumenUITests";
 				PRODUCT_MODULE_NAME = LumenUITests;
-				PRODUCT_NAME = "LumenUITests";
+				PRODUCT_NAME = LumenUITests;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 				USES_XCTRUNNER = YES;
 			};
 			name = Debug;
 		};
-		LumenURLS63665647 /* Release (UITests) */ = {
+		LumenURLS63665647 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -1045,7 +1031,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lumen-app.LumenUITests";
 				PRODUCT_MODULE_NAME = LumenUITests;
-				PRODUCT_NAME = "LumenUITests";
+				PRODUCT_NAME = LumenUITests;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 				USES_XCTRUNNER = YES;
@@ -1087,6 +1073,15 @@
 			buildConfigurations = (
 				CORECFG1 /* Debug */,
 				CORECFG2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		LumenUICFG74536168 /* Build configuration list for PBXNativeTarget "LumenUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				LumenUDBG35614225 /* Debug */,
+				LumenURLS63665647 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
