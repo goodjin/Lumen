@@ -42,9 +42,7 @@ final class NetworkErrorTests: XCTestCase {
     /// clicking the "打开网络文件..." menu item in a .borderlessButton Menu does not
     /// properly trigger the showNetworkDialog state update to display the alert.
     func testNetworkErrorAlertShowsChineseMessage() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
+        // No activate() - CGEvent click/typeText works in background.
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 
