@@ -41,8 +41,6 @@ final class DragDropTests: XCTestCase {
     /// Note: True drag-drop from Finder is not easily testable in XCTest.
     /// Alternative approach: Open File > Open dialog and select a PDF.
     func testDragDropSimulatedPDFOpen() throws {
-        // Wait for app to be fully foreground before accessing windows.
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 

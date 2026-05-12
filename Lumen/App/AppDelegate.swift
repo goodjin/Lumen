@@ -31,7 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // fires before docVM exists and the PDF open request is silently dropped.
             if let path = openPDFPath {
                 let url = URL(fileURLWithPath: path)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
                     NotificationCenter.default.post(name: .openPDFURL, object: url)
                 }
             }
@@ -61,11 +61,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Note: --show-search and --search are handled in MainWindowView.onChange
             // after the PDF loads, guaranteeing searchVM.pdfView is set.
 
-            // Activate the app asynchronously after a short delay — enough time for SwiftUI's
-            // WindowGroup to create the NSWindow so the app has a key window to activate.
-            // Without this, app.launch() times out waiting for runningForeground.
+            // Explicitly activate the app so XCTest doesn't time out waiting for "Active" state.
+            // Delay by 2s to let SwiftUI's WindowGroup fully create the NSWindow first.
             Task { @MainActor in
-                try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
                 NSApp.activate(ignoringOtherApps: true)
             }
         }

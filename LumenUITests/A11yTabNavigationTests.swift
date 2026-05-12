@@ -22,7 +22,7 @@ final class A11yTabNavigationTests: XCTestCase {
 
         testPDFURL = createTestPDF()
         app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
+        app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)", "--show-search"]
         app.launch()
     }
 

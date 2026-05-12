@@ -24,7 +24,7 @@ final class OutlineHighlightTests: XCTestCase {
         // Create a PDF with outline
         testPDFURL = createPDFWithOutline()
         app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
+        app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)", "--show-search"]
         app.launch()
     }
 
