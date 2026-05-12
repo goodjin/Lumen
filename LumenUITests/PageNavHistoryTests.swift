@@ -9,6 +9,7 @@ final class PageNavHistoryTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -20,11 +21,16 @@ final class PageNavHistoryTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        // Create a PDF with outline (TOC)
-        testPDFURL = createPDFWithOutline()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
-        app.launch()
+        if !PageNavHistoryTests.appLaunched {
+            // Create a PDF with outline (TOC)
+            testPDFURL = createPDFWithOutline()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
+            app.launch()
+            PageNavHistoryTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

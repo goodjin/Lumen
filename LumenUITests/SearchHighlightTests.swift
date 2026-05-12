@@ -9,6 +9,7 @@ final class SearchHighlightTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -20,14 +21,19 @@ final class SearchHighlightTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        testPDFURL = createSearchableTestPDF()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = [
-            "--uitesting",
-            "--open-pdf=\(testPDFURL.path)",
-            "--show-search"
-        ]
-        app.launch()
+        if !SearchHighlightTests.appLaunched {
+            testPDFURL = createSearchableTestPDF()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            app.launchArguments = [
+                "--uitesting",
+                "--open-pdf=\(testPDFURL.path)",
+                "--show-search"
+            ]
+            app.launch()
+            SearchHighlightTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

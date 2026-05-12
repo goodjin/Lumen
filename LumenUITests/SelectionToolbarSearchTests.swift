@@ -12,6 +12,7 @@ final class SelectionToolbarSearchTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -23,14 +24,19 @@ final class SelectionToolbarSearchTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        testPDFURL = createSearchableTestPDF()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = [
-            "--uitesting",
-            "--open-pdf=\(testPDFURL.path)",
-            "--show-search"
-        ]
-        app.launch()
+        if !SelectionToolbarSearchTests.appLaunched {
+            testPDFURL = createSearchableTestPDF()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            app.launchArguments = [
+                "--uitesting",
+                "--open-pdf=\(testPDFURL.path)",
+                "--show-search"
+            ]
+            app.launch()
+            SelectionToolbarSearchTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

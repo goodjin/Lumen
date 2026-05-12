@@ -9,6 +9,7 @@ final class DragDropTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -20,14 +21,19 @@ final class DragDropTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        testPDFURL = createSimpleTestPDF()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        // Use --open-pdf= to simulate opening a PDF (simulates drop behavior)
-        app.launchArguments = [
-            "--uitesting",
-            "--open-pdf=\(testPDFURL.path)"
-        ]
-        app.launch()
+        if !DragDropTests.appLaunched {
+            testPDFURL = createSimpleTestPDF()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            // Use --open-pdf= to simulate opening a PDF (simulates drop behavior)
+            app.launchArguments = [
+                "--uitesting",
+                "--open-pdf=\(testPDFURL.path)"
+            ]
+            app.launch()
+            DragDropTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

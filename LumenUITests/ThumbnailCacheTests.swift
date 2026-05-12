@@ -11,6 +11,7 @@ final class ThumbnailCacheTests: XCTestCase {
     private var app: XCUIApplication!
     private var testPDF1URL: URL!
     private var testPDF2URL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -22,11 +23,16 @@ final class ThumbnailCacheTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        // Create PDFs with different page counts for cache clearing verification
-        // PDF 1: 3 pages, PDF 2: 5 pages
-        testPDF1URL = createTestPDF(name: "Document1", pageCount: 3)
-        testPDF2URL = createTestPDF(name: "Document2", pageCount: 5)
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        if !ThumbnailCacheTests.appLaunched {
+            // Create PDFs with different page counts for cache clearing verification
+            // PDF 1: 3 pages, PDF 2: 5 pages
+            testPDF1URL = createTestPDF(name: "Document1", pageCount: 3)
+            testPDF2URL = createTestPDF(name: "Document2", pageCount: 5)
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            ThumbnailCacheTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

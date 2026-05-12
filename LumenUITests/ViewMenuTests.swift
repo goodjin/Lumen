@@ -14,6 +14,7 @@ final class ViewMenuTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -26,10 +27,15 @@ final class ViewMenuTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        testPDFURL = createTestPDF()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
-        app.launch()
+        if !ViewMenuTests.appLaunched {
+            testPDFURL = createTestPDF()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
+            app.launch()
+            ViewMenuTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

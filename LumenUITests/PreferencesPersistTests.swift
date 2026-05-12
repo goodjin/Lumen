@@ -13,6 +13,7 @@ final class PreferencesPersistTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -25,8 +26,13 @@ final class PreferencesPersistTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        testPDFURL = createTestPDF()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        if !PreferencesPersistTests.appLaunched {
+            testPDFURL = createTestPDF()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            PreferencesPersistTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

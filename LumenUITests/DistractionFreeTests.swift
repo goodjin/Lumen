@@ -9,6 +9,7 @@ final class DistractionFreeTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -20,10 +21,15 @@ final class DistractionFreeTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        testPDFURL = createTestPDF()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
-        app.launch()
+        if !DistractionFreeTests.appLaunched {
+            testPDFURL = createTestPDF()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
+            app.launch()
+            DistractionFreeTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

@@ -10,6 +10,7 @@ final class OutlineHighlightTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -21,11 +22,16 @@ final class OutlineHighlightTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        // Create a PDF with outline
-        testPDFURL = createPDFWithOutline()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)", "--show-search"]
-        app.launch()
+        if !OutlineHighlightTests.appLaunched {
+            // Create a PDF with outline
+            testPDFURL = createPDFWithOutline()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)", "--show-search"]
+            app.launch()
+            OutlineHighlightTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

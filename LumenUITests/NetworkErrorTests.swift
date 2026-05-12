@@ -10,6 +10,7 @@ final class NetworkErrorTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -21,13 +22,18 @@ final class NetworkErrorTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        testPDFURL = createSimpleTestPDF()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = [
-            "--uitesting",
-            "--open-pdf=\(testPDFURL.path)"
-        ]
-        app.launch()
+        if !NetworkErrorTests.appLaunched {
+            testPDFURL = createSimpleTestPDF()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            app.launchArguments = [
+                "--uitesting",
+                "--open-pdf=\(testPDFURL.path)"
+            ]
+            app.launch()
+            NetworkErrorTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

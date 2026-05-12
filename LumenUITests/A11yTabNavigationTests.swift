@@ -9,6 +9,7 @@ final class A11yTabNavigationTests: XCTestCase {
 
     private var app: XCUIApplication!
     private var testPDFURL: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -20,10 +21,15 @@ final class A11yTabNavigationTests: XCTestCase {
         }
         Thread.sleep(forTimeInterval: 0.5)
 
-        testPDFURL = createTestPDF()
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
-        app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)", "--show-search"]
-        app.launch()
+        if !A11yTabNavigationTests.appLaunched {
+            testPDFURL = createTestPDF()
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)", "--show-search"]
+            app.launch()
+            A11yTabNavigationTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {

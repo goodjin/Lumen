@@ -61,10 +61,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Note: --show-search and --search are handled in MainWindowView.onChange
             // after the PDF loads, guaranteeing searchVM.pdfView is set.
 
-            // Explicitly activate the app so XCTest doesn't time out waiting for "Active" state.
-            // Delay by 2s to let SwiftUI's WindowGroup fully create the NSWindow first.
-            Task { @MainActor in
-                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
+            // Activate the app asynchronously. DispatchQueue gives SwiftUI time to render the window.
+            DispatchQueue.main.async {
                 NSApp.activate(ignoringOtherApps: true)
             }
         }

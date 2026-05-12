@@ -11,6 +11,7 @@ final class MultiWindowTests: XCTestCase {
     private var app: XCUIApplication!
     private var pdfA: URL!
     private var pdfB: URL!
+    private static var appLaunched = false
 
     override func setUp() {
         super.setUp()
@@ -27,7 +28,12 @@ final class MultiWindowTests: XCTestCase {
         pdfA = createTestPDF(name: "PDF_A", text: "This is document A page 1")
         pdfB = createTestPDF(name: "PDF_B", text: "This is document B page 1 second document")
 
-        app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        if !MultiWindowTests.appLaunched {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+            MultiWindowTests.appLaunched = true
+        } else {
+            app = XCUIApplication(bundleIdentifier: "com.lumen-app")
+        }
     }
 
     override func tearDown() {
