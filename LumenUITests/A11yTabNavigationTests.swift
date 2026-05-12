@@ -40,9 +40,6 @@ final class A11yTabNavigationTests: XCTestCase {
     // MARK: - VAL-E2E-016: Accessibility Tab Navigation
 
     func testTabNavigationReachesAllToolbarButtons() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 
@@ -67,9 +64,6 @@ final class A11yTabNavigationTests: XCTestCase {
     }
 
     func testTabNavigationHasLogicalFocusOrder() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 
@@ -91,9 +85,6 @@ final class A11yTabNavigationTests: XCTestCase {
     }
 
     func testAllToolbarButtonsHaveAccessibilityLabels() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 

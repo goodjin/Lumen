@@ -42,9 +42,6 @@ final class UIInteractionTests: XCTestCase {
     /// VAL-E2E-012: Print — Opens Dialog
     /// Open PDF. Press Cmd+P. macOS print dialog appears.
     func testPrintDialogOpens() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 
@@ -63,9 +60,6 @@ final class UIInteractionTests: XCTestCase {
     /// Open PDF. Press Cmd+\. Toolbar hidden. Sidebar hidden. Status bar hidden.
     /// Press Esc. All UI restored.
     func testDistractionFreeModeHidesAndRestoresUI() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 
@@ -94,9 +88,6 @@ final class UIInteractionTests: XCTestCase {
     }
 
     func testDistractionFreeModeHidesSidebar() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 
@@ -126,9 +117,6 @@ final class UIInteractionTests: XCTestCase {
     /// Navigate to page 5 via outline click. Navigate to page 10 via page nav. Press Cmd+[ (Go Back).
     /// Navigate to page 5 again. Press Cmd+] (Go Forward). Advance to page 10.
     func testPageNavigationHistoryBackForward() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
 

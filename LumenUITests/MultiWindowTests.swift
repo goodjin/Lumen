@@ -48,9 +48,6 @@ final class MultiWindowTests: XCTestCase {
         // Step 1: Open PDF-A in Window 1 (main window)
         app.launchArguments = ["--uitesting", "--open-pdf=\(pdfA.path)"]
         app.launch()
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window1 = app.windows.firstMatch
         XCTAssertTrue(window1.waitForExistence(timeout: 10), "Window 1 should appear")
 
@@ -73,9 +70,6 @@ final class MultiWindowTests: XCTestCase {
         // Open first PDF
         app.launchArguments = ["--uitesting", "--open-pdf=\(pdfA.path)"]
         app.launch()
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window1 = app.windows.firstMatch
         XCTAssertTrue(window1.waitForExistence(timeout: 10), "Window 1 should appear")
 

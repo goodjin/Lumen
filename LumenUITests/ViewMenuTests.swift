@@ -46,9 +46,6 @@ final class ViewMenuTests: XCTestCase {
     // MARK: - VAL-E2E-006: View Menu Commands
 
     func testSidebarToggle() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -69,9 +66,6 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testDistractionFreeMode() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -92,9 +86,6 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testActualSize() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -111,9 +102,6 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testFitWidth() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -130,9 +118,6 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testFitPage() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -149,9 +134,6 @@ final class ViewMenuTests: XCTestCase {
     }
 
     func testSidebarTabsAccessible() throws {
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 

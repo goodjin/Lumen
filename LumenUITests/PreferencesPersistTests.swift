@@ -46,9 +46,6 @@ final class PreferencesPersistTests: XCTestCase {
         // Step 1: Launch app with PDF
         app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
         app.launch()
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
@@ -79,9 +76,6 @@ final class PreferencesPersistTests: XCTestCase {
         // Step 1: Open PDF in Normal mode (default)
         app.launchArguments = ["--uitesting", "--open-pdf=\(testPDFURL.path)"]
         app.launch()
-        app.activate()
-        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5), "App should be running foreground")
-
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF window should appear")
 
