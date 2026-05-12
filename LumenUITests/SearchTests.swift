@@ -2,14 +2,11 @@ import XCTest
 import AppKit
 import SwiftUI
 
-/// VAL-E2E-009: Selection Toolbar — Search Pre-fills Text
-/// Opens PDF with search bar visible. Search field appears and is functional.
-/// Note: Full E2E flow (select text → click Search → pre-fill) requires
-/// interactive text selection in PDF which is unreliable in XCTest.
-/// This test verifies the search bar is accessible and functional.
+/// Search Tests - Merged from:
+/// - SearchHighlightTests (VAL-E2E-001)
+/// - SelectionToolbarSearchTests (VAL-E2E-009)
 @MainActor
-final class SelectionToolbarSearchTests: XCTestCase {
-
+final class SearchTests: XCTestCase {
     private var app: XCUIApplication!
     private var testPDFURL: URL!
     private static var appLaunched = false
@@ -17,15 +14,15 @@ final class SelectionToolbarSearchTests: XCTestCase {
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
-
+        
         let runningApps = NSWorkspace.shared.runningApplications
         for runningApp in runningApps where runningApp.bundleIdentifier == "com.lumen-app" {
             runningApp.terminate()
         }
         Thread.sleep(forTimeInterval: 0.5)
-
-        if !SelectionToolbarSearchTests.appLaunched {
-            testPDFURL = createSearchableTestPDF()
+        
+        if !SearchTests.appLaunched {
+            testPDFURL = createSearchablePDF()
             app = XCUIApplication(bundleIdentifier: "com.lumen-app")
             app.launchArguments = [
                 "--uitesting",
@@ -33,7 +30,7 @@ final class SelectionToolbarSearchTests: XCTestCase {
                 "--show-search"
             ]
             app.launch()
-            SelectionToolbarSearchTests.appLaunched = true
+            SearchTests.appLaunched = true
         } else {
             app = XCUIApplication(bundleIdentifier: "com.lumen-app")
         }
@@ -44,10 +41,28 @@ final class SelectionToolbarSearchTests: XCTestCase {
         try? FileManager.default.removeItem(at: testPDFURL)
     }
 
-    // MARK: - VAL-E2E-009: Selection Toolbar Search Pre-fills Text
+    // MARK: - From SearchHighlightTests (VAL-E2E-001)
 
-    /// Test that search bar is visible and functional when --show-search is used.
-    /// This mirrors the pattern used by SearchHighlightTests (VAL-E2E-001).
+    /// VAL-E2E-001: Search — UI Integration
+    /// Core verification: App launches, opens PDF, shows search bar. Search correctness
+    /// (results count, highlighting) is covered by unit tests.
+    func testSearchHighlightAllMatches() throws {
+        let window = app.windows.firstMatch
+        XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
+        let searchField = app.textFields["SearchField"]
+        XCTAssertTrue(searchField.waitForExistence(timeout: 15), "Search field should appear")
+        let pdfView = app.windows.firstMatch.scrollViews.firstMatch
+        XCTAssertTrue(pdfView.waitForExistence(timeout: 5), "PDF scroll view should be present")
+        // Search correctness (results count, highlighting) is verified by unit tests.
+    }
+
+    // MARK: - From SelectionToolbarSearchTests (VAL-E2E-009)
+
+    /// VAL-E2E-009: Selection Toolbar — Search Pre-fills Text
+    /// Opens PDF with search bar visible. Search field appears and is functional.
+    /// Note: Full E2E flow (select text → click Search → pre-fill) requires
+    /// interactive text selection in PDF which is unreliable in XCTest.
+    /// This test verifies the search bar is accessible and functional.
     func testSearchBarAppearsWhenShowSearchEnabled() throws {
         let window = app.windows.firstMatch
         XCTAssertTrue(window.waitForExistence(timeout: 10), "PDF reader window should appear")
@@ -64,11 +79,12 @@ final class SelectionToolbarSearchTests: XCTestCase {
         XCTAssertTrue(window.waitForExistence(timeout: 5), "Window should remain functional")
     }
 
-    // MARK: - Test Fixture
+    // MARK: - Fixture
 
-    private func createSearchableTestPDF() -> URL {
-        let pdfURL = FileManager.default.temporaryDirectory.appendingPathComponent("SelectionSearchTest_\(UUID().uuidString).pdf")
-        let text = "Lorem ipsum dolor sit amet consectetur adipiscing elit"
+    /// Creates a searchable PDF for search tests
+    private func createSearchablePDF() -> URL {
+        let pdfURL = FileManager.default.temporaryDirectory.appendingPathComponent("SearchTest_\(UUID().uuidString).pdf")
+        let text = "the quick brown fox jumps over the lazy dog the end"
         let pdfContent = """
         %PDF-1.4
         1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj

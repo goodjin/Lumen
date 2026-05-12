@@ -7,13 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18A0DD3536A3E69B986BE162 /* NetworkErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F504D6F18B55C1AA8434B3 /* NetworkErrorTests.swift */; };
-		193E8C08DF9E8E8FB5276C62 /* SelectionToolbarSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7C4D7E97FBB041C1D8EFF0 /* SelectionToolbarSearchTests.swift */; };
 		42DF6A0A90CB07AEA4577089 /* BookmarkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CEDEB78E9B36D33EB333D42 /* BookmarkServiceTests.swift */; };
-		4D1EABD7FC62F1585FC7BBC8 /* NotePopoverAutofocusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243C0E691AD9D90B6421C703 /* NotePopoverAutofocusTests.swift */; };
-		TEST0001B /* PageNavHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0001 /* PageNavHistoryTests.swift */; };
-		TEST0002B /* PrintDialogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0002 /* PrintDialogTests.swift */; };
-		TEST0003B /* DistractionFreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0003 /* DistractionFreeTests.swift */; };
 		TEST0004B /* ThumbnailCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0004 /* ThumbnailCacheTests.swift */; };
 		TEST0005B /* OutlineHighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0005 /* OutlineHighlightTests.swift */; };
 		TEST0006B /* A11yTabNavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = TEST0006 /* A11yTabNavigationTests.swift */; };
@@ -84,7 +78,9 @@
 		E53BA2B71ADD9102CC732239 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */; };
 		EE8A1B2C3F4D5E6A7B8C9D02 /* ReaderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8A1B2C3F4D5E6A7B8C9D0E /* ReaderViewModelTests.swift */; };
 		FADB5230ADA22EE49787716A /* FileServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0946EE998878BE8774580180 /* FileServiceTests.swift */; };
-		LumenUBLd54432263 /* SearchHighlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = LumenUFIL70215254 /* SearchHighlightTests.swift */; };
+		UIT001B /* UIInteractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = UIT001 /* UIInteractionTests.swift */; };
+		UIT002B /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = UIT002 /* SearchTests.swift */; };
+		UIT003B /* CoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = UIT003 /* CoreUITests.swift */; };
 		SIDEBARVM0012 /* SidebarViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = SIDEBARVM0011 /* SidebarViewModelTests.swift */; };
 		T001 /* PDFVeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCORE /* PDFVeCore.framework */; };
 		THUMB0012 /* ThumbnailProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = THUMB0011 /* ThumbnailProviderTests.swift */; };
@@ -124,10 +120,9 @@
 
 /* Begin PBXFileReference section */
 		0946EE998878BE8774580180 /* FileServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FileServiceTests.swift; path = LumenTests/Services/FileServiceTests.swift; sourceTree = "<group>"; };
-		243C0E691AD9D90B6421C703 /* NotePopoverAutofocusTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NotePopoverAutofocusTests.swift; path = LumenUITests/NotePopoverAutofocusTests.swift; sourceTree = "<group>"; };
-		TEST0001 /* PageNavHistoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PageNavHistoryTests.swift; path = LumenUITests/PageNavHistoryTests.swift; sourceTree = "<group>"; };
-		TEST0002 /* PrintDialogTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PrintDialogTests.swift; path = LumenUITests/PrintDialogTests.swift; sourceTree = "<group>"; };
-		TEST0003 /* DistractionFreeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DistractionFreeTests.swift; path = LumenUITests/DistractionFreeTests.swift; sourceTree = "<group>"; };
+		UIT001 /* UIInteractionTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIInteractionTests.swift; path = LumenUITests/UIInteractionTests.swift; sourceTree = "<group>"; };
+		UIT002 /* SearchTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchTests.swift; path = LumenUITests/SearchTests.swift; sourceTree = "<group>"; };
+		UIT003 /* CoreUITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CoreUITests.swift; path = LumenUITests/CoreUITests.swift; sourceTree = "<group>"; };
 		TEST0004 /* ThumbnailCacheTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThumbnailCacheTests.swift; path = LumenUITests/ThumbnailCacheTests.swift; sourceTree = "<group>"; };
 		TEST0005 /* OutlineHighlightTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OutlineHighlightTests.swift; path = LumenUITests/OutlineHighlightTests.swift; sourceTree = "<group>"; };
 		TEST0006 /* A11yTabNavigationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = A11yTabNavigationTests.swift; path = LumenUITests/A11yTabNavigationTests.swift; sourceTree = "<group>"; };
@@ -140,9 +135,7 @@
 		77CF10C06A56931051C1961B /* DocumentRepositoryTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentRepositoryTests.swift; path = LumenTests/Repositories/DocumentRepositoryTests.swift; sourceTree = "<group>"; };
 		AABBCCDDEEFF0011 /* AnnotationViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnnotationViewModelTests.swift; path = LumenTests/Services/AnnotationViewModelTests.swift; sourceTree = "<group>"; };
 		AABBCCDDEEFF0016 /* SearchViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SearchViewModelTests.swift; path = LumenTests/Services/SearchViewModelTests.swift; sourceTree = "<group>"; };
-		BC7C4D7E97FBB041C1D8EFF0 /* SelectionToolbarSearchTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectionToolbarSearchTests.swift; path = LumenUITests/SelectionToolbarSearchTests.swift; sourceTree = "<group>"; };
 		CAA788FCE06BF7FC33783AF0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		D9F504D6F18B55C1AA8434B3 /* NetworkErrorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkErrorTests.swift; path = LumenUITests/NetworkErrorTests.swift; sourceTree = "<group>"; };
 		DOCVM0011 /* DocumentViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DocumentViewModelTests.swift; path = LumenTests/Services/DocumentViewModelTests.swift; sourceTree = "<group>"; };
 		E9DC28FF4D10F0BB2A6C74D2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		EB92AA0F85154F51D931BE06 /* AnnotationServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnnotationServiceTests.swift; path = LumenTests/Services/AnnotationServiceTests.swift; sourceTree = "<group>"; };
@@ -199,7 +192,6 @@
 		F054 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		FAPP /* Lumen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lumen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCORE /* PDFVeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PDFVeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		LumenUFIL70215254 /* SearchHighlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenUITests/SearchHighlightTests.swift; sourceTree = "<group>"; };
 		MWFIL001 /* MultiWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenUITests/MultiWindowTests.swift; sourceTree = "<group>"; };
 		PPFIL001 /* PreferencesPersistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenUITests/PreferencesPersistTests.swift; sourceTree = "<group>"; };
 		VMFIL001 /* ViewMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LumenUITests/ViewMenuTests.swift; sourceTree = "<group>"; };
@@ -477,14 +469,10 @@
 		LumenUGRP83420461 /* LumenUITests */ = {
 			isa = PBXGroup;
 			children = (
-				LumenUFIL70215254 /* SearchHighlightTests.swift */,
+				UIT001 /* UIInteractionTests.swift */,
+				UIT002 /* SearchTests.swift */,
+				UIT003 /* CoreUITests.swift */,
 				F022DA79ACF876FD41098276 /* DragDropTests.swift */,
-				D9F504D6F18B55C1AA8434B3 /* NetworkErrorTests.swift */,
-				BC7C4D7E97FBB041C1D8EFF0 /* SelectionToolbarSearchTests.swift */,
-				243C0E691AD9D90B6421C703 /* NotePopoverAutofocusTests.swift */,
-				TEST0001 /* PageNavHistoryTests.swift */,
-				TEST0002 /* PrintDialogTests.swift */,
-				TEST0003 /* DistractionFreeTests.swift */,
 				TEST0004 /* ThumbnailCacheTests.swift */,
 				TEST0005 /* OutlineHighlightTests.swift */,
 				TEST0006 /* A11yTabNavigationTests.swift */,
@@ -725,14 +713,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				LumenUBLd54432263 /* SearchHighlightTests.swift in Sources */,
+				UIT001B /* UIInteractionTests.swift in Sources */,
+				UIT002B /* SearchTests.swift in Sources */,
+				UIT003B /* CoreUITests.swift in Sources */,
 				A15B2238319CE8943514C212 /* DragDropTests.swift in Sources */,
-				18A0DD3536A3E69B986BE162 /* NetworkErrorTests.swift in Sources */,
-				193E8C08DF9E8E8FB5276C62 /* SelectionToolbarSearchTests.swift in Sources */,
-				4D1EABD7FC62F1585FC7BBC8 /* NotePopoverAutofocusTests.swift in Sources */,
-				TEST0001B /* PageNavHistoryTests.swift in Sources */,
-				TEST0002B /* PrintDialogTests.swift in Sources */,
-				TEST0003B /* DistractionFreeTests.swift in Sources */,
 				TEST0004B /* ThumbnailCacheTests.swift in Sources */,
 				TEST0005B /* OutlineHighlightTests.swift in Sources */,
 				TEST0006B /* A11yTabNavigationTests.swift in Sources */,
